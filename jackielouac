@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>JackieLou Cadlum | Portfolio</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+<style>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#060816;
+font-family:Arial,sans-serif;
+overflow-x:hidden;
+color:white;
+}
+
+/* Animated Background */
+
+.bg-animation{
+background:linear-gradient(-45deg,#0f172a,#1e1b4b,#312e81,#111827);
+background-size:400% 400%;
+animation:gradient 12s ease infinite;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* Floating */
+
+.float{
+animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-18px);}
+100%{transform:translateY(0);}
+}
+
+/* Glass Effect */
+
+.glass{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+/* Glow */
+
+.glow{
+box-shadow:0 0 40px rgba(59,130,246,.4);
+}
+
+/* Card Hover */
+
+.card{
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 0 30px rgba(59,130,246,.2);
+}
+
+/* Typing */
+
+.typing::after{
+content:"|";
+animation:blink .7s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0;}
+}
+
+/* Marquee */
+
+.marquee{
+overflow:hidden;
+white-space:nowrap;
+position:relative;
+}
+
+.marquee-content{
+display:inline-block;
+animation:marquee 22s linear infinite;
+}
+
+@keyframes marquee{
+0%{
+transform:translateX(0);
+}
+100%{
+transform:translateX(-50%);
+}
+}
+
+/* Buttons */
+
+.btn-main{
+padding:15px 30px;
+border-radius:18px;
+font-weight:bold;
+transition:.3s;
+}
+
+.btn-main:hover{
+transform:scale(1.05);
+}
+
+/* Blur Balls */
+
+.blur-ball{
+position:absolute;
+border-radius:999px;
+filter:blur(90px);
+opacity:.25;
+z-index:-1;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+h1{
+line-height:1.2;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND BLUR -->
+
+<div class="blur-ball bg-blue-500 w-72 h-72 top-0 left-0"></div>
+<div class="blur-ball bg-purple-500 w-96 h-96 bottom-0 right-0"></div>
+
+<!-- NAVBAR -->
+
+<nav class="fixed top-0 w-full z-50 glass">
+
+<div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+
+<h1 class="text-2xl font-bold text-blue-400">
+JackieLou ✨
+</h1>
+
+<div class="hidden md:flex gap-8 text-sm font-semibold">
+
+<a href="#about" class="hover:text-blue-400 transition">
+About
+</a>
+
+<a href="#skills" class="hover:text-blue-400 transition">
+Skills
+</a>
+
+<a href="#experience" class="hover:text-blue-400 transition">
+Experience
+</a>
+
+<a href="#services" class="hover:text-blue-400 transition">
+Services
+</a>
+
+<a href="#contact" class="hover:text-blue-400 transition">
+Contact
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="min-h-screen bg-animation flex items-center px-6 pt-28">
+
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+
+<!-- LEFT -->
+
+<div data-aos="fade-right">
+
+<p class="text-blue-400 text-lg mb-4">
+HELLO THERE 👋
+</p>
+
+<h1 class="text-5xl md:text-7xl font-bold leading-tight">
+
+JackieLou
+<span class="text-blue-400">
+Cadlum
+</span>
+
+</h1>
+
+<h2 class="text-2xl md:text-4xl mt-5 font-semibold typing" id="typing"></h2>
+
+<p class="text-gray-300 mt-8 text-lg leading-9">
+
+Results-oriented Sales & Marketing Professional with experience in B2B appointment setting, CRM management, lead generation, ERP systems, and client coordination.
+
+Helping businesses grow through smart digital solutions, modern communication, and customer-focused strategies 🚀
+
+</p>
+
+<div class="flex flex-wrap gap-5 mt-10">
+
+<a href="#contact">
+
+<button class="btn-main bg-blue-600 hover:bg-blue-700 glow">
+💼 Hire Me
+</button>
+
+</a>
+
+<a href="#services">
+
+<button class="btn-main bg-white text-black hover:bg-gray-200">
+✨ View Services
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="flex justify-center" data-aos="fade-left">
+
+<div class="relative">
+
+<!-- PROFILE IMAGE -->
+
+<img
+src="image(1).png"
+alt="JackieLou Cadlum"
+class="w-[340px] md:w-[430px] rounded-[40px] glow float object-cover"
+/>
+
+<!-- EXPERIENCE CARD -->
+
+<div class="absolute -bottom-6 -right-6 glass p-5 rounded-3xl">
+
+<h3 class="font-bold text-2xl">
+2+ Years Experience
+</h3>
+
+<p class="text-gray-300 mt-2">
+Sales • CRM • Marketing • ERP
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MOVING SKILLS -->
+
+<section class="py-10 border-y border-gray-800">
+
+<div class="marquee">
+
+<div class="marquee-content text-xl md:text-2xl font-semibold text-white flex gap-16">
+
+<span>✅ Lead Generation</span>
+<span>✅ CRM Management</span>
+<span>✅ Appointment Setting</span>
+<span>✅ Sales Coordination</span>
+<span>✅ ERP & Accounting Systems</span>
+<span>✅ Client Communication</span>
+<span>✅ Marketing Assistance</span>
+<span>✅ Canva & Digital Content</span>
+
+<span>✅ Lead Generation</span>
+<span>✅ CRM Management</span>
+<span>✅ Appointment Setting</span>
+<span>✅ Sales Coordination</span>
+<span>✅ ERP & Accounting Systems</span>
+<span>✅ Client Communication</span>
+<span>✅ Marketing Assistance</span>
+<span>✅ Canva & Digital Content</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="py-28 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="glass rounded-[40px] p-12" data-aos="fade-up">
+
+<h2 class="text-5xl font-bold mb-10">
+About Me ✨
+</h2>
+
+<p class="text-gray-300 leading-10 text-lg">
+
+Currently working as a Senior Sales & Marketing Assistant / Assistant Team Leader supporting B2B software solutions, CRM workflows, client coordination, and sales operations.
+
+Experienced in handling lead generation, appointment setting, customer communication, and marketing support in fast-paced business environments.
+
+Passionate about helping businesses improve customer engagement, sales growth, and operational efficiency through practical digital solutions.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills" class="py-28 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<h2 class="text-5xl font-bold text-center mb-16">
+Skills & Expertise 🚀
+</h2>
+
+<div class="grid md:grid-cols-3 gap-8">
+
+<div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
+
+<i class="fa-solid fa-chart-line text-5xl text-blue-400"></i>
+
+<h3 class="text-3xl font-bold mt-6">
+Sales & Marketing
+</h3>
+
+<p class="text-gray-300 mt-5 leading-8">
+B2B campaigns, appointment setting, customer engagement, and sales coordination.
+</p>
+
+</div>
+
+<div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
+
+<i class="fa-solid fa-users text-5xl text-purple-400"></i>
+
+<h3 class="text-3xl font-bold mt-6">
+CRM Management
+</h3>
+
+<p class="text-gray-300 mt-5 leading-8">
+Lead tracking, workflow management, customer databases, and coordination support.
+</p>
+
+</div>
+
+<div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
+
+<i class="fa-solid fa-laptop text-5xl text-pink-400"></i>
+
+<h3 class="text-3xl font-bold mt-6">
+Digital Support
+</h3>
+
+<p class="text-gray-300 mt-5 leading-8">
+Canva editing, reports, online research, presentations, and administrative support.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- EXPERIENCE -->
+
+<section id="experience" class="py-28 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+<h2 class="text-5xl font-bold text-center mb-20">
+Work Experience 💼
+</h2>
+
+<div class="space-y-10">
+
+<div class="glass rounded-[35px] p-10 card" data-aos="fade-right">
+
+<h3 class="text-3xl font-bold text-blue-400">
+Integr8 Software Solutions
+</h3>
+
+<p class="text-gray-400 mt-2">
+June 2023 – Present
+</p>
+
+<ul class="mt-6 text-gray-300 leading-10">
+
+<li>• Supported B2B software sales operations</li>
+<li>• Managed CRM workflows and client coordination</li>
+<li>• Assisted onboarding and sales follow-ups</li>
+<li>• Trained junior associates on CRM handling</li>
+<li>• Conducted market and competitor research</li>
+
+</ul>
+
+</div>
+
+<div class="glass rounded-[35px] p-10 card" data-aos="fade-left">
+
+<h3 class="text-3xl font-bold text-purple-400">
+IVoice Outsourcing
+</h3>
+
+<p class="text-gray-400 mt-2">
+August 2022 – May 2023
+</p>
+
+<ul class="mt-6 text-gray-300 leading-10">
+
+<li>• B2B outbound appointment setting</li>
+<li>• Lead qualification and scheduling</li>
+<li>• Client communication and relationship building</li>
+<li>• Maintained CRM accuracy and targets</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services" class="py-28 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<h2 class="text-5xl font-bold text-center mb-16">
+Services ✨
+</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+<div class="glass p-8 rounded-[35px] text-center card">
+<h3 class="text-2xl font-bold">
+📞 Appointment Setting
+</h3>
+</div>
+
+<div class="glass p-8 rounded-[35px] text-center card">
+<h3 class="text-2xl font-bold">
+📈 Lead Generation
+</h3>
+</div>
+
+<div class="glass p-8 rounded-[35px] text-center card">
+<h3 class="text-2xl font-bold">
+💻 CRM Support
+</h3>
+</div>
+
+<div class="glass p-8 rounded-[35px] text-center card">
+<h3 class="text-2xl font-bold">
+🎨 Marketing Assistance
+</h3>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="py-28 px-6">
+
+<div class="max-w-5xl mx-auto">
+
+<div class="glass rounded-[45px] p-14 text-center" data-aos="zoom-in">
+
+<h2 class="text-5xl font-bold mb-8">
+Let's Work Together 🚀
+</h2>
+
+<p class="text-gray-300 text-lg leading-9 max-w-2xl mx-auto">
+
+Open for freelance collaborations, remote work, business coordination, sales support, and marketing-related opportunities.
+
+</p>
+
+<div class="flex flex-wrap justify-center gap-6 mt-12">
+
+<a href="mailto:cadlumjackielou23@gmail.com">
+
+<button class="btn-main bg-blue-600 hover:bg-blue-700 glow">
+📩 Email Me
+</button>
+
+</a>
+
+<a href="tel:+639999016426">
+
+<button class="btn-main bg-green-500 hover:bg-green-600">
+📞 Call Me
+</button>
+
+</a>
+
+</div>
+
+<div class="mt-12 text-gray-400 leading-10">
+
+<p>📍 Dasmariñas, Cavite, Philippines</p>
+<p>📞 +63 999 901 6426</p>
+<p>✉️ cadlumjackielou23@gmail.com</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="py-10 text-center border-t border-gray-800 text-gray-500">
+
+© 2026 JackieLou Cadlum • Portfolio Website
+
+</footer>
+
+<!-- AOS -->
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+
+/* AOS */
+
+AOS.init({
+duration:1000,
+once:true
+});
+
+/* Typing */
+
+const text = [
+
+"Sales & Marketing Professional 🚀",
+"B2B Appointment Setter 📞",
+"CRM & Digital Support Specialist 💻",
+"Helping Businesses Grow 📈"
+
+];
+
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
+
+(function type(){
+
+if(count === text.length){
+count = 0;
+}
+
+currentText = text[count];
+letter = currentText.slice(0, ++index);
+
+document.getElementById("typing").textContent = letter;
+
+if(letter.length === currentText.length){
+
+count++;
+index = 0;
+
+setTimeout(type,1500);
+
+}else{
+
+setTimeout(type,70);
+
+}
+
+})();
+
+</script>
+
+</body>
+</html>
