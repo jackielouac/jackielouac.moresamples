@@ -1,29 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+<title>HD Arcade Universe</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:#020617;
+color:white;
+}
+
+/* ========================= */
+/* IOS HD BACKGROUND */
+/* ========================= */
+
+body{
+background:
+radial-gradient(circle at top,#2563eb55,transparent 30%),
+radial-gradient(circle at bottom,#9333ea55,transparent 30%),
+linear-gradient(135deg,#020617,#0f172a,#111827);
+animation:bgmove 8s infinite alternate;
+}
+
+@keyframes bgmove{
+from{
+filter:hue-rotate(0deg);
+}
+to{
+filter:hue-rotate(20deg);
+}
+}
+
+/* ========================= */
+/* GLASSMORPHISM */
+/* ========================= */
+
+.glass{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(20px);
+box-shadow:
+0 10px 40px rgba(0,0,0,.45),
+inset 0 0 30px rgba(255,255,255,.03);
+}
+
+/* ========================= */
+/* TITLE */
+/* ========================= */
+
+.gradient{
+background:linear-gradient(
+90deg,
+#60a5fa,
+#a855f7,
+#ec4899
+);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+.btn{
+padding:14px 24px;
+border-radius:20px;
+font-weight:800;
+transition:.25s;
+box-shadow:0 8px 25px rgba(0,0,0,.4);
+}
+
+.btn:hover{
+transform:translateY(-4px) scale(1.05);
+}
+
+.btn:active{
+transform:scale(.9);
+}
+
+/* ========================= */
+/* CARDS */
+/* ========================= */
+
+.card{
+position:relative;
+overflow:hidden;
+transition:.35s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+}
+
+.card::before{
+content:'';
+position:absolute;
+top:-100%;
+left:-100%;
+width:200%;
+height:200%;
+background:
+linear-gradient(
+45deg,
+transparent,
+rgba(255,255,255,.15),
+transparent
+);
+transform:rotate(25deg);
+transition:.7s;
+}
+
+.card:hover::before{
+top:100%;
+left:100%;
+}
+
+/* ========================= */
+/* CANVAS */
+/* ========================= */
+
+canvas{
+width:100%;
+height:550px;
+background:
+linear-gradient(180deg,#07111f,#111827);
+border-radius:30px;
+border:2px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 50px rgba(96,165,250,.25),
+0 0 100px rgba(168,85,247,.15);
+
+touch-action:none;
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+.mobile{
+display:none;
+}
+
+.mobile-btn{
+width:70px;
+height:70px;
+border-radius:22px;
+font-size:28px;
+font-weight:bold;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.mobile-btn:active{
+transform:scale(.88);
+}
+
+@media(max-width:768px){
+
+canvas{
+height:320px;
+}
+
+.mobile{
+display:flex;
+}
+
+h1{
+font-size:45px !important;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
 <!-- ========================= -->
-<!-- ADD THIS INSIDE BUTTON AREA -->
-<!-- BELOW MENU BUTTON -->
+<!-- MENU -->
 <!-- ========================= -->
 
-<button class="btn bg-green-600 hover:bg-green-500"
+<section id="menu"
+class="min-h-screen flex items-center justify-center p-4">
+
+<div class="glass rounded-[40px] p-6 w-full max-w-7xl">
+
+<h1 class="text-7xl font-black gradient text-center">
+🎮 HD ARCADE
+</h1>
+
+<p class="text-center text-gray-300 mt-4 text-xl">
+Ultra iOS Style Arcade Universe
+</p>
+
+<div class="grid md:grid-cols-3 gap-5 mt-10">
+
+<div class="card glass rounded-3xl p-6 text-center"
+onclick="startGame()">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+class="w-32 h-32 mx-auto">
+
+<h2 class="text-3xl font-black mt-5">
+🚀 Space Escape
+</h2>
+
+<p class="text-gray-400 mt-2">
+HD Neon Survival
+</p>
+
+</div>
+
+<div class="card glass rounded-3xl p-6 text-center">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
+class="w-32 h-32 mx-auto">
+
+<h2 class="text-3xl font-black mt-5">
+🏎️ Racing HD
+</h2>
+
+<p class="text-gray-400 mt-2">
+Coming Soon
+</p>
+
+</div>
+
+<div class="card glass rounded-3xl p-6 text-center">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png"
+class="w-32 h-32 mx-auto">
+
+<h2 class="text-3xl font-black mt-5">
+⚔️ Combat Arena
+</h2>
+
+<p class="text-gray-400 mt-2">
+Coming Soon
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- GAME -->
+<!-- ========================= -->
+
+<section id="game"
+class="hidden p-4 min-h-screen">
+
+<div class="glass rounded-[35px] p-4">
+
+<div class="flex justify-between items-center flex-wrap gap-4 mb-5">
+
+<div>
+
+<h1 class="text-5xl font-black gradient">
+🚀 SPACE ESCAPE
+</h1>
+
+<p class="text-gray-400 mt-2">
+Ultra HD Arcade Experience
+</p>
+
+</div>
+
+<div class="flex gap-3 flex-wrap">
+
+<button class="btn bg-blue-600"
+onclick="restartGame()">
+🔄 Restart
+</button>
+
+<button class="btn bg-green-600"
 onclick="togglePause()">
-⏸️ Pause
+⏸ Pause
 </button>
 
-<button class="btn bg-yellow-500 text-black hover:bg-yellow-400"
-onclick="slowMode()">
-🐢 Slow Mode
+<button class="btn bg-red-600"
+onclick="goMenu()">
+🏠 Menu
 </button>
 
-<button class="btn bg-purple-600 hover:bg-purple-500"
-onclick="boostMode()">
-⚡ Boost
+</div>
+
+</div>
+
+<canvas id="canvas" width="1000" height="550"></canvas>
+
+<!-- MOBILE -->
+
+<div class="mobile justify-center gap-4 flex-wrap mt-5">
+
+<button class="mobile-btn"
+onclick="moveLeft()">
+⬅️
 </button>
 
-<button class="btn bg-pink-600 hover:bg-pink-500"
-onclick="toggleMusic()">
-🎵 Sound
+<button class="mobile-btn"
+onclick="moveRight()">
+➡️
 </button>
 
-<button class="btn bg-cyan-600 hover:bg-cyan-500"
-onclick="fullscreenGame()">
-🖥️ Fullscreen
-</button>
+</div>
+
+<div class="grid md:grid-cols-3 gap-4 mt-5">
+
+<div class="glass rounded-3xl p-5 text-center">
+
+<p class="text-gray-400">
+Score
+</p>
+
+<h2 id="score"
+class="text-5xl font-black text-blue-400">
+0
+</h2>
+
+</div>
+
+<div class="glass rounded-3xl p-5 text-center">
+
+<p class="text-gray-400">
+Best
+</p>
+
+<h2 id="best"
+class="text-5xl font-black text-pink-400">
+0
+</h2>
+
+</div>
+
+<div class="glass rounded-3xl p-5 text-center">
+
+<p class="text-gray-400">
+Speed
+</p>
+
+<h2 class="text-5xl font-black text-green-400">
+SLOW
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* ========================= */
+/* SYSTEM */
+/* ========================= */
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+let animation;
+let paused = false;
+
+let score = 0;
+
+let best =
+localStorage.getItem("bestArcade") || 0;
+
+document.getElementById("best")
+.textContent = best;
+
+/* ========================= */
+/* PLAYER */
+/* ========================= */
+
+let player = {
+x:450,
+y:430,
+w:80,
+h:80,
+speed:4
+};
+
+let meteors = [];
+
+let keys = {};
+
+/* ========================= */
+/* IMAGES */
+/* ========================= */
+
+const ship = new Image();
+
+ship.src =
+"https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
+
+/* ========================= */
+/* START GAME */
+/* ========================= */
+
+function startGame(){
+
+document.getElementById("menu")
+.classList.add("hidden");
+
+document.getElementById("game")
+.classList.remove("hidden");
+
+score = 0;
+
+meteors = [];
+
+player.x = 450;
+
+gameLoop();
+
+}
+
+/* ========================= */
+/* GAME LOOP */
+/* ========================= */
+
+function gameLoop(){
+
+if(paused) return;
+
+ctx.clearRect(0,0,1000,550);
+
+/* BACKGROUND */
+
+let bg =
+ctx.createLinearGradient(0,0,0,550);
+
+bg.addColorStop(0,"#07111f");
+bg.addColorStop(1,"#111827");
+
+ctx.fillStyle = bg;
+
+ctx.fillRect(0,0,1000,550);
+
+/* STARS */
+
+for(let i=0;i<40;i++){
+
+ctx.fillStyle="white";
+
+ctx.globalAlpha=Math.random();
+
+ctx.fillRect(
+Math.random()*1000,
+Math.random()*550,
+2,
+2
+);
+
+}
+
+ctx.globalAlpha=1;
+
+/* PLAYER */
+
+if(keys["ArrowLeft"]){
+
+player.x -= player.speed;
+
+}
+
+if(keys["ArrowRight"]){
+
+player.x += player.speed;
+
+}
+
+player.x =
+Math.max(
+0,
+Math.min(920,player.x)
+);
+
+ctx.drawImage(
+ship,
+player.x,
+player.y,
+player.w,
+player.h
+);
+
+/* METEORS */
+
+if(Math.random()<0.015){
+
+meteors.push({
+
+x:Math.random()*920,
+
+y:-50,
+
+r:30,
+
+speed:2 + Math.random()*2
+
+});
+
+}
+
+meteors.forEach((m,index)=>{
+
+m.y += m.speed;
+
+let glow =
+ctx.createRadialGradient(
+m.x,m.y,5,
+m.x,m.y,30
+);
+
+glow.addColorStop(0,"#fca5a5");
+glow.addColorStop(1,"#ef4444");
+
+ctx.fillStyle=glow;
+
+ctx.beginPath();
+
+ctx.arc(
+m.x,
+m.y,
+m.r,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+/* COLLISION */
+
+if(
+
+player.x < m.x+m.r &&
+player.x+player.w > m.x-m.r &&
+player.y < m.y+m.r &&
+player.y+player.h > m.y-m.r
+
+){
+
+navigator.vibrate?.(200);
+
+alert("💀 GAME OVER");
+
+restartGame();
+
+}
+
+/* SCORE */
+
+if(m.y > 650){
+
+meteors.splice(index,1);
+
+score++;
+
+document.getElementById("score")
+.textContent = score;
+
+if(score > best){
+
+best = score;
+
+localStorage.setItem(
+"bestArcade",
+best
+);
+
+document.getElementById("best")
+.textContent = best;
+
+}
+
+}
+
+});
+
+/* FPS */
+
+animation =
+requestAnimationFrame(gameLoop);
+
+}
+
+/* ========================= */
+/* CONTROLS */
+/* ========================= */
+
+window.addEventListener("keydown",e=>{
+
+keys[e.key] = true;
+
+});
+
+window.addEventListener("keyup",e=>{
+
+keys[e.key] = false;
+
+});
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+function moveLeft(){
+
+player.x -= 35;
+
+navigator.vibrate?.(40);
+
+}
+
+function moveRight(){
+
+player.x += 35;
+
+navigator.vibrate?.(40);
+
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+function restartGame(){
+
+cancelAnimationFrame(animation);
+
+paused = false;
+
+startGame();
+
+}
+
+function goMenu(){
+
+cancelAnimationFrame(animation);
+
+document.getElementById("menu")
+.classList.remove("hidden");
+
+document.getElementById("game")
+.classList.add("hidden");
+
+}
+
+function togglePause(){
+
+paused = !paused;
+
+if(!paused){
+
+gameLoop();
+
+}else{
+
+ctx.fillStyle=
+"rgba(0,0,0,.5)";
+
+ctx.fillRect(0,0,1000,550);
+
+ctx.fillStyle="white";
+
+ctx.font="bold 70px Arial";
+
+ctx.fillText("PAUSED",320,280);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
