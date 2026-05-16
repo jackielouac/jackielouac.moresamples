@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <meta name="viewport"
-content="width=device-width,initial-scale=1.0,user-scalable=no">
+content="width=device-width,initial-scale=1.0,user-scalable=no" />
 
 <title>Jackie & Gelic Arcade Universe</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+
+/* ========================= */
+/* RESET */
+/* ========================= */
 
 *{
 margin:0;
@@ -20,15 +24,16 @@ box-sizing:border-box;
 
 html,body{
 width:100%;
-height:100%;
-overflow:hidden;
+min-height:100%;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:#020617;
 color:white;
+overflow-x:hidden;
+scroll-behavior:smooth;
 }
 
 /* ========================= */
-/* IOS HD BACKGROUND */
+/* HD BACKGROUND */
 /* ========================= */
 
 body{
@@ -36,7 +41,7 @@ background:
 radial-gradient(circle at top,#2563eb55,transparent 30%),
 radial-gradient(circle at bottom,#9333ea55,transparent 30%),
 linear-gradient(135deg,#020617,#0f172a,#111827);
-animation:bgmove 8s infinite alternate;
+animation:bgmove 10s infinite alternate;
 }
 
 @keyframes bgmove{
@@ -44,18 +49,18 @@ from{
 filter:hue-rotate(0deg);
 }
 to{
-filter:hue-rotate(20deg);
+filter:hue-rotate(25deg);
 }
 }
 
 /* ========================= */
-/* GLASSMORPHISM */
+/* GLASS UI */
 /* ========================= */
 
 .glass{
 background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.1);
-backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(22px);
 box-shadow:
 0 10px 40px rgba(0,0,0,.45),
 inset 0 0 30px rgba(255,255,255,.03);
@@ -138,9 +143,17 @@ left:100%;
 /* CANVAS */
 /* ========================= */
 
+.canvas-wrap{
+overflow:auto;
+border-radius:30px;
+}
+
 canvas{
 width:100%;
+max-width:1000px;
 height:550px;
+display:block;
+margin:auto;
 background:
 linear-gradient(180deg,#07111f,#111827);
 border-radius:30px;
@@ -162,10 +175,10 @@ display:none;
 }
 
 .mobile-btn{
-width:70px;
-height:70px;
-border-radius:22px;
-font-size:28px;
+width:75px;
+height:75px;
+border-radius:24px;
+font-size:30px;
 font-weight:bold;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(20px);
@@ -176,6 +189,32 @@ box-shadow:0 10px 30px rgba(0,0,0,.35);
 .mobile-btn:active{
 transform:scale(.88);
 }
+
+/* ========================= */
+/* STATS */
+/* ========================= */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:18px;
+}
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+.footer{
+opacity:.7;
+font-size:14px;
+text-align:center;
+margin-top:40px;
+padding-bottom:20px;
+}
+
+/* ========================= */
+/* MOBILE RESPONSIVE */
+/* ========================= */
 
 @media(max-width:768px){
 
@@ -188,7 +227,11 @@ display:flex;
 }
 
 h1{
-font-size:45px !important;
+font-size:42px !important;
+}
+
+.btn{
+width:100%;
 }
 
 }
@@ -207,32 +250,48 @@ class="min-h-screen flex items-center justify-center p-4">
 
 <div class="glass rounded-[40px] p-6 w-full max-w-7xl">
 
-<h1 class="text-7xl font-black gradient text-center">
+<div class="text-center">
+
+<h1 class="text-7xl font-black gradient">
 🎮 HD ARCADE
 </h1>
 
-<p class="text-center text-gray-300 mt-4 text-xl">
+<p class="text-gray-300 mt-4 text-xl">
 Ultra iOS Style Arcade Universe
 </p>
 
+<p class="text-gray-500 mt-2">
+Playable on Mobile + Desktop
+</p>
+
+</div>
+
 <div class="grid md:grid-cols-3 gap-5 mt-10">
+
+<!-- GAME CARD -->
 
 <div class="card glass rounded-3xl p-6 text-center"
 onclick="startGame()">
 
 <img
 src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
-class="w-32 h-32 mx-auto">
+class="w-32 h-32 mx-auto animate-bounce">
 
 <h2 class="text-3xl font-black mt-5">
 🚀 Space Escape
 </h2>
 
 <p class="text-gray-400 mt-2">
-HD Neon Survival
+HD Neon Survival Adventure
 </p>
 
+<button class="btn bg-blue-600 mt-5 w-full">
+PLAY NOW
+</button>
+
 </div>
+
+<!-- COMING SOON -->
 
 <div class="card glass rounded-3xl p-6 text-center">
 
@@ -248,7 +307,13 @@ class="w-32 h-32 mx-auto">
 Coming Soon
 </p>
 
+<div class="mt-5 py-3 rounded-2xl bg-white/10">
+🔥 Multiplayer Racing
 </div>
+
+</div>
+
+<!-- COMING SOON -->
 
 <div class="card glass rounded-3xl p-6 text-center">
 
@@ -264,8 +329,16 @@ class="w-32 h-32 mx-auto">
 Coming Soon
 </p>
 
+<div class="mt-5 py-3 rounded-2xl bg-white/10">
+🎯 PvP Battles
 </div>
 
+</div>
+
+</div>
+
+<div class="footer">
+Made with ❤️ for Jackie & Gelic Arcade Universe
 </div>
 
 </div>
@@ -273,13 +346,15 @@ Coming Soon
 </section>
 
 <!-- ========================= -->
-<!-- GAME -->
+<!-- GAME SECTION -->
 <!-- ========================= -->
 
 <section id="game"
 class="hidden p-4 min-h-screen">
 
-<div class="glass rounded-[35px] p-4">
+<div class="glass rounded-[35px] p-4 max-w-7xl mx-auto">
+
+<!-- TOP -->
 
 <div class="flex justify-between items-center flex-wrap gap-4 mb-5">
 
@@ -302,7 +377,7 @@ onclick="restartGame()">
 🔄 Restart
 </button>
 
-<button class="btn bg-green-600"
+<button class="btn bg-yellow-500 text-black"
 onclick="togglePause()">
 ⏸ Pause
 </button>
@@ -316,11 +391,17 @@ onclick="goMenu()">
 
 </div>
 
-<canvas id="canvas" width="1000" height="550"></canvas>
+<!-- CANVAS -->
 
-<!-- MOBILE -->
+<div class="canvas-wrap">
+<canvas id="canvas"
+width="1000"
+height="550"></canvas>
+</div>
 
-<div class="mobile justify-center gap-4 flex-wrap mt-5">
+<!-- MOBILE CONTROLS -->
+
+<div class="mobile justify-center gap-5 flex-wrap mt-6">
 
 <button class="mobile-btn"
 onclick="moveLeft()">
@@ -334,7 +415,9 @@ onclick="moveRight()">
 
 </div>
 
-<div class="grid md:grid-cols-3 gap-4 mt-5">
+<!-- STATS -->
+
+<div class="stats mt-6">
 
 <div class="glass rounded-3xl p-5 text-center">
 
@@ -365,11 +448,25 @@ class="text-5xl font-black text-pink-400">
 <div class="glass rounded-3xl p-5 text-center">
 
 <p class="text-gray-400">
-Speed
+Lives
 </p>
 
-<h2 class="text-5xl font-black text-green-400">
-SLOW
+<h2 id="lives"
+class="text-5xl font-black text-green-400">
+3
+</h2>
+
+</div>
+
+<div class="glass rounded-3xl p-5 text-center">
+
+<p class="text-gray-400">
+Difficulty
+</p>
+
+<h2 id="difficulty"
+class="text-4xl font-black text-yellow-400">
+EASY
 </h2>
 
 </div>
@@ -403,6 +500,8 @@ localStorage.getItem("bestArcade") || 0;
 document.getElementById("best")
 .textContent = best;
 
+let lives = 3;
+
 /* ========================= */
 /* PLAYER */
 /* ========================= */
@@ -412,11 +511,11 @@ x:450,
 y:430,
 w:80,
 h:80,
-speed:4
+speed:6
 };
 
 let meteors = [];
-
+let particles = [];
 let keys = {};
 
 /* ========================= */
@@ -429,7 +528,7 @@ ship.src =
 "https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
 
 /* ========================= */
-/* START GAME */
+/* START */
 /* ========================= */
 
 function startGame(){
@@ -441,12 +540,73 @@ document.getElementById("game")
 .classList.remove("hidden");
 
 score = 0;
+lives = 3;
 
 meteors = [];
+particles = [];
 
 player.x = 450;
 
+updateUI();
+
+cancelAnimationFrame(animation);
+
 gameLoop();
+
+}
+
+/* ========================= */
+/* UI */
+/* ========================= */
+
+function updateUI(){
+
+document.getElementById("score")
+.textContent = score;
+
+document.getElementById("best")
+.textContent = best;
+
+document.getElementById("lives")
+.textContent = lives;
+
+if(score < 15){
+
+document.getElementById("difficulty")
+.textContent = "EASY";
+
+}else if(score < 40){
+
+document.getElementById("difficulty")
+.textContent = "MEDIUM";
+
+}else{
+
+document.getElementById("difficulty")
+.textContent = "HARD";
+
+}
+
+}
+
+/* ========================= */
+/* PARTICLES */
+/* ========================= */
+
+function createExplosion(x,y){
+
+for(let i=0;i<15;i++){
+
+particles.push({
+x,
+y,
+dx:(Math.random()-.5)*6,
+dy:(Math.random()-.5)*6,
+size:Math.random()*5+2,
+life:40
+});
+
+}
 
 }
 
@@ -469,15 +629,13 @@ bg.addColorStop(0,"#07111f");
 bg.addColorStop(1,"#111827");
 
 ctx.fillStyle = bg;
-
 ctx.fillRect(0,0,1000,550);
 
 /* STARS */
 
-for(let i=0;i<40;i++){
+for(let i=0;i<70;i++){
 
 ctx.fillStyle="white";
-
 ctx.globalAlpha=Math.random();
 
 ctx.fillRect(
@@ -491,7 +649,7 @@ Math.random()*550,
 
 ctx.globalAlpha=1;
 
-/* PLAYER */
+/* PLAYER MOVEMENT */
 
 if(keys["ArrowLeft"]){
 
@@ -511,6 +669,8 @@ Math.max(
 Math.min(920,player.x)
 );
 
+/* DRAW PLAYER */
+
 ctx.drawImage(
 ship,
 player.x,
@@ -521,21 +681,23 @@ player.h
 
 /* METEORS */
 
-if(Math.random()<0.015){
+let difficulty =
+Math.min(score/25,4);
+
+if(Math.random() < 0.02 + difficulty * 0.005){
 
 meteors.push({
 
 x:Math.random()*920,
-
 y:-50,
-
-r:30,
-
-speed:2 + Math.random()*2
+r:20 + Math.random()*20,
+speed:3 + Math.random()*4 + difficulty
 
 });
 
 }
+
+/* DRAW METEORS */
 
 meteors.forEach((m,index)=>{
 
@@ -544,7 +706,7 @@ m.y += m.speed;
 let glow =
 ctx.createRadialGradient(
 m.x,m.y,5,
-m.x,m.y,30
+m.x,m.y,m.r
 );
 
 glow.addColorStop(0,"#fca5a5");
@@ -577,9 +739,25 @@ player.y+player.h > m.y-m.r
 
 navigator.vibrate?.(200);
 
-alert("💀 GAME OVER");
+createExplosion(m.x,m.y);
+
+meteors.splice(index,1);
+
+lives--;
+
+updateUI();
+
+if(lives <= 0){
+
+setTimeout(()=>{
+
+alert("💀 GAME OVER\nScore: " + score);
 
 restartGame();
+
+},100);
+
+}
 
 }
 
@@ -591,9 +769,6 @@ meteors.splice(index,1);
 
 score++;
 
-document.getElementById("score")
-.textContent = score;
-
 if(score > best){
 
 best = score;
@@ -603,16 +778,46 @@ localStorage.setItem(
 best
 );
 
-document.getElementById("best")
-.textContent = best;
-
 }
+
+updateUI();
 
 }
 
 });
 
-/* FPS */
+/* PARTICLES */
+
+particles.forEach((p,index)=>{
+
+p.x += p.dx;
+p.y += p.dy;
+p.life--;
+
+ctx.fillStyle =
+"rgba(255,255,255,.8)";
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+p.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+if(p.life <= 0){
+
+particles.splice(index,1);
+
+}
+
+});
+
+/* LOOP */
 
 animation =
 requestAnimationFrame(gameLoop);
@@ -641,7 +846,7 @@ keys[e.key] = false;
 
 function moveLeft(){
 
-player.x -= 35;
+player.x -= 40;
 
 navigator.vibrate?.(40);
 
@@ -649,7 +854,7 @@ navigator.vibrate?.(40);
 
 function moveRight(){
 
-player.x += 35;
+player.x += 40;
 
 navigator.vibrate?.(40);
 
@@ -691,16 +896,20 @@ gameLoop();
 
 }else{
 
-ctx.fillStyle=
+ctx.fillStyle =
 "rgba(0,0,0,.5)";
 
 ctx.fillRect(0,0,1000,550);
 
-ctx.fillStyle="white";
+ctx.fillStyle = "white";
 
-ctx.font="bold 70px Arial";
+ctx.font = "bold 70px Arial";
 
-ctx.fillText("PAUSED",320,280);
+ctx.fillText(
+"PAUSED",
+320,
+280
+);
 
 }
 
