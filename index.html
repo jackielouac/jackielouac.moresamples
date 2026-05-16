@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
 
-<title>Jackie & Gelic Arcade Universe</title>
+<title>Jackie & Gelic HD Arcade Universe</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-
-/* ========================= */
-/* RESET */
-/* ========================= */
 
 *{
 margin:0;
@@ -25,85 +20,39 @@ box-sizing:border-box;
 html,body{
 width:100%;
 min-height:100%;
+overflow-x:hidden;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:#020617;
 color:white;
-overflow-x:hidden;
-scroll-behavior:smooth;
 }
-
-/* ========================= */
-/* HD BACKGROUND */
-/* ========================= */
 
 body{
 background:
-radial-gradient(circle at top,#2563eb55,transparent 30%),
-radial-gradient(circle at bottom,#9333ea55,transparent 30%),
+radial-gradient(circle at top,#2563eb55,transparent 25%),
+radial-gradient(circle at bottom,#9333ea55,transparent 25%),
 linear-gradient(135deg,#020617,#0f172a,#111827);
-animation:bgmove 10s infinite alternate;
+animation:bgmove 8s infinite alternate;
 }
 
 @keyframes bgmove{
-from{
-filter:hue-rotate(0deg);
+from{filter:hue-rotate(0deg);}
+to{filter:hue-rotate(25deg);}
 }
-to{
-filter:hue-rotate(25deg);
-}
-}
-
-/* ========================= */
-/* GLASS UI */
-/* ========================= */
 
 .glass{
 background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.12);
+border:1px solid rgba(255,255,255,.1);
 backdrop-filter:blur(22px);
 box-shadow:
-0 10px 40px rgba(0,0,0,.45),
+0 10px 40px rgba(0,0,0,.4),
 inset 0 0 30px rgba(255,255,255,.03);
 }
 
-/* ========================= */
-/* TITLE */
-/* ========================= */
-
 .gradient{
-background:linear-gradient(
-90deg,
-#60a5fa,
-#a855f7,
-#ec4899
-);
+background:linear-gradient(90deg,#60a5fa,#a855f7,#ec4899);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
-
-/* ========================= */
-/* BUTTONS */
-/* ========================= */
-
-.btn{
-padding:14px 24px;
-border-radius:20px;
-font-weight:800;
-transition:.25s;
-box-shadow:0 8px 25px rgba(0,0,0,.4);
-}
-
-.btn:hover{
-transform:translateY(-4px) scale(1.05);
-}
-
-.btn:active{
-transform:scale(.9);
-}
-
-/* ========================= */
-/* CARDS */
-/* ========================= */
 
 .card{
 position:relative;
@@ -127,11 +76,11 @@ background:
 linear-gradient(
 45deg,
 transparent,
-rgba(255,255,255,.15),
+rgba(255,255,255,.12),
 transparent
 );
 transform:rotate(25deg);
-transition:.7s;
+transition:.8s;
 }
 
 .card:hover::before{
@@ -139,36 +88,36 @@ top:100%;
 left:100%;
 }
 
-/* ========================= */
-/* CANVAS */
-/* ========================= */
+.btn{
+padding:14px 24px;
+border-radius:20px;
+font-weight:800;
+transition:.25s;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
 
-.canvas-wrap{
-overflow:auto;
-border-radius:30px;
+.btn:hover{
+transform:translateY(-4px) scale(1.05);
+}
+
+.btn:active{
+transform:scale(.9);
 }
 
 canvas{
 width:100%;
-max-width:1000px;
-height:550px;
+max-width:1200px;
+height:600px;
 display:block;
 margin:auto;
-background:
-linear-gradient(180deg,#07111f,#111827);
 border-radius:30px;
+background:#000;
 border:2px solid rgba(255,255,255,.08);
 
 box-shadow:
-0 0 50px rgba(96,165,250,.25),
-0 0 100px rgba(168,85,247,.15);
-
-touch-action:none;
+0 0 60px rgba(96,165,250,.2),
+0 0 100px rgba(168,85,247,.12);
 }
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
 
 .mobile{
 display:none;
@@ -177,22 +126,17 @@ display:none;
 .mobile-btn{
 width:75px;
 height:75px;
-border-radius:24px;
-font-size:30px;
+border-radius:22px;
+font-size:28px;
 font-weight:bold;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(20px);
 border:1px solid rgba(255,255,255,.1);
-box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
 .mobile-btn:active{
 transform:scale(.88);
 }
-
-/* ========================= */
-/* STATS */
-/* ========================= */
 
 .stats{
 display:grid;
@@ -200,26 +144,18 @@ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:18px;
 }
 
-/* ========================= */
-/* FOOTER */
-/* ========================= */
-
 .footer{
 opacity:.7;
 font-size:14px;
 text-align:center;
-margin-top:40px;
+margin-top:30px;
 padding-bottom:20px;
 }
-
-/* ========================= */
-/* MOBILE RESPONSIVE */
-/* ========================= */
 
 @media(max-width:768px){
 
 canvas{
-height:320px;
+height:330px;
 }
 
 .mobile{
@@ -227,7 +163,7 @@ display:flex;
 }
 
 h1{
-font-size:42px !important;
+font-size:40px !important;
 }
 
 .btn{
@@ -241,23 +177,20 @@ width:100%;
 
 <body>
 
-<!-- ========================= -->
 <!-- MENU -->
-<!-- ========================= -->
 
-<section id="menu"
-class="min-h-screen flex items-center justify-center p-4">
+<section id="menu" class="min-h-screen flex items-center justify-center p-4">
 
 <div class="glass rounded-[40px] p-6 w-full max-w-7xl">
 
 <div class="text-center">
 
 <h1 class="text-7xl font-black gradient">
-🎮 HD ARCADE
+🎮 HD ARCADE UNIVERSE
 </h1>
 
-<p class="text-gray-300 mt-4 text-xl">
-Ultra iOS Style Arcade Universe
+<p class="text-gray-300 text-xl mt-4">
+Ultra HD iOS Style Gaming Experience
 </p>
 
 <p class="text-gray-500 mt-2">
@@ -268,10 +201,9 @@ Playable on Mobile + Desktop
 
 <div class="grid md:grid-cols-3 gap-5 mt-10">
 
-<!-- GAME CARD -->
+<!-- SPACE ESCAPE -->
 
-<div class="card glass rounded-3xl p-6 text-center"
-onclick="startGame()">
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('space')">
 
 <img
 src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
@@ -282,7 +214,7 @@ class="w-32 h-32 mx-auto animate-bounce">
 </h2>
 
 <p class="text-gray-400 mt-2">
-HD Neon Survival Adventure
+Dodge meteors in deep space
 </p>
 
 <button class="btn bg-blue-600 mt-5 w-full">
@@ -291,47 +223,47 @@ PLAY NOW
 
 </div>
 
-<!-- COMING SOON -->
+<!-- CAR RUSH -->
 
-<div class="card glass rounded-3xl p-6 text-center">
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('car')">
 
 <img
 src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
 class="w-32 h-32 mx-auto">
 
 <h2 class="text-3xl font-black mt-5">
-🏎️ Racing HD
+🏎️ Neon Car Rush
 </h2>
 
 <p class="text-gray-400 mt-2">
-Coming Soon
+Avoid traffic at ultra speed
 </p>
 
-<div class="mt-5 py-3 rounded-2xl bg-white/10">
-🔥 Multiplayer Racing
-</div>
+<button class="btn bg-pink-600 mt-5 w-full">
+PLAY NOW
+</button>
 
 </div>
 
-<!-- COMING SOON -->
+<!-- SHOOTER -->
 
-<div class="card glass rounded-3xl p-6 text-center">
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('shooter')">
 
 <img
 src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png"
 class="w-32 h-32 mx-auto">
 
 <h2 class="text-3xl font-black mt-5">
-⚔️ Combat Arena
+⚔️ Galaxy Shooter
 </h2>
 
 <p class="text-gray-400 mt-2">
-Coming Soon
+Shoot alien enemies
 </p>
 
-<div class="mt-5 py-3 rounded-2xl bg-white/10">
-🎯 PvP Battles
-</div>
+<button class="btn bg-purple-600 mt-5 w-full">
+PLAY NOW
+</button>
 
 </div>
 
@@ -345,23 +277,18 @@ Made with ❤️ for Jackie & Gelic Arcade Universe
 
 </section>
 
-<!-- ========================= -->
-<!-- GAME SECTION -->
-<!-- ========================= -->
+<!-- GAME -->
 
-<section id="game"
-class="hidden p-4 min-h-screen">
+<section id="game" class="hidden p-4 min-h-screen">
 
 <div class="glass rounded-[35px] p-4 max-w-7xl mx-auto">
-
-<!-- TOP -->
 
 <div class="flex justify-between items-center flex-wrap gap-4 mb-5">
 
 <div>
 
-<h1 class="text-5xl font-black gradient">
-🚀 SPACE ESCAPE
+<h1 id="gameTitle" class="text-5xl font-black gradient">
+GAME
 </h1>
 
 <p class="text-gray-400 mt-2">
@@ -372,18 +299,15 @@ Ultra HD Arcade Experience
 
 <div class="flex gap-3 flex-wrap">
 
-<button class="btn bg-blue-600"
-onclick="restartGame()">
+<button class="btn bg-blue-600" onclick="restartGame()">
 🔄 Restart
 </button>
 
-<button class="btn bg-yellow-500 text-black"
-onclick="togglePause()">
+<button class="btn bg-yellow-500 text-black" onclick="togglePause()">
 ⏸ Pause
 </button>
 
-<button class="btn bg-red-600"
-onclick="goMenu()">
+<button class="btn bg-red-600" onclick="goMenu()">
 🏠 Menu
 </button>
 
@@ -391,25 +315,21 @@ onclick="goMenu()">
 
 </div>
 
-<!-- CANVAS -->
+<canvas id="canvas" width="1200" height="600"></canvas>
 
-<div class="canvas-wrap">
-<canvas id="canvas"
-width="1000"
-height="550"></canvas>
-</div>
-
-<!-- MOBILE CONTROLS -->
+<!-- MOBILE -->
 
 <div class="mobile justify-center gap-5 flex-wrap mt-6">
 
-<button class="mobile-btn"
-onclick="moveLeft()">
+<button class="mobile-btn" onclick="moveLeft()">
 ⬅️
 </button>
 
-<button class="mobile-btn"
-onclick="moveRight()">
+<button class="mobile-btn" onclick="shoot()">
+🔥
+</button>
+
+<button class="mobile-btn" onclick="moveRight()">
 ➡️
 </button>
 
@@ -425,8 +345,7 @@ onclick="moveRight()">
 Score
 </p>
 
-<h2 id="score"
-class="text-5xl font-black text-blue-400">
+<h2 id="score" class="text-5xl font-black text-blue-400">
 0
 </h2>
 
@@ -438,8 +357,7 @@ class="text-5xl font-black text-blue-400">
 Best
 </p>
 
-<h2 id="best"
-class="text-5xl font-black text-pink-400">
+<h2 id="best" class="text-5xl font-black text-pink-400">
 0
 </h2>
 
@@ -451,8 +369,7 @@ class="text-5xl font-black text-pink-400">
 Lives
 </p>
 
-<h2 id="lives"
-class="text-5xl font-black text-green-400">
+<h2 id="lives" class="text-5xl font-black text-green-400">
 3
 </h2>
 
@@ -461,12 +378,11 @@ class="text-5xl font-black text-green-400">
 <div class="glass rounded-3xl p-5 text-center">
 
 <p class="text-gray-400">
-Difficulty
+Mode
 </p>
 
-<h2 id="difficulty"
-class="text-4xl font-black text-yellow-400">
-EASY
+<h2 id="mode" class="text-3xl font-black text-yellow-400">
+SPACE
 </h2>
 
 </div>
@@ -479,59 +395,46 @@ EASY
 
 <script>
 
-/* ========================= */
-/* SYSTEM */
-/* ========================= */
-
-const canvas =
-document.getElementById("canvas");
-
-const ctx =
-canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 let animation;
 let paused = false;
 
+let currentGame = "space";
+
 let score = 0;
-
-let best =
-localStorage.getItem("bestArcade") || 0;
-
-document.getElementById("best")
-.textContent = best;
-
 let lives = 3;
 
-/* ========================= */
-/* PLAYER */
-/* ========================= */
+let best =
+localStorage.getItem("hdArcadeBest") || 0;
 
-let player = {
-x:450,
-y:430,
+document.getElementById("best").textContent = best;
+
+const player = {
+x:550,
+y:500,
 w:80,
 h:80,
-speed:6
+speed:8,
+color:"#60a5fa"
 };
 
 let meteors = [];
+let cars = [];
+let enemies = [];
+let bullets = [];
 let particles = [];
+
 let keys = {};
 
-/* ========================= */
-/* IMAGES */
-/* ========================= */
-
 const ship = new Image();
-
 ship.src =
 "https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
 
-/* ========================= */
-/* START */
-/* ========================= */
+function startGame(type){
 
-function startGame(){
+currentGame = type;
 
 document.getElementById("menu")
 .classList.add("hidden");
@@ -543,133 +446,107 @@ score = 0;
 lives = 3;
 
 meteors = [];
+cars = [];
+enemies = [];
+bullets = [];
 particles = [];
 
-player.x = 450;
+player.x = 550;
 
 updateUI();
 
+if(type==="space"){
+document.getElementById("gameTitle").innerHTML = "🚀 SPACE ESCAPE";
+document.getElementById("mode").innerHTML = "SPACE";
+}
+
+if(type==="car"){
+document.getElementById("gameTitle").innerHTML = "🏎️ NEON CAR RUSH";
+document.getElementById("mode").innerHTML = "RACING";
+}
+
+if(type==="shooter"){
+document.getElementById("gameTitle").innerHTML = "⚔️ GALAXY SHOOTER";
+document.getElementById("mode").innerHTML = "SHOOTER";
+}
+
 cancelAnimationFrame(animation);
+
+paused = false;
 
 gameLoop();
 
 }
 
-/* ========================= */
-/* UI */
-/* ========================= */
-
 function updateUI(){
 
-document.getElementById("score")
-.textContent = score;
-
-document.getElementById("best")
-.textContent = best;
-
-document.getElementById("lives")
-.textContent = lives;
-
-if(score < 15){
-
-document.getElementById("difficulty")
-.textContent = "EASY";
-
-}else if(score < 40){
-
-document.getElementById("difficulty")
-.textContent = "MEDIUM";
-
-}else{
-
-document.getElementById("difficulty")
-.textContent = "HARD";
+document.getElementById("score").textContent = score;
+document.getElementById("best").textContent = best;
+document.getElementById("lives").textContent = lives;
 
 }
 
-}
+function createExplosion(x,y,color="#fff"){
 
-/* ========================= */
-/* PARTICLES */
-/* ========================= */
-
-function createExplosion(x,y){
-
-for(let i=0;i<15;i++){
+for(let i=0;i<20;i++){
 
 particles.push({
 x,
 y,
-dx:(Math.random()-.5)*6,
-dy:(Math.random()-.5)*6,
-size:Math.random()*5+2,
-life:40
+dx:(Math.random()-.5)*8,
+dy:(Math.random()-.5)*8,
+size:Math.random()*6+2,
+life:40,
+color
 });
 
 }
 
 }
 
-/* ========================= */
-/* GAME LOOP */
-/* ========================= */
-
-function gameLoop(){
-
-if(paused) return;
-
-ctx.clearRect(0,0,1000,550);
-
-/* BACKGROUND */
+function drawBackground(){
 
 let bg =
-ctx.createLinearGradient(0,0,0,550);
+ctx.createLinearGradient(0,0,0,600);
 
-bg.addColorStop(0,"#07111f");
+bg.addColorStop(0,"#020617");
 bg.addColorStop(1,"#111827");
 
 ctx.fillStyle = bg;
-ctx.fillRect(0,0,1000,550);
+ctx.fillRect(0,0,1200,600);
 
-/* STARS */
+for(let i=0;i<120;i++){
 
-for(let i=0;i<70;i++){
-
-ctx.fillStyle="white";
-ctx.globalAlpha=Math.random();
+ctx.fillStyle = "white";
+ctx.globalAlpha = Math.random();
 
 ctx.fillRect(
-Math.random()*1000,
-Math.random()*550,
+Math.random()*1200,
+Math.random()*600,
 2,
 2
 );
 
 }
 
-ctx.globalAlpha=1;
-
-/* PLAYER MOVEMENT */
-
-if(keys["ArrowLeft"]){
-
-player.x -= player.speed;
+ctx.globalAlpha = 1;
 
 }
 
-if(keys["ArrowRight"]){
+function drawPlayer(){
 
-player.x += player.speed;
+if(currentGame==="car"){
 
-}
+ctx.fillStyle="#06b6d4";
 
-player.x =
-Math.max(
-0,
-Math.min(920,player.x)
-);
+ctx.fillRect(player.x,player.y,player.w,player.h);
 
-/* DRAW PLAYER */
+ctx.fillStyle="#fff";
+
+ctx.fillRect(player.x+10,player.y+10,15,20);
+ctx.fillRect(player.x+55,player.y+10,15,20);
+
+}else{
 
 ctx.drawImage(
 ship,
@@ -679,25 +556,67 @@ player.w,
 player.h
 );
 
-/* METEORS */
-
-let difficulty =
-Math.min(score/25,4);
-
-if(Math.random() < 0.02 + difficulty * 0.005){
-
-meteors.push({
-
-x:Math.random()*920,
-y:-50,
-r:20 + Math.random()*20,
-speed:3 + Math.random()*4 + difficulty
-
-});
+}
 
 }
 
-/* DRAW METEORS */
+function gameLoop(){
+
+if(paused) return;
+
+drawBackground();
+
+if(keys["ArrowLeft"]){
+player.x -= player.speed;
+}
+
+if(keys["ArrowRight"]){
+player.x += player.speed;
+}
+
+if(keys[" "]){
+shoot();
+}
+
+player.x =
+Math.max(
+0,
+Math.min(1120,player.x)
+);
+
+drawPlayer();
+
+if(currentGame==="space"){
+spaceGame();
+}
+
+if(currentGame==="car"){
+carGame();
+}
+
+if(currentGame==="shooter"){
+shooterGame();
+}
+
+drawParticles();
+
+animation =
+requestAnimationFrame(gameLoop);
+
+}
+
+function spaceGame(){
+
+if(Math.random()<0.03){
+
+meteors.push({
+x:Math.random()*1150,
+y:-50,
+r:20+Math.random()*20,
+speed:4+Math.random()*4
+});
+
+}
 
 meteors.forEach((m,index)=>{
 
@@ -712,60 +631,208 @@ m.x,m.y,m.r
 glow.addColorStop(0,"#fca5a5");
 glow.addColorStop(1,"#ef4444");
 
-ctx.fillStyle=glow;
+ctx.fillStyle = glow;
 
 ctx.beginPath();
-
-ctx.arc(
-m.x,
-m.y,
-m.r,
-0,
-Math.PI*2
-);
-
+ctx.arc(m.x,m.y,m.r,0,Math.PI*2);
 ctx.fill();
 
-/* COLLISION */
-
 if(
-
 player.x < m.x+m.r &&
 player.x+player.w > m.x-m.r &&
 player.y < m.y+m.r &&
 player.y+player.h > m.y-m.r
-
 ){
 
 navigator.vibrate?.(200);
 
-createExplosion(m.x,m.y);
+createExplosion(m.x,m.y,"#ef4444");
 
 meteors.splice(index,1);
 
-lives--;
-
-updateUI();
-
-if(lives <= 0){
-
-setTimeout(()=>{
-
-alert("💀 GAME OVER\nScore: " + score);
-
-restartGame();
-
-},100);
+damage();
 
 }
-
-}
-
-/* SCORE */
 
 if(m.y > 650){
 
 meteors.splice(index,1);
+
+addScore();
+
+}
+
+});
+
+}
+
+function carGame(){
+
+ctx.fillStyle="#222";
+ctx.fillRect(350,0,500,600);
+
+ctx.strokeStyle="#fff";
+ctx.lineWidth=6;
+
+for(let i=0;i<600;i+=50){
+
+ctx.beginPath();
+ctx.moveTo(600,i+(Date.now()/10)%50);
+ctx.lineTo(600,i+30+(Date.now()/10)%50);
+ctx.stroke();
+
+}
+
+if(Math.random()<0.03){
+
+cars.push({
+x:[400,520,650,760][Math.floor(Math.random()*4)],
+y:-100,
+w:70,
+h:100,
+speed:6
+});
+
+}
+
+cars.forEach((c,index)=>{
+
+c.y += c.speed;
+
+ctx.fillStyle="#ef4444";
+ctx.fillRect(c.x,c.y,c.w,c.h);
+
+if(
+player.x < c.x+c.w &&
+player.x+player.w > c.x &&
+player.y < c.y+c.h &&
+player.y+player.h > c.y
+){
+
+createExplosion(c.x,c.y,"#f59e0b");
+
+cars.splice(index,1);
+
+damage();
+
+}
+
+if(c.y > 700){
+
+cars.splice(index,1);
+
+addScore();
+
+}
+
+});
+
+}
+
+function shooterGame(){
+
+if(Math.random()<0.03){
+
+enemies.push({
+x:Math.random()*1100,
+y:-50,
+w:60,
+h:60,
+speed:3
+});
+
+}
+
+enemies.forEach((e,eIndex)=>{
+
+e.y += e.speed;
+
+ctx.fillStyle="#a855f7";
+ctx.fillRect(e.x,e.y,e.w,e.h);
+
+bullets.forEach((b,bIndex)=>{
+
+if(
+b.x < e.x+e.w &&
+b.x+b.w > e.x &&
+b.y < e.y+e.h &&
+b.y+b.h > e.y
+){
+
+createExplosion(e.x,e.y,"#a855f7");
+
+enemies.splice(eIndex,1);
+bullets.splice(bIndex,1);
+
+score += 2;
+
+updateUI();
+
+}
+
+});
+
+if(e.y > 650){
+
+enemies.splice(eIndex,1);
+
+damage();
+
+}
+
+});
+
+bullets.forEach((b,index)=>{
+
+b.y -= 10;
+
+ctx.fillStyle="#38bdf8";
+ctx.fillRect(b.x,b.y,b.w,b.h);
+
+if(b.y < -20){
+bullets.splice(index,1);
+}
+
+});
+
+}
+
+function shoot(){
+
+if(currentGame!=="shooter") return;
+
+bullets.push({
+x:player.x+35,
+y:player.y,
+w:10,
+h:25
+});
+
+}
+
+function drawParticles(){
+
+particles.forEach((p,index)=>{
+
+p.x += p.dx;
+p.y += p.dy;
+p.life--;
+
+ctx.fillStyle = p.color;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fill();
+
+if(p.life <= 0){
+particles.splice(index,1);
+}
+
+});
+
+}
+
+function addScore(){
 
 score++;
 
@@ -774,7 +841,7 @@ if(score > best){
 best = score;
 
 localStorage.setItem(
-"bestArcade",
+"hdArcadeBest",
 best
 );
 
@@ -784,71 +851,47 @@ updateUI();
 
 }
 
-});
+function damage(){
 
-/* PARTICLES */
+lives--;
 
-particles.forEach((p,index)=>{
+updateUI();
 
-p.x += p.dx;
-p.y += p.dy;
-p.life--;
+navigator.vibrate?.(150);
 
-ctx.fillStyle =
-"rgba(255,255,255,.8)";
+if(lives <= 0){
 
-ctx.beginPath();
+setTimeout(()=>{
 
-ctx.arc(
-p.x,
-p.y,
-p.size,
-0,
-Math.PI*2
+alert(
+"💀 GAME OVER\n\nScore: " + score
 );
 
-ctx.fill();
+restartGame();
 
-if(p.life <= 0){
-
-particles.splice(index,1);
+},100);
 
 }
 
-});
-
-/* LOOP */
-
-animation =
-requestAnimationFrame(gameLoop);
-
 }
-
-/* ========================= */
-/* CONTROLS */
-/* ========================= */
 
 window.addEventListener("keydown",e=>{
 
-keys[e.key] = true;
+keys[e.key]=true;
 
 });
 
 window.addEventListener("keyup",e=>{
 
-keys[e.key] = false;
+keys[e.key]=false;
 
 });
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
 
 function moveLeft(){
 
 player.x -= 40;
 
-navigator.vibrate?.(40);
+navigator.vibrate?.(30);
 
 }
 
@@ -856,21 +899,15 @@ function moveRight(){
 
 player.x += 40;
 
-navigator.vibrate?.(40);
+navigator.vibrate?.(30);
 
 }
-
-/* ========================= */
-/* BUTTONS */
-/* ========================= */
 
 function restartGame(){
 
 cancelAnimationFrame(animation);
 
-paused = false;
-
-startGame();
+startGame(currentGame);
 
 }
 
@@ -896,19 +933,16 @@ gameLoop();
 
 }else{
 
-ctx.fillStyle =
-"rgba(0,0,0,.5)";
+ctx.fillStyle="rgba(0,0,0,.5)";
+ctx.fillRect(0,0,1200,600);
 
-ctx.fillRect(0,0,1000,550);
-
-ctx.fillStyle = "white";
-
-ctx.font = "bold 70px Arial";
+ctx.fillStyle="white";
+ctx.font="bold 70px Arial";
 
 ctx.fillText(
 "PAUSED",
-320,
-280
+420,
+300
 );
 
 }
