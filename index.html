@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JACKIELOUCADLUM • Ultimate Arcade Universe</title>
+<title>Jackie-Gelic Arcade Universe</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -18,8 +18,8 @@ box-sizing:border-box;
 
 body{
 font-family:Arial,sans-serif;
-background:#050816;
-overflow-x:hidden;
+background:#020617;
+overflow:hidden;
 color:white;
 }
 
@@ -28,17 +28,16 @@ content:"";
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at top left,#2563eb55,transparent 30%),
-radial-gradient(circle at bottom right,#9333ea55,transparent 30%),
-linear-gradient(135deg,#050816,#0f172a,#111827);
+radial-gradient(circle at top left,#2563eb66,transparent 30%),
+radial-gradient(circle at bottom right,#9333ea66,transparent 30%),
+linear-gradient(135deg,#020617,#0f172a,#111827);
 z-index:-1;
 }
 
 .glass{
 background:rgba(255,255,255,.06);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
+backdrop-filter:blur(14px);
 }
 
 .gradient{
@@ -48,34 +47,33 @@ background:linear-gradient(to right,#60a5fa,#a855f7);
 }
 
 canvas{
-background:#0f172a;
-border-radius:24px;
 width:100%;
 max-width:100%;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.8);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
+background:#07111f;
+border-radius:25px;
+border:2px solid rgba(255,255,255,.1);
 }
 
 .hidden{
 display:none;
 }
 
-.mobile-controls{
+.card{
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+}
+
+.mobile{
 display:none;
 }
 
 @media(max-width:768px){
 
-.mobile-controls{
+.mobile{
 display:flex;
 }
 
@@ -83,102 +81,156 @@ display:flex;
 
 </style>
 </head>
-
 <body>
 
-<!-- NAV -->
+<!-- MENU -->
 
-<nav class="fixed top-0 w-full z-50 glass p-5 flex justify-between items-center">
+<div id="menu"
+class="min-h-screen flex items-center justify-center p-6">
 
-<div>
+<div class="glass rounded-[40px] p-8 w-full max-w-7xl">
 
-<h1 class="text-3xl md:text-5xl font-black gradient">
-⚡ JACKIELOUCADLUM
+<h1 class="text-6xl md:text-8xl font-black gradient text-center">
+🎮 HD ARCADE
 </h1>
 
-<p class="text-gray-400 text-sm mt-2">
-Ultimate Arcade Combat Universe
+<p class="text-center text-gray-300 mt-4 text-xl">
+Choose a Game
+</p>
+
+<div class="grid md:grid-cols-3 gap-6 mt-10">
+
+<div onclick="startGame('space')"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png"
+class="w-28 h-28 mx-auto">
+
+<h2 class="text-3xl font-black mt-4">
+🚀 Space Escape
+</h2>
+
+</div>
+
+<div onclick="startGame('fruit')"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/415/415733.png"
+class="w-28 h-28 mx-auto">
+
+<h2 class="text-3xl font-black mt-4">
+🍉 Fruit Slice
+</h2>
+
+</div>
+
+<div onclick="startGame('snake')"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png"
+class="w-28 h-28 mx-auto">
+
+<h2 class="text-3xl font-black mt-4">
+🐍 Snake HD
+</h2>
+
+</div>
+
+<div onclick="startGame('combat')"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png"
+class="w-28 h-28 mx-auto">
+
+<h2 class="text-3xl font-black mt-4">
+⚔️ Combat Arena
+</h2>
+
+</div>
+
+<div onclick="startGame('racing')"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
+class="w-28 h-28 mx-auto">
+
+<h2 class="text-3xl font-black mt-4">
+🏎️ Turbo Racing
+</h2>
+
+</div>
+
+<div onclick="comingSoon()"
+class="card glass rounded-3xl p-6 text-center">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+class="w-28 h-28 mx-auto opacity-70">
+
+<h2 class="text-3xl font-black mt-4">
+🔥 Mob-Web Legends
+</h2>
+
+<p class="text-gray-400 mt-2">
+Coming Soon
 </p>
 
 </div>
 
-<button onclick="showPremium()"
-class="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-2xl font-bold">
-💎 Premium
-</button>
+</div>
 
-</nav>
+</div>
 
-<!-- MAIN -->
-
-<section class="pt-36 pb-16 px-6">
-
-<div class="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
+</div>
 
 <!-- GAME -->
 
-<div class="lg:col-span-2 glass rounded-[35px] p-6">
+<div id="gameScreen"
+class="hidden p-5">
 
-<div class="flex flex-wrap gap-4 justify-between items-center mb-8">
+<div class="glass rounded-[35px] p-5">
+
+<div class="flex flex-wrap justify-between items-center gap-4 mb-6">
 
 <div>
 
-<h2 id="gameTitle"
-class="text-4xl md:text-5xl font-black gradient">
-🚀 Space Dodge
-</h2>
+<h1 id="gameTitle"
+class="text-5xl font-black gradient">
+GAME
+</h1>
 
-<p class="text-gray-400 mt-3">
-Fight bosses. Race animals. Battle enemies.
+<p class="text-gray-400 mt-2">
+HD Arcade Universe
 </p>
 
 </div>
 
-<div class="flex flex-wrap gap-3">
+<div class="flex gap-3 flex-wrap">
 
-<button onclick="launchGame('space')"
+<button onclick="restartGame()"
 class="bg-blue-600 px-5 py-3 rounded-2xl font-bold">
-🚀 Space
+🔄 Restart
 </button>
 
-<button onclick="launchGame('combat')"
+<button onclick="goMenu()"
 class="bg-red-600 px-5 py-3 rounded-2xl font-bold">
-⚔️ Combat
-</button>
-
-<button onclick="launchGame('snake')"
-class="bg-green-600 px-5 py-3 rounded-2xl font-bold">
-🐍 Snake
-</button>
-
-<button onclick="launchGame('memory')"
-class="bg-pink-600 px-5 py-3 rounded-2xl font-bold">
-🧠 Memory
-</button>
-
-<button onclick="launchGame('racing')"
-class="bg-yellow-500 text-black px-5 py-3 rounded-2xl font-bold">
-🏁 Racing
+🏠 Menu
 </button>
 
 </div>
 
 </div>
 
-<canvas id="gameCanvas" width="900" height="500"></canvas>
+<canvas id="canvas"
+width="1000"
+height="550"></canvas>
 
 <!-- MOBILE -->
 
-<div class="mobile-controls justify-center gap-4 mt-6 flex-wrap">
+<div class="mobile justify-center gap-4 mt-5 flex-wrap">
 
 <button onclick="mobileMove('left')"
 class="glass w-16 h-16 rounded-2xl text-2xl">
 ⬅️
-</button>
-
-<button onclick="mobileMove('up')"
-class="glass w-16 h-16 rounded-2xl text-2xl">
-⬆️
 </button>
 
 <button onclick="mobileMove('right')"
@@ -186,133 +238,50 @@ class="glass w-16 h-16 rounded-2xl text-2xl">
 ➡️
 </button>
 
+<button onclick="mobileMove('up')"
+class="glass w-16 h-16 rounded-2xl text-2xl">
+⬆️
+</button>
+
 <button onclick="mobileMove('down')"
 class="glass w-16 h-16 rounded-2xl text-2xl">
 ⬇️
 </button>
 
-<button onclick="attackAction()"
+<button onclick="attack()"
 class="bg-red-600 w-16 h-16 rounded-2xl text-xl">
 ⚔️
 </button>
 
 </div>
 
-<!-- STATS -->
-
-<div class="grid md:grid-cols-4 gap-4 mt-8">
+<div class="grid md:grid-cols-3 gap-4 mt-6">
 
 <div class="glass rounded-2xl p-5 text-center">
-<p class="text-gray-400 text-sm">Score</p>
-<h3 id="score" class="text-3xl font-black text-blue-400">0</h3>
-</div>
-
-<div class="glass rounded-2xl p-5 text-center">
-<p class="text-gray-400 text-sm">Level</p>
-<h3 id="level" class="text-3xl font-black text-purple-400">1</h3>
-</div>
-
-<div class="glass rounded-2xl p-5 text-center">
-<p class="text-gray-400 text-sm">Coins</p>
-<h3 id="coins" class="text-3xl font-black text-yellow-400">0</h3>
-</div>
-
-<div class="glass rounded-2xl p-5 text-center">
-<p class="text-gray-400 text-sm">High Score</p>
-<h3 id="highScore" class="text-3xl font-black text-pink-400">0</h3>
-</div>
-
-</div>
-
-</div>
-
-<!-- CHAT -->
-
-<div class="glass rounded-[35px] p-6">
-
-<div class="flex justify-between items-center mb-6">
-
-<h2 class="text-3xl font-black">
-💬 Global Chat
+<p class="text-gray-400">Score</p>
+<h2 id="score"
+class="text-4xl font-black text-blue-400">
+0
 </h2>
-
-<div class="text-green-400">
-● Online
 </div>
 
-</div>
-
-<div id="chatBox"
-class="space-y-4 h-[300px] overflow-y-auto pr-2">
-
-<div class="glass rounded-2xl p-4">
-<p class="text-blue-400 font-bold">Alex</p>
-<p>Combat boss is impossible 🔥</p>
-</div>
-
-<div class="glass rounded-2xl p-4">
-<p class="text-purple-400 font-bold">Mika</p>
-<p>I won the animal race 🏁</p>
-</div>
-
-</div>
-
-<div class="flex gap-3 mt-5">
-
-<input id="chatInput"
-placeholder="Type message..."
-class="flex-1 bg-white/10 border border-white/10 rounded-2xl px-4 py-4 outline-none text-white">
-
-<button onclick="sendMessage()"
-class="bg-blue-600 px-5 rounded-2xl font-bold">
-Send
-</button>
-
-</div>
-
-<div class="glass rounded-3xl p-5 mt-8 text-center">
-
-<h3 class="text-2xl font-black gradient">
-💎 Premium
-</h3>
-
-<p class="text-gray-300 mt-4">
-Unlock multiplayer, secret bosses, skins and voice chat.
-</p>
-
-<button onclick="showPremium()"
-class="mt-5 bg-gradient-to-r from-blue-600 to-purple-600 py-4 rounded-2xl w-full font-bold">
-Subscribe
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- OVERLAY -->
-
-<div id="overlay" class="overlay hidden">
-
-<div class="glass rounded-3xl p-10 text-center max-w-md">
-
-<h2 id="overlayTitle"
-class="text-5xl font-black mb-5">
-GAME OVER
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400">Level</p>
+<h2 id="level"
+class="text-4xl font-black text-purple-400">
+1
 </h2>
+</div>
 
-<p id="overlayText"
-class="text-gray-300 mb-8">
-Try Again
-</p>
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400">High Score</p>
+<h2 id="high"
+class="text-4xl font-black text-pink-400">
+0
+</h2>
+</div>
 
-<button onclick="restartGame()"
-class="bg-blue-600 px-8 py-4 rounded-2xl text-xl font-bold">
-Restart
-</button>
+</div>
 
 </div>
 
@@ -320,219 +289,280 @@ Restart
 
 <script>
 
-/* ================================= */
+/* ========================= */
 /* GLOBAL */
-/* ================================= */
+/* ========================= */
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas =
+document.getElementById("canvas");
 
-let currentGame = "space";
-let animationId;
+const ctx =
+canvas.getContext("2d");
+
+let game = "";
+let animation;
 
 let score = 0;
 let level = 1;
-let coins = 0;
 
-let highScore = localStorage.getItem("jackieHigh") || 0;
+let high =
+localStorage.getItem("arcadeHD") || 0;
 
-document.getElementById("highScore").textContent =
-highScore;
+document.getElementById("high")
+.textContent = high;
 
-/* ================================= */
+let keys = {};
+
+window.addEventListener("keydown",e=>{
+
+keys[e.key] = true;
+
+if(game==="snake"){
+
+if(e.key==="ArrowUp" && dy===0){
+dx=0;dy=-1;
+}
+
+if(e.key==="ArrowDown" && dy===0){
+dx=0;dy=1;
+}
+
+if(e.key==="ArrowLeft" && dx===0){
+dx=-1;dy=0;
+}
+
+if(e.key==="ArrowRight" && dx===0){
+dx=1;dy=0;
+}
+
+}
+
+});
+
+window.addEventListener("keyup",e=>{
+keys[e.key] = false;
+});
+
+/* ========================= */
 /* IMAGES */
-/* ================================= */
+/* ========================= */
 
-const heroImg = new Image();
-heroImg.src =
-"https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
+const playerImg = new Image();
+playerImg.src =
+"https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
 
 const enemyImg = new Image();
 enemyImg.src =
-"https://cdn-icons-png.flaticon.com/512/3523/3523063.png";
-
-const bossImg = new Image();
-bossImg.src =
-"https://cdn-icons-png.flaticon.com/512/616/616554.png";
+"https://cdn-icons-png.flaticon.com/512/4140/4140047.png";
 
 const carImg = new Image();
 carImg.src =
 "https://cdn-icons-png.flaticon.com/512/744/744465.png";
 
-/* ================================= */
-/* HUD */
-/* ================================= */
+const fruitImg = new Image();
+fruitImg.src =
+"https://cdn-icons-png.flaticon.com/512/590/590685.png";
+
+/* ========================= */
+/* SYSTEM */
+/* ========================= */
 
 function updateHUD(){
 
-document.getElementById("score").textContent = score;
-document.getElementById("level").textContent = level;
-document.getElementById("coins").textContent = coins;
+document.getElementById("score")
+.textContent = Math.floor(score);
+
+document.getElementById("level")
+.textContent = level;
+
+if(score > high){
+
+high = Math.floor(score);
+
+localStorage.setItem(
+"arcadeHD",
+high
+);
+
+document.getElementById("high")
+.textContent = high;
 
 }
 
-function stopGame(){
+}
 
-cancelAnimationFrame(animationId);
-clearTimeout(animationId);
+function startGame(type){
+
+cancelAnimationFrame(animation);
+
+game = type;
+
+score = 0;
+level = 1;
+
+updateHUD();
+
+document.getElementById("menu")
+.classList.add("hidden");
+
+document.getElementById("gameScreen")
+.classList.remove("hidden");
+
+if(type==="space"){
+initSpace();
+}
+
+if(type==="fruit"){
+initFruit();
+}
+
+if(type==="snake"){
+initSnake();
+}
+
+if(type==="combat"){
+initCombat();
+}
+
+if(type==="racing"){
+initRacing();
+}
 
 }
 
-/* ================================= */
-/* CHAT */
-/* ================================= */
+function restartGame(){
 
-function sendMessage(){
-
-const input =
-document.getElementById("chatInput");
-
-if(input.value.trim() === "") return;
-
-const div = document.createElement("div");
-
-div.className =
-"glass rounded-2xl p-4";
-
-div.innerHTML = `
-<p class="text-pink-400 font-bold">You</p>
-<p>${input.value}</p>
-`;
-
-const chatBox =
-document.getElementById("chatBox");
-
-chatBox.appendChild(div);
-
-chatBox.scrollTop = chatBox.scrollHeight;
-
-input.value = "";
+startGame(game);
 
 }
 
-function showPremium(){
+function goMenu(){
+
+cancelAnimationFrame(animation);
+
+document.getElementById("menu")
+.classList.remove("hidden");
+
+document.getElementById("gameScreen")
+.classList.add("hidden");
+
+}
+
+function comingSoon(){
 
 alert(
-"💎 PREMIUM DEMO\n\n" +
-"• Multiplayer\n" +
-"• Secret Bosses\n" +
-"• Voice Chat\n" +
-"• Exclusive Skins"
+"🔥 MOB-WEB LEGENDS\n\nCOMING SOON"
 );
 
 }
 
-/* ================================= */
-/* KEYBOARD */
-/* ================================= */
+/* ========================= */
+/* SPACE */
+/* ========================= */
 
-let keys = {};
-
-window.addEventListener("keydown",e=>{
-keys[e.key]=true;
-});
-
-window.addEventListener("keyup",e=>{
-keys[e.key]=false;
-});
-
-/* ================================= */
-/* SPACE GAME */
-/* ================================= */
-
-let player;
-let obstacles;
-let boss;
+let ship;
+let meteors=[];
 
 function initSpace(){
 
-player = {
-x:420,
-y:420,
-w:60,
-h:60,
-speed:8
+document.getElementById("gameTitle")
+.innerHTML = "🚀 SPACE ESCAPE";
+
+ship = {
+x:450,
+y:430,
+size:80,
+speed:6
 };
 
-obstacles = [];
-boss = null;
+meteors=[];
 
-}
-
-function spawnObstacle(){
-
-obstacles.push({
-x:Math.random()*850,
-y:-50,
-w:40,
-h:40,
-speed:4 + level
-});
+updateSpace();
 
 }
 
 function updateSpace(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#020617";
+ctx.fillRect(0,0,1000,550);
 
-ctx.fillStyle="#0f172a";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+for(let i=0;i<80;i++){
 
-if(keys["ArrowLeft"]) player.x -= player.speed;
-if(keys["ArrowRight"]) player.x += player.speed;
+ctx.fillStyle="white";
 
-ctx.drawImage(
-heroImg,
-player.x,
-player.y,
-player.w,
-player.h
+ctx.fillRect(
+Math.random()*1000,
+Math.random()*550,
+2,
+2
 );
 
-if(Math.random()<0.03){
-spawnObstacle();
 }
 
-obstacles.forEach((o,index)=>{
+ctx.drawImage(
+playerImg,
+ship.x,
+ship.y,
+ship.size,
+ship.size
+);
 
-o.y += o.speed;
+if(keys.ArrowLeft){
+ship.x -= ship.speed;
+}
+
+if(keys.ArrowRight){
+ship.x += ship.speed;
+}
+
+if(Math.random()<0.02){
+
+meteors.push({
+
+x:Math.random()*950,
+y:-50,
+size:50,
+speed:3
+
+});
+
+}
+
+meteors.forEach((m,index)=>{
+
+m.y += m.speed;
 
 ctx.fillStyle="#ef4444";
+
 ctx.beginPath();
-ctx.arc(o.x,o.y,20,0,Math.PI*2);
+
+ctx.arc(
+m.x,
+m.y,
+25,
+0,
+Math.PI*2
+);
+
 ctx.fill();
 
 if(
-player.x < o.x + 20 &&
-player.x + player.w > o.x &&
-player.y < o.y + 20 &&
-player.y + player.h > o.y
+ship.x < m.x+30 &&
+ship.x+ship.size > m.x &&
+ship.y < m.y+30 &&
+ship.y+ship.size > m.y
 ){
-gameOver();
+
+alert("💀 Game Over");
+restartGame();
+
 }
 
-if(o.y > canvas.height){
+if(m.y > 600){
 
-obstacles.splice(index,1);
+meteors.splice(index,1);
 
 score++;
-coins += 5;
-
-if(score % 10 === 0){
-level++;
-}
-
-if(level >= 3 && !boss){
-
-boss = {
-x:300,
-y:80,
-w:180,
-h:180,
-dir:5
-};
-
-}
 
 updateHUD();
 
@@ -540,90 +570,297 @@ updateHUD();
 
 });
 
-if(boss){
+animation =
+requestAnimationFrame(updateSpace);
+
+}
+
+/* ========================= */
+/* FRUIT */
+/* ========================= */
+
+let fruits=[];
+
+function initFruit(){
+
+document.getElementById("gameTitle")
+.innerHTML = "🍉 FRUIT SLICE";
+
+fruits=[];
+
+updateFruit();
+
+}
+
+function updateFruit(){
+
+ctx.fillStyle="#111827";
+ctx.fillRect(0,0,1000,550);
+
+if(Math.random()<0.03){
+
+fruits.push({
+
+x:Math.random()*900,
+y:600,
+size:70,
+speed:2+Math.random()*2
+
+});
+
+}
+
+fruits.forEach((f,index)=>{
+
+f.y -= f.speed;
 
 ctx.drawImage(
-bossImg,
-boss.x,
-boss.y,
-boss.w,
-boss.h
+fruitImg,
+f.x,
+f.y,
+f.size,
+f.size
 );
 
-boss.x += boss.dir;
+if(f.y < -100){
 
-if(boss.x < 0 || boss.x > 700){
-boss.dir *= -1;
+fruits.splice(index,1);
+
+}
+
+});
+
+animation =
+requestAnimationFrame(updateFruit);
+
+}
+
+canvas.addEventListener("click",cutFruit);
+
+function cutFruit(e){
+
+if(game!=="fruit") return;
+
+const rect =
+canvas.getBoundingClientRect();
+
+const mx =
+e.clientX - rect.left;
+
+const my =
+e.clientY - rect.top;
+
+fruits.forEach((f,index)=>{
+
+if(
+mx>f.x &&
+mx<f.x+f.size &&
+my>f.y &&
+my<f.y+f.size
+){
+
+ctx.fillStyle="red";
+
+for(let i=0;i<20;i++){
+
+ctx.beginPath();
+
+ctx.arc(
+f.x+Math.random()*60,
+f.y+Math.random()*60,
+Math.random()*6,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
+fruits.splice(index,1);
+
+score += 2;
+
+updateHUD();
+
+}
+
+});
+
+}
+
+/* ========================= */
+/* SNAKE */
+/* ========================= */
+
+let snake=[];
+let food;
+let dx=1;
+let dy=0;
+
+function initSnake(){
+
+document.getElementById("gameTitle")
+.innerHTML = "🐍 SNAKE HD";
+
+snake = [
+{x:10,y:10},
+{x:9,y:10},
+{x:8,y:10}
+];
+
+food = {
+x:20,
+y:10
+};
+
+dx=1;
+dy=0;
+
+updateSnake();
+
+}
+
+function updateSnake(){
+
+ctx.fillStyle="#07111f";
+ctx.fillRect(0,0,1000,550);
+
+snake.forEach((s,index)=>{
+
+ctx.fillStyle =
+index===0 ? "#4ade80" : "#22c55e";
+
+ctx.beginPath();
+
+ctx.roundRect(
+s.x*25,
+s.y*25,
+22,
+22,
+10
+);
+
+ctx.fill();
+
+});
+
+ctx.fillStyle="#f43f5e";
+
+ctx.beginPath();
+
+ctx.arc(
+food.x*25+10,
+food.y*25+10,
+10,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+let head = {
+
+x:snake[0].x + dx,
+y:snake[0].y + dy
+
+};
+
+snake.unshift(head);
+
+if(
+head.x===food.x &&
+head.y===food.y
+){
+
+score++;
+
+updateHUD();
+
+food = {
+
+x:Math.floor(Math.random()*35),
+y:Math.floor(Math.random()*20)
+
+};
+
+}else{
+
+snake.pop();
+
 }
 
 if(
-player.x < boss.x + boss.w &&
-player.x + player.w > boss.x &&
-player.y < boss.y + boss.h &&
-player.y + player.h > boss.y
+head.x<0 ||
+head.y<0 ||
+head.x>39 ||
+head.y>21
 ){
-gameOver();
-}
 
-if(score >= 35){
-
-winGame();
+alert("💀 Snake Crashed");
+restartGame();
 
 return;
 
 }
 
-}
-
-animationId =
-requestAnimationFrame(updateSpace);
+setTimeout(updateSnake,120);
 
 }
 
-/* ================================= */
+/* ========================= */
 /* COMBAT */
-/* ================================= */
+/* ========================= */
 
 let fighter;
 let enemy;
-let attack = false;
+let attackNow=false;
 
 function initCombat(){
 
+document.getElementById("gameTitle")
+.innerHTML = "⚔️ COMBAT ARENA";
+
 fighter = {
-x:100,
+
+x:150,
 y:350,
-w:80,
-h:80,
+w:90,
+h:90,
 hp:100
+
 };
 
 enemy = {
-x:650,
+
+x:700,
 y:350,
-w:100,
-h:100,
+w:90,
+h:90,
 hp:100
+
 };
+
+updateCombat();
 
 }
 
-function attackAction(){
-attack = true;
+function attack(){
+
+attackNow=true;
+
 }
 
 function updateCombat(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
 ctx.fillStyle="#111827";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillRect(0,0,1000,550);
 
-ctx.fillStyle="#1e293b";
-ctx.fillRect(0,430,900,70);
+ctx.fillStyle="#374151";
+ctx.fillRect(0,450,1000,100);
 
 ctx.drawImage(
-heroImg,
+playerImg,
 fighter.x,
 fighter.y,
 fighter.w,
@@ -638,559 +875,223 @@ enemy.w,
 enemy.h
 );
 
-if(keys["ArrowLeft"]) fighter.x -= 6;
-if(keys["ArrowRight"]) fighter.x += 6;
+if(keys.ArrowLeft){
+fighter.x -= 4;
+}
 
-if(keys[" "] || attack){
+if(keys.ArrowRight){
+fighter.x += 4;
+}
+
+if(keys[" "] || attackNow){
 
 ctx.fillStyle="yellow";
 
-ctx.beginPath();
-
-ctx.arc(
-fighter.x + 70,
-fighter.y + 20,
-20,
-0,
-Math.PI*2
+ctx.fillRect(
+fighter.x+70,
+fighter.y+30,
+40,
+10
 );
 
-ctx.fill();
-
 if(
-fighter.x + fighter.w > enemy.x &&
-fighter.x < enemy.x + enemy.w
+fighter.x+100 > enemy.x
 ){
 
-enemy.hp -= 1;
+enemy.hp -= .5;
 
 }
 
-attack = false;
+attackNow=false;
 
 }
 
-if(enemy.x > fighter.x){
-enemy.x -= 2;
-}else{
-enemy.x += 2;
+if(enemy.x > fighter.x+100){
+enemy.x -= 1.5;
+}
+
+if(enemy.x < fighter.x){
+
+enemy.x += 1.5;
+
 }
 
 if(
-enemy.x < fighter.x + fighter.w &&
-enemy.x + enemy.w > fighter.x
+enemy.x < fighter.x+80 &&
+enemy.x+80 > fighter.x
 ){
-fighter.hp -= 0.15;
+
+fighter.hp -= .05;
+
 }
 
 ctx.fillStyle="red";
-ctx.fillRect(40,40,fighter.hp*2,20);
+ctx.fillRect(50,50,fighter.hp*2,20);
 
-ctx.fillRect(450,40,enemy.hp*2,20);
+ctx.fillRect(550,50,enemy.hp*2,20);
 
 ctx.fillStyle="white";
-ctx.font="bold 18px Arial";
+ctx.font="20px Arial";
 
-ctx.fillText("PLAYER HP",40,30);
-ctx.fillText("BOSS HP",450,30);
+ctx.fillText("PLAYER",50,40);
+ctx.fillText("AI ENEMY",550,40);
 
-if(enemy.hp <= 0){
+if(enemy.hp<=0){
 
 score += 20;
-coins += 50;
 
-updateHUD();
+alert("🏆 YOU WIN");
 
-winGame();
-
-return;
+restartGame();
 
 }
 
-if(fighter.hp <= 0){
+if(fighter.hp<=0){
 
-gameOver();
+alert("💀 YOU LOST");
 
-return;
+restartGame();
 
 }
 
-animationId =
+animation =
 requestAnimationFrame(updateCombat);
 
 }
 
-/* ================================= */
-/* SNAKE */
-/* ================================= */
-
-let snake;
-let food;
-let dx;
-let dy;
-
-function initSnake(){
-
-snake = [{x:10,y:10}];
-
-food = {
-x:15,
-y:15
-};
-
-dx = 1;
-dy = 0;
-
-}
-
-function updateSnake(){
-
-ctx.fillStyle="#111827";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.font="30px Arial";
-
-snake.forEach(part=>{
-ctx.fillText(
-"🟢",
-part.x*20,
-part.y*20
-);
-});
-
-ctx.fillText(
-"🍎",
-food.x*20,
-food.y*20
-);
-
-let head = {
-x:snake[0].x + dx,
-y:snake[0].y + dy
-};
-
-snake.unshift(head);
-
-if(head.x===food.x &&
-head.y===food.y){
-
-food = {
-x:Math.floor(Math.random()*40),
-y:Math.floor(Math.random()*20)
-};
-
-score++;
-coins += 2;
-
-updateHUD();
-
-}else{
-
-snake.pop();
-
-}
-
-if(
-head.x < 0 ||
-head.y < 0 ||
-head.x > 44 ||
-head.y > 24
-){
-gameOver();
-return;
-}
-
-animationId =
-setTimeout(updateSnake,100);
-
-}
-
-/* ================================= */
-/* MEMORY */
-/* ================================= */
-
-let cards = [];
-let flipped = [];
-
-function initMemory(){
-
-cards = ["🐶","🐶","🐱","🐱","🐼","🐼","🐸","🐸"]
-.sort(()=>Math.random()-0.5);
-
-flipped = [];
-
-drawMemory();
-
-}
-
-function drawMemory(){
-
-ctx.fillStyle="#111827";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-for(let i=0;i<8;i++){
-
-let x = 180 + (i%4)*120;
-let y = 120 + Math.floor(i/4)*140;
-
-ctx.fillStyle="#1e293b";
-ctx.fillRect(x,y,100,100);
-
-ctx.fillStyle="white";
-ctx.font="50px Arial";
-
-if(flipped.includes(i)){
-ctx.fillText(cards[i],x+20,y+65);
-}else{
-ctx.fillText("❓",x+20,y+65);
-}
-
-}
-
-}
-
-canvas.addEventListener("click",e=>{
-
-if(currentGame !== "memory") return;
-
-const rect = canvas.getBoundingClientRect();
-
-const mx = e.clientX - rect.left;
-const my = e.clientY - rect.top;
-
-for(let i=0;i<8;i++){
-
-let x = 180 + (i%4)*120;
-let y = 120 + Math.floor(i/4)*140;
-
-if(mx>x && mx<x+100 &&
-my>y && my<y+100){
-
-if(flipped.includes(i)) return;
-
-flipped.push(i);
-
-drawMemory();
-
-if(flipped.length % 2 === 0){
-
-let a = flipped[flipped.length-1];
-let b = flipped[flipped.length-2];
-
-if(cards[a] !== cards[b]){
-
-setTimeout(()=>{
-
-flipped =
-flipped.filter(v=>v!==a && v!==b);
-
-drawMemory();
-
-},700);
-
-}else{
-
-score++;
-coins += 10;
-
-updateHUD();
-
-if(score >= 4){
-winGame();
-}
-
-}
-
-}
-
-}
-
-}
-
-});
-
-/* ================================= */
-/* ANIMAL RACING */
-/* ================================= */
-
-let racers = [];
+/* ========================= */
+/* RACING */
+/* ========================= */
+
+let car;
 
 function initRacing(){
 
-racers = [
+document.getElementById("gameTitle")
+.innerHTML = "🏎️ TURBO RACING";
 
-{
-x:50,
-y:120,
-emoji:"🐎",
-speed:Math.random()*3+2
-},
+car = {
 
-{
-x:50,
-y:220,
-emoji:"🐅",
-speed:Math.random()*3+2
-},
-
-{
-x:50,
-y:320,
-emoji:"🐕",
-speed:Math.random()*3+2
-},
-
-{
-x:50,
+x:450,
 y:420,
-emoji:"🐆",
-speed:Math.random()*3+2
-}
+w:100,
+h:100
 
-];
+};
+
+updateRacing();
 
 }
 
 function updateRacing(){
 
 ctx.fillStyle="#111827";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillRect(0,0,1000,550);
 
-ctx.fillStyle="white";
-ctx.fillRect(820,0,10,500);
+ctx.fillStyle="#374151";
+ctx.fillRect(250,0,500,550);
 
-ctx.font="60px Arial";
+ctx.strokeStyle="white";
+ctx.lineWidth=8;
 
-racers.forEach(r=>{
+for(let i=0;i<20;i++){
 
-r.x += r.speed;
+ctx.beginPath();
 
-ctx.fillText(
-r.emoji,
-r.x,
-r.y
-);
-
-if(r.x >= 760){
-
-score += 10;
-coins += 20;
-
-updateHUD();
-
-winGame();
-
-return;
+ctx.moveTo(500,i*60);
+ctx.lineTo(500,i*60+30);
+ctx.stroke();
 
 }
 
-});
+ctx.drawImage(
+carImg,
+car.x,
+car.y,
+car.w,
+car.h
+);
 
-animationId =
+if(keys.ArrowLeft){
+car.x -= 5;
+}
+
+if(keys.ArrowRight){
+car.x += 5;
+}
+
+score += .03;
+
+updateHUD();
+
+animation =
 requestAnimationFrame(updateRacing);
 
 }
 
-/* ================================= */
-/* SYSTEM */
-/* ================================= */
-
-function launchGame(type){
-
-stopGame();
-
-score = 0;
-level = 1;
-
-updateHUD();
-
-currentGame = type;
-
-if(type === "space"){
-
-document.getElementById("gameTitle").innerHTML =
-"🚀 Space Dodge";
-
-initSpace();
-
-updateSpace();
-
-}
-
-if(type === "combat"){
-
-document.getElementById("gameTitle").innerHTML =
-"⚔️ Cyber Combat";
-
-initCombat();
-
-updateCombat();
-
-}
-
-if(type === "snake"){
-
-document.getElementById("gameTitle").innerHTML =
-"🐍 Snake";
-
-initSnake();
-
-updateSnake();
-
-}
-
-if(type === "memory"){
-
-document.getElementById("gameTitle").innerHTML =
-"🧠 Memory";
-
-initMemory();
-
-}
-
-if(type === "racing"){
-
-document.getElementById("gameTitle").innerHTML =
-"🏁 Animal Racing";
-
-initRacing();
-
-updateRacing();
-
-}
-
-}
-
-function gameOver(){
-
-stopGame();
-
-if(score > highScore){
-
-highScore = score;
-
-localStorage.setItem(
-"jackieHigh",
-highScore
-);
-
-document.getElementById("highScore")
-.textContent = highScore;
-
-}
-
-document.getElementById("overlay")
-.classList.remove("hidden");
-
-document.getElementById("overlayTitle")
-.innerHTML = "💀 GAME OVER";
-
-document.getElementById("overlayText")
-.innerHTML = "Score: " + score;
-
-}
-
-function winGame(){
-
-stopGame();
-
-document.getElementById("overlay")
-.classList.remove("hidden");
-
-document.getElementById("overlayTitle")
-.innerHTML = "🏆 YOU WIN";
-
-document.getElementById("overlayText")
-.innerHTML = "Champion Victory!";
-
-}
-
-function restartGame(){
-
-document.getElementById("overlay")
-.classList.add("hidden");
-
-launchGame(currentGame);
-
-}
-
-/* ================================= */
+/* ========================= */
 /* MOBILE */
-/* ================================= */
+/* ========================= */
 
 function mobileMove(dir){
 
-if(currentGame === "space"){
-
-if(dir==="left") player.x -= 40;
-if(dir==="right") player.x += 40;
-
-}
-
-if(currentGame === "combat"){
-
-if(dir==="left") fighter.x -= 30;
-if(dir==="right") fighter.x += 30;
-
-}
-
-if(currentGame === "snake"){
-
-if(dir==="up"){
-dx=0;
-dy=-1;
-}
-
-if(dir==="down"){
-dx=0;
-dy=1;
-}
+if(game==="space"){
 
 if(dir==="left"){
-dx=-1;
-dy=0;
+ship.x -= 25;
 }
 
 if(dir==="right"){
-dx=1;
-dy=0;
+ship.x += 25;
+}
+
+}
+
+if(game==="combat"){
+
+if(dir==="left"){
+fighter.x -= 25;
+}
+
+if(dir==="right"){
+fighter.x += 25;
+}
+
+}
+
+if(game==="snake"){
+
+if(dir==="up" && dy===0){
+dx=0;dy=-1;
+}
+
+if(dir==="down" && dy===0){
+dx=0;dy=1;
+}
+
+if(dir==="left" && dx===0){
+dx=-1;dy=0;
+}
+
+if(dir==="right" && dx===0){
+dx=1;dy=0;
+}
+
+}
+
+if(game==="racing"){
+
+if(dir==="left"){
+car.x -= 25;
+}
+
+if(dir==="right"){
+car.x += 25;
 }
 
 }
 
 }
-
-window.addEventListener("keydown",e=>{
-
-if(currentGame !== "snake") return;
-
-if(e.key==="ArrowUp"){
-dx=0;
-dy=-1;
-}
-
-if(e.key==="ArrowDown"){
-dx=0;
-dy=1;
-}
-
-if(e.key==="ArrowLeft"){
-dx=-1;
-dy=0;
-}
-
-if(e.key==="ArrowRight"){
-dx=1;
-dy=0;
-}
-
-});
-
-/* ================================= */
-/* START */
-/* ================================= */
-
-launchGame("space");
 
 </script>
 
