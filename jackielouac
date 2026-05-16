@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PlayVerse • Arcade Platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JACKIELOUCADLUM • Ultimate Arcade Universe</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
@@ -17,13 +16,9 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
-background:#060816;
+font-family:Arial,sans-serif;
+background:#050816;
 overflow-x:hidden;
 color:white;
 }
@@ -33,10 +28,10 @@ content:"";
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at top left,#2563eb55,transparent 25%),
-radial-gradient(circle at bottom right,#9333ea55,transparent 25%),
+radial-gradient(circle at top left,#2563eb55,transparent 30%),
+radial-gradient(circle at bottom right,#9333ea55,transparent 30%),
 linear-gradient(135deg,#050816,#0f172a,#111827);
-z-index:-2;
+z-index:-1;
 }
 
 .glass{
@@ -44,53 +39,12 @@ background:rgba(255,255,255,.06);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
-box-shadow:0 8px 32px rgba(0,0,0,.35);
 }
 
-.card{
-transition:.35s ease;
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 30px rgba(59,130,246,.25);
-}
-
-.gradient-text{
+.gradient{
 background:linear-gradient(to right,#60a5fa,#a855f7);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-}
-
-.game-btn{
-padding:14px 22px;
-border-radius:18px;
-font-weight:700;
-transition:.3s ease;
-}
-
-.game-btn:hover{
-transform:scale(1.04);
-}
-
-.hero-bg{
-background:
-radial-gradient(circle at top left,#2563eb55,transparent 25%),
-radial-gradient(circle at bottom right,#9333ea55,transparent 25%);
-}
-
-.chat-box{
-height:260px;
-overflow-y:auto;
-}
-
-.chat-box::-webkit-scrollbar{
-width:6px;
-}
-
-.chat-box::-webkit-scrollbar-thumb{
-background:#2563eb;
-border-radius:999px;
 }
 
 canvas{
@@ -101,24 +55,30 @@ max-width:100%;
 border:1px solid rgba(255,255,255,.08);
 }
 
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.hidden{
+display:none;
+}
+
 .mobile-controls{
 display:none;
 }
 
-.subscription-badge{
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.05)}
-100%{transform:scale(1)}
-}
-
 @media(max-width:768px){
+
 .mobile-controls{
 display:flex;
 }
+
 }
 
 </style>
@@ -126,219 +86,140 @@ display:flex;
 
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 
-<nav class="fixed top-0 w-full z-50 glass">
-<div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-
-<div>
-<h1 class="text-3xl font-black gradient-text">🎮 PlayVerse</h1>
-<p class="text-xs text-gray-400 tracking-[3px] uppercase mt-1">Arcade • Multiplayer • Mobile Ready</p>
-</div>
-
-<div class="flex items-center gap-4">
-
-<button class="glass px-5 py-3 rounded-2xl text-sm font-semibold subscription-badge">
-💎 Premium ₱1 / Day
-</button>
-
-<button onclick="openSubscription()"
-class="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-2xl font-bold transition">
-Subscribe
-</button>
-
-</div>
-
-</div>
-</nav>
-
-<!-- HERO -->
-
-<section class="min-h-screen flex items-center hero-bg px-6 pt-32 pb-16">
-<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+<nav class="fixed top-0 w-full z-50 glass p-5 flex justify-between items-center">
 
 <div>
 
-<p class="uppercase tracking-[5px] text-blue-400 text-sm mb-4">
-Mobile & Web Gaming Platform
-</p>
-
-<h1 class="text-6xl md:text-7xl font-black leading-tight">
-Play Games.
-<br>
-Chat.
-<br>
-<span class="gradient-text">Compete Online.</span>
+<h1 class="text-3xl md:text-5xl font-black gradient">
+⚡ JACKIELOUCADLUM
 </h1>
 
-<p class="text-gray-300 text-lg leading-9 mt-8 max-w-2xl">
-A futuristic iOS-inspired arcade platform where players can play mini games, join free play rooms, chat with friends, and unlock premium features for only ₱1 per day.
+<p class="text-gray-400 text-sm mt-2">
+Ultimate Arcade Combat Universe
 </p>
 
-<div class="flex flex-wrap gap-5 mt-10">
+</div>
 
-<button onclick="scrollToGames()"
-class="game-btn bg-blue-600 hover:bg-blue-700">
-🎮 Free Play
+<button onclick="showPremium()"
+class="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-2xl font-bold">
+💎 Premium
 </button>
 
-<button onclick="openChat()"
-class="game-btn bg-white text-black hover:bg-gray-200">
-💬 Open Chat
-</button>
+</nav>
 
-</div>
+<!-- MAIN -->
 
-<div class="grid grid-cols-3 gap-5 mt-12">
+<section class="pt-36 pb-16 px-6">
 
-<div class="glass rounded-3xl p-5 text-center">
-<h2 class="text-3xl font-black text-blue-400">4</h2>
-<p class="text-gray-400 mt-2 text-sm">Mini Games</p>
-</div>
+<div class="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
 
-<div class="glass rounded-3xl p-5 text-center">
-<h2 class="text-3xl font-black text-purple-400">Live</h2>
-<p class="text-gray-400 mt-2 text-sm">Chat Rooms</p>
-</div>
+<!-- GAME -->
 
-<div class="glass rounded-3xl p-5 text-center">
-<h2 class="text-3xl font-black text-pink-400">₱1</h2>
-<p class="text-gray-400 mt-2 text-sm">Daily Premium</p>
-</div>
+<div class="lg:col-span-2 glass rounded-[35px] p-6">
 
-</div>
-
-</div>
-
-<div class="glass rounded-[40px] p-8 card">
-
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-bold">🔥 Trending Games</h2>
-<div class="text-sm text-green-400">● Online</div>
-</div>
-
-<div class="space-y-5">
-
-<div class="glass rounded-3xl p-5 flex justify-between items-center">
-<div>
-<h3 class="font-bold text-xl">🚀 Space Dodge</h3>
-<p class="text-gray-400 mt-1">Arcade Survival</p>
-</div>
-<button onclick="launchGame('space')"
-class="bg-blue-600 px-5 py-3 rounded-2xl font-bold">
-Play
-</button>
-</div>
-
-<div class="glass rounded-3xl p-5 flex justify-between items-center">
-<div>
-<h3 class="font-bold text-xl">🐍 Neon Snake</h3>
-<p class="text-gray-400 mt-1">Classic Mobile Game</p>
-</div>
-<button onclick="launchGame('snake')"
-class="bg-purple-600 px-5 py-3 rounded-2xl font-bold">
-Play
-</button>
-</div>
-
-<div class="glass rounded-3xl p-5 flex justify-between items-center">
-<div>
-<h3 class="font-bold text-xl">🧠 Memory Flip</h3>
-<p class="text-gray-400 mt-1">Brain Challenge</p>
-</div>
-<button onclick="launchMemory()"
-class="bg-pink-600 px-5 py-3 rounded-2xl font-bold">
-Play
-</button>
-</div>
-
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- GAMES -->
-
-<section id="games" class="py-24 px-6">
-<div class="max-w-7xl mx-auto">
-
-<div class="text-center mb-16">
-<p class="uppercase tracking-[4px] text-blue-400 mb-4">
-Playable Games
-</p>
-
-<h2 class="text-5xl font-black">
-Arcade
-<span class="gradient-text">Gaming Hub</span>
-</h2>
-</div>
-
-<div class="grid lg:grid-cols-3 gap-10">
-
-<!-- GAME AREA -->
-
-<div class="lg:col-span-2 glass rounded-[40px] p-8">
-
-<div class="flex flex-wrap justify-between gap-5 items-center mb-8">
+<div class="flex flex-wrap gap-4 justify-between items-center mb-8">
 
 <div>
-<h2 id="gameTitle" class="text-3xl font-black gradient-text">
+
+<h2 id="gameTitle"
+class="text-4xl md:text-5xl font-black gradient">
 🚀 Space Dodge
 </h2>
-<p class="text-gray-400 mt-2">
-Use keyboard arrows or mobile controls.
+
+<p class="text-gray-400 mt-3">
+Fight bosses. Race animals. Battle enemies.
 </p>
+
 </div>
 
-<div class="flex gap-3 flex-wrap">
-<button onclick="launchGame('space')" class="bg-blue-600 px-5 py-3 rounded-2xl font-bold">
-Space Dodge
+<div class="flex flex-wrap gap-3">
+
+<button onclick="launchGame('space')"
+class="bg-blue-600 px-5 py-3 rounded-2xl font-bold">
+🚀 Space
 </button>
 
-<button onclick="launchGame('snake')" class="bg-purple-600 px-5 py-3 rounded-2xl font-bold">
-Snake
+<button onclick="launchGame('combat')"
+class="bg-red-600 px-5 py-3 rounded-2xl font-bold">
+⚔️ Combat
 </button>
 
-<button onclick="launchMemory()" class="bg-pink-600 px-5 py-3 rounded-2xl font-bold">
-Memory
+<button onclick="launchGame('snake')"
+class="bg-green-600 px-5 py-3 rounded-2xl font-bold">
+🐍 Snake
 </button>
+
+<button onclick="launchGame('memory')"
+class="bg-pink-600 px-5 py-3 rounded-2xl font-bold">
+🧠 Memory
+</button>
+
+<button onclick="launchGame('racing')"
+class="bg-yellow-500 text-black px-5 py-3 rounded-2xl font-bold">
+🏁 Racing
+</button>
+
 </div>
 
 </div>
 
 <canvas id="gameCanvas" width="900" height="500"></canvas>
 
-<div class="mobile-controls justify-center gap-4 mt-6">
+<!-- MOBILE -->
 
-<button onclick="moveLeft()"
+<div class="mobile-controls justify-center gap-4 mt-6 flex-wrap">
+
+<button onclick="mobileMove('left')"
 class="glass w-16 h-16 rounded-2xl text-2xl">
 ⬅️
 </button>
 
-<button onclick="moveRight()"
+<button onclick="mobileMove('up')"
+class="glass w-16 h-16 rounded-2xl text-2xl">
+⬆️
+</button>
+
+<button onclick="mobileMove('right')"
 class="glass w-16 h-16 rounded-2xl text-2xl">
 ➡️
 </button>
 
+<button onclick="mobileMove('down')"
+class="glass w-16 h-16 rounded-2xl text-2xl">
+⬇️
+</button>
+
+<button onclick="attackAction()"
+class="bg-red-600 w-16 h-16 rounded-2xl text-xl">
+⚔️
+</button>
+
 </div>
 
-<div class="grid md:grid-cols-3 gap-5 mt-8">
+<!-- STATS -->
 
-<div class="glass rounded-3xl p-5 text-center">
-<h3 class="text-gray-400 text-sm">Score</h3>
-<p id="score" class="text-3xl font-black text-blue-400 mt-2">0</p>
+<div class="grid md:grid-cols-4 gap-4 mt-8">
+
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400 text-sm">Score</p>
+<h3 id="score" class="text-3xl font-black text-blue-400">0</h3>
 </div>
 
-<div class="glass rounded-3xl p-5 text-center">
-<h3 class="text-gray-400 text-sm">High Score</h3>
-<p id="highScore" class="text-3xl font-black text-purple-400 mt-2">0</p>
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400 text-sm">Level</p>
+<h3 id="level" class="text-3xl font-black text-purple-400">1</h3>
 </div>
 
-<div class="glass rounded-3xl p-5 text-center">
-<h3 class="text-gray-400 text-sm">Players Online</h3>
-<p class="text-3xl font-black text-pink-400 mt-2">1,284</p>
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400 text-sm">Coins</p>
+<h3 id="coins" class="text-3xl font-black text-yellow-400">0</h3>
+</div>
+
+<div class="glass rounded-2xl p-5 text-center">
+<p class="text-gray-400 text-sm">High Score</p>
+<h3 id="highScore" class="text-3xl font-black text-pink-400">0</h3>
 </div>
 
 </div>
@@ -347,125 +228,155 @@ class="glass w-16 h-16 rounded-2xl text-2xl">
 
 <!-- CHAT -->
 
-<div class="glass rounded-[40px] p-6 h-fit">
+<div class="glass rounded-[35px] p-6">
 
 <div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-black">💬 Global Chat</h2>
-<div class="text-green-400 text-sm">● Connected</div>
+
+<h2 class="text-3xl font-black">
+💬 Global Chat
+</h2>
+
+<div class="text-green-400">
+● Online
 </div>
 
-<div id="chatBox" class="chat-box space-y-4 pr-2">
+</div>
+
+<div id="chatBox"
+class="space-y-4 h-[300px] overflow-y-auto pr-2">
 
 <div class="glass rounded-2xl p-4">
 <p class="text-blue-400 font-bold">Alex</p>
-<p class="text-gray-300 mt-1">Anyone playing Space Dodge? 🚀</p>
+<p>Combat boss is impossible 🔥</p>
 </div>
 
 <div class="glass rounded-2xl p-4">
 <p class="text-purple-400 font-bold">Mika</p>
-<p class="text-gray-300 mt-1">Snake game is addictive 🔥</p>
+<p>I won the animal race 🏁</p>
 </div>
 
 </div>
 
-<div class="mt-5 flex gap-3">
+<div class="flex gap-3 mt-5">
+
 <input id="chatInput"
-type="text"
-placeholder="Type a message..."
+placeholder="Type message..."
 class="flex-1 bg-white/10 border border-white/10 rounded-2xl px-4 py-4 outline-none text-white">
 
 <button onclick="sendMessage()"
 class="bg-blue-600 px-5 rounded-2xl font-bold">
 Send
 </button>
+
 </div>
 
-<div class="mt-8 glass rounded-3xl p-5 text-center">
-<h3 class="text-xl font-black gradient-text">
-💎 Premium Membership
+<div class="glass rounded-3xl p-5 mt-8 text-center">
+
+<h3 class="text-2xl font-black gradient">
+💎 Premium
 </h3>
 
-<p class="text-gray-300 mt-3 leading-8 text-sm">
-Unlock multiplayer rooms, custom profile badges, exclusive games, voice chat, and no ads.
+<p class="text-gray-300 mt-4">
+Unlock multiplayer, secret bosses, skins and voice chat.
 </p>
 
-<button onclick="openSubscription()"
-class="mt-5 w-full bg-gradient-to-r from-blue-600 to-purple-600 py-4 rounded-2xl font-bold text-lg">
-Subscribe ₱1 / Day
+<button onclick="showPremium()"
+class="mt-5 bg-gradient-to-r from-blue-600 to-purple-600 py-4 rounded-2xl w-full font-bold">
+Subscribe
 </button>
-</div>
 
 </div>
 
 </div>
 
 </div>
+
 </section>
 
-<!-- FEATURES -->
+<!-- OVERLAY -->
 
-<section class="py-24 px-6">
-<div class="max-w-7xl mx-auto">
+<div id="overlay" class="overlay hidden">
 
-<div class="text-center mb-16">
-<p class="uppercase tracking-[4px] text-blue-400 mb-4">
-Features
-</p>
+<div class="glass rounded-3xl p-10 text-center max-w-md">
 
-<h2 class="text-5xl font-black">
-Built for
-<span class="gradient-text">Mobile & Web</span>
+<h2 id="overlayTitle"
+class="text-5xl font-black mb-5">
+GAME OVER
 </h2>
-</div>
 
-<div class="grid md:grid-cols-4 gap-8">
-
-<div class="glass rounded-[35px] p-8 card text-center">
-<div class="text-5xl mb-6">🎮</div>
-<h3 class="text-2xl font-black">Arcade Games</h3>
-<p class="text-gray-400 mt-4 leading-8">
-Playable browser games.
+<p id="overlayText"
+class="text-gray-300 mb-8">
+Try Again
 </p>
-</div>
 
-<div class="glass rounded-[35px] p-8 card text-center">
-<div class="text-5xl mb-6">💬</div>
-<h3 class="text-2xl font-black">Live Chat</h3>
-<p class="text-gray-400 mt-4 leading-8">
-Community conversations.
-</p>
-</div>
-
-<div class="glass rounded-[35px] p-8 card text-center">
-<div class="text-5xl mb-6">📱</div>
-<h3 class="text-2xl font-black">Responsive UI</h3>
-<p class="text-gray-400 mt-4 leading-8">
-Works on phones & desktop.
-</p>
-</div>
-
-<div class="glass rounded-[35px] p-8 card text-center">
-<div class="text-5xl mb-6">💎</div>
-<h3 class="text-2xl font-black">Premium Access</h3>
-<p class="text-gray-400 mt-4 leading-8">
-₱1 daily subscription.
-</p>
-</div>
+<button onclick="restartGame()"
+class="bg-blue-600 px-8 py-4 rounded-2xl text-xl font-bold">
+Restart
+</button>
 
 </div>
 
 </div>
-</section>
-
-<!-- FOOTER -->
-
-<footer class="border-t border-white/10 py-10 text-center text-gray-500">
-
-© 2026 PlayVerse • iOS Style Arcade Platform
-
-</footer>
 
 <script>
+
+/* ================================= */
+/* GLOBAL */
+/* ================================= */
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let currentGame = "space";
+let animationId;
+
+let score = 0;
+let level = 1;
+let coins = 0;
+
+let highScore = localStorage.getItem("jackieHigh") || 0;
+
+document.getElementById("highScore").textContent =
+highScore;
+
+/* ================================= */
+/* IMAGES */
+/* ================================= */
+
+const heroImg = new Image();
+heroImg.src =
+"https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
+
+const enemyImg = new Image();
+enemyImg.src =
+"https://cdn-icons-png.flaticon.com/512/3523/3523063.png";
+
+const bossImg = new Image();
+bossImg.src =
+"https://cdn-icons-png.flaticon.com/512/616/616554.png";
+
+const carImg = new Image();
+carImg.src =
+"https://cdn-icons-png.flaticon.com/512/744/744465.png";
+
+/* ================================= */
+/* HUD */
+/* ================================= */
+
+function updateHUD(){
+
+document.getElementById("score").textContent = score;
+document.getElementById("level").textContent = level;
+document.getElementById("coins").textContent = coins;
+
+}
+
+function stopGame(){
+
+cancelAnimationFrame(animationId);
+clearTimeout(animationId);
+
+}
 
 /* ================================= */
 /* CHAT */
@@ -473,174 +384,385 @@ Works on phones & desktop.
 
 function sendMessage(){
 
-const input = document.getElementById('chatInput');
-const chatBox = document.getElementById('chatBox');
+const input =
+document.getElementById("chatInput");
 
-if(input.value.trim() === '') return;
+if(input.value.trim() === "") return;
 
-const div = document.createElement('div');
+const div = document.createElement("div");
 
-div.className = 'glass rounded-2xl p-4';
+div.className =
+"glass rounded-2xl p-4";
 
 div.innerHTML = `
-<p class="text-blue-400 font-bold">You</p>
-<p class="text-gray-300 mt-1">${input.value}</p>
+<p class="text-pink-400 font-bold">You</p>
+<p>${input.value}</p>
 `;
 
+const chatBox =
+document.getElementById("chatBox");
+
 chatBox.appendChild(div);
+
 chatBox.scrollTop = chatBox.scrollHeight;
 
-input.value = '';
+input.value = "";
 
 }
 
-function openSubscription(){
-alert('Premium Subscription Activated Demo\n\n₱1 per day\n\nFeatures:\n• Multiplayer Rooms\n• Exclusive Games\n• Premium Badge\n• Voice Chat');
+function showPremium(){
+
+alert(
+"💎 PREMIUM DEMO\n\n" +
+"• Multiplayer\n" +
+"• Secret Bosses\n" +
+"• Voice Chat\n" +
+"• Exclusive Skins"
+);
+
 }
 
-function openChat(){
-document.getElementById('chatInput').focus();
-}
-
-function scrollToGames(){
-document.getElementById('games').scrollIntoView({behavior:'smooth'});
-}
-
 /* ================================= */
-/* GAME ENGINE */
+/* KEYBOARD */
 /* ================================= */
-
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-
-let currentGame = 'space';
-let score = 0;
-let highScore = localStorage.getItem('highscore') || 0;
-
-document.getElementById('highScore').textContent = highScore;
-
-/* ================================= */
-/* SPACE DODGE */
-/* ================================= */
-
-let player = {
-x:420,
-y:430,
-width:60,
-height:60,
-speed:8
-};
-
-let obstacles = [];
 
 let keys = {};
 
-window.addEventListener('keydown', e => {
-keys[e.key] = true;
+window.addEventListener("keydown",e=>{
+keys[e.key]=true;
 });
 
-window.addEventListener('keyup', e => {
-keys[e.key] = false;
+window.addEventListener("keyup",e=>{
+keys[e.key]=false;
 });
 
-function moveLeft(){
-player.x -= 40;
+/* ================================= */
+/* SPACE GAME */
+/* ================================= */
+
+let player;
+let obstacles;
+let boss;
+
+function initSpace(){
+
+player = {
+x:420,
+y:420,
+w:60,
+h:60,
+speed:8
+};
+
+obstacles = [];
+boss = null;
+
 }
 
-function moveRight(){
-player.x += 40;
-}
+function spawnObstacle(){
 
-function createObstacle(){
 obstacles.push({
-x:Math.random() * (canvas.width - 50),
+x:Math.random()*850,
 y:-50,
-size:50,
-speed:4 + Math.random()*3
+w:40,
+h:40,
+speed:4 + level
 });
+
 }
 
-setInterval(() => {
-if(currentGame === 'space'){
-createObstacle();
-}
-},1000);
-
-function updateSpaceGame(){
+function updateSpace(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle = '#0f172a';
+ctx.fillStyle="#0f172a";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-if(keys['ArrowLeft']) player.x -= player.speed;
-if(keys['ArrowRight']) player.x += player.speed;
+if(keys["ArrowLeft"]) player.x -= player.speed;
+if(keys["ArrowRight"]) player.x += player.speed;
 
-player.x = Math.max(0, Math.min(canvas.width-player.width, player.x));
+ctx.drawImage(
+heroImg,
+player.x,
+player.y,
+player.w,
+player.h
+);
 
-ctx.fillStyle = '#3b82f6';
-ctx.fillRect(player.x,player.y,player.width,player.height);
+if(Math.random()<0.03){
+spawnObstacle();
+}
 
-ctx.fillStyle = '#ef4444';
-
-obstacles.forEach((o,index) => {
+obstacles.forEach((o,index)=>{
 
 o.y += o.speed;
 
-ctx.fillRect(o.x,o.y,o.size,o.size);
+ctx.fillStyle="#ef4444";
+ctx.beginPath();
+ctx.arc(o.x,o.y,20,0,Math.PI*2);
+ctx.fill();
 
 if(
-player.x < o.x + o.size &&
-player.x + player.width > o.x &&
-player.y < o.y + o.size &&
-player.y + player.height > o.y
+player.x < o.x + 20 &&
+player.x + player.w > o.x &&
+player.y < o.y + 20 &&
+player.y + player.h > o.y
 ){
-
-alert('Game Over! Score: ' + score);
-
-if(score > highScore){
-localStorage.setItem('highscore',score);
-document.getElementById('highScore').textContent = score;
-}
-
-score = 0;
-obstacles = [];
+gameOver();
 }
 
 if(o.y > canvas.height){
+
 obstacles.splice(index,1);
+
 score++;
-document.getElementById('score').textContent = score;
+coins += 5;
+
+if(score % 10 === 0){
+level++;
+}
+
+if(level >= 3 && !boss){
+
+boss = {
+x:300,
+y:80,
+w:180,
+h:180,
+dir:5
+};
+
+}
+
+updateHUD();
+
 }
 
 });
 
-requestAnimationFrame(updateSpaceGame);
+if(boss){
+
+ctx.drawImage(
+bossImg,
+boss.x,
+boss.y,
+boss.w,
+boss.h
+);
+
+boss.x += boss.dir;
+
+if(boss.x < 0 || boss.x > 700){
+boss.dir *= -1;
+}
+
+if(
+player.x < boss.x + boss.w &&
+player.x + player.w > boss.x &&
+player.y < boss.y + boss.h &&
+player.y + player.h > boss.y
+){
+gameOver();
+}
+
+if(score >= 35){
+
+winGame();
+
+return;
+
+}
+
+}
+
+animationId =
+requestAnimationFrame(updateSpace);
 
 }
 
 /* ================================= */
-/* SNAKE GAME */
+/* COMBAT */
 /* ================================= */
 
-let snake = [{x:10,y:10}];
-let food = {x:15,y:15};
-let dx = 1;
-let dy = 0;
+let fighter;
+let enemy;
+let attack = false;
 
-function drawSnake(){
+function initCombat(){
 
-ctx.fillStyle = '#0f172a';
+fighter = {
+x:100,
+y:350,
+w:80,
+h:80,
+hp:100
+};
+
+enemy = {
+x:650,
+y:350,
+w:100,
+h:100,
+hp:100
+};
+
+}
+
+function attackAction(){
+attack = true;
+}
+
+function updateCombat(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#111827";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle = '#22c55e';
+ctx.fillStyle="#1e293b";
+ctx.fillRect(0,430,900,70);
 
-snake.forEach(part => {
-ctx.fillRect(part.x*20, part.y*20,18,18);
+ctx.drawImage(
+heroImg,
+fighter.x,
+fighter.y,
+fighter.w,
+fighter.h
+);
+
+ctx.drawImage(
+enemyImg,
+enemy.x,
+enemy.y,
+enemy.w,
+enemy.h
+);
+
+if(keys["ArrowLeft"]) fighter.x -= 6;
+if(keys["ArrowRight"]) fighter.x += 6;
+
+if(keys[" "] || attack){
+
+ctx.fillStyle="yellow";
+
+ctx.beginPath();
+
+ctx.arc(
+fighter.x + 70,
+fighter.y + 20,
+20,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+if(
+fighter.x + fighter.w > enemy.x &&
+fighter.x < enemy.x + enemy.w
+){
+
+enemy.hp -= 1;
+
+}
+
+attack = false;
+
+}
+
+if(enemy.x > fighter.x){
+enemy.x -= 2;
+}else{
+enemy.x += 2;
+}
+
+if(
+enemy.x < fighter.x + fighter.w &&
+enemy.x + enemy.w > fighter.x
+){
+fighter.hp -= 0.15;
+}
+
+ctx.fillStyle="red";
+ctx.fillRect(40,40,fighter.hp*2,20);
+
+ctx.fillRect(450,40,enemy.hp*2,20);
+
+ctx.fillStyle="white";
+ctx.font="bold 18px Arial";
+
+ctx.fillText("PLAYER HP",40,30);
+ctx.fillText("BOSS HP",450,30);
+
+if(enemy.hp <= 0){
+
+score += 20;
+coins += 50;
+
+updateHUD();
+
+winGame();
+
+return;
+
+}
+
+if(fighter.hp <= 0){
+
+gameOver();
+
+return;
+
+}
+
+animationId =
+requestAnimationFrame(updateCombat);
+
+}
+
+/* ================================= */
+/* SNAKE */
+/* ================================= */
+
+let snake;
+let food;
+let dx;
+let dy;
+
+function initSnake(){
+
+snake = [{x:10,y:10}];
+
+food = {
+x:15,
+y:15
+};
+
+dx = 1;
+dy = 0;
+
+}
+
+function updateSnake(){
+
+ctx.fillStyle="#111827";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.font="30px Arial";
+
+snake.forEach(part=>{
+ctx.fillText(
+"🟢",
+part.x*20,
+part.y*20
+);
 });
 
-ctx.fillStyle = '#ef4444';
-ctx.fillRect(food.x*20,food.y*20,18,18);
+ctx.fillText(
+"🍎",
+food.x*20,
+food.y*20
+);
 
 let head = {
 x:snake[0].x + dx,
@@ -649,15 +771,23 @@ y:snake[0].y + dy
 
 snake.unshift(head);
 
-if(head.x === food.x && head.y === food.y){
+if(head.x===food.x &&
+head.y===food.y){
+
 food = {
-x:Math.floor(Math.random()*30),
+x:Math.floor(Math.random()*40),
 y:Math.floor(Math.random()*20)
 };
+
 score++;
-document.getElementById('score').textContent = score;
+coins += 2;
+
+updateHUD();
+
 }else{
+
 snake.pop();
+
 }
 
 if(
@@ -666,123 +796,403 @@ head.y < 0 ||
 head.x > 44 ||
 head.y > 24
 ){
-alert('Snake Game Over!');
-score = 0;
-snake = [{x:10,y:10}];
+gameOver();
+return;
+}
+
+animationId =
+setTimeout(updateSnake,100);
+
+}
+
+/* ================================= */
+/* MEMORY */
+/* ================================= */
+
+let cards = [];
+let flipped = [];
+
+function initMemory(){
+
+cards = ["🐶","🐶","🐱","🐱","🐼","🐼","🐸","🐸"]
+.sort(()=>Math.random()-0.5);
+
+flipped = [];
+
+drawMemory();
+
+}
+
+function drawMemory(){
+
+ctx.fillStyle="#111827";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+for(let i=0;i<8;i++){
+
+let x = 180 + (i%4)*120;
+let y = 120 + Math.floor(i/4)*140;
+
+ctx.fillStyle="#1e293b";
+ctx.fillRect(x,y,100,100);
+
+ctx.fillStyle="white";
+ctx.font="50px Arial";
+
+if(flipped.includes(i)){
+ctx.fillText(cards[i],x+20,y+65);
+}else{
+ctx.fillText("❓",x+20,y+65);
 }
 
 }
 
-window.addEventListener('keydown', e => {
-if(currentGame !== 'snake') return;
-
-if(e.key === 'ArrowUp'){
-dx = 0;
-dy = -1;
 }
 
-if(e.key === 'ArrowDown'){
-dx = 0;
-dy = 1;
+canvas.addEventListener("click",e=>{
+
+if(currentGame !== "memory") return;
+
+const rect = canvas.getBoundingClientRect();
+
+const mx = e.clientX - rect.left;
+const my = e.clientY - rect.top;
+
+for(let i=0;i<8;i++){
+
+let x = 180 + (i%4)*120;
+let y = 120 + Math.floor(i/4)*140;
+
+if(mx>x && mx<x+100 &&
+my>y && my<y+100){
+
+if(flipped.includes(i)) return;
+
+flipped.push(i);
+
+drawMemory();
+
+if(flipped.length % 2 === 0){
+
+let a = flipped[flipped.length-1];
+let b = flipped[flipped.length-2];
+
+if(cards[a] !== cards[b]){
+
+setTimeout(()=>{
+
+flipped =
+flipped.filter(v=>v!==a && v!==b);
+
+drawMemory();
+
+},700);
+
+}else{
+
+score++;
+coins += 10;
+
+updateHUD();
+
+if(score >= 4){
+winGame();
 }
 
-if(e.key === 'ArrowLeft'){
-dx = -1;
-dy = 0;
 }
 
-if(e.key === 'ArrowRight'){
-dx = 1;
-dy = 0;
+}
+
+}
+
 }
 
 });
 
-let snakeLoop;
-
 /* ================================= */
-/* MEMORY GAME */
+/* ANIMAL RACING */
 /* ================================= */
 
-function launchMemory(){
+let racers = [];
 
-currentGame = 'memory';
+function initRacing(){
 
-document.getElementById('gameTitle').innerHTML = '🧠 Memory Flip';
+racers = [
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+{
+x:50,
+y:120,
+emoji:"🐎",
+speed:Math.random()*3+2
+},
 
-ctx.fillStyle = '#111827';
+{
+x:50,
+y:220,
+emoji:"🐅",
+speed:Math.random()*3+2
+},
+
+{
+x:50,
+y:320,
+emoji:"🐕",
+speed:Math.random()*3+2
+},
+
+{
+x:50,
+y:420,
+emoji:"🐆",
+speed:Math.random()*3+2
+}
+
+];
+
+}
+
+function updateRacing(){
+
+ctx.fillStyle="#111827";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle = 'white';
-ctx.font = 'bold 40px sans-serif';
-ctx.fillText('Memory Game Demo',250,200);
+ctx.fillStyle="white";
+ctx.fillRect(820,0,10,500);
 
-ctx.font = '24px sans-serif';
-ctx.fillText('Tap cards feature can be expanded.',250,260);
+ctx.font="60px Arial";
+
+racers.forEach(r=>{
+
+r.x += r.speed;
+
+ctx.fillText(
+r.emoji,
+r.x,
+r.y
+);
+
+if(r.x >= 760){
+
+score += 10;
+coins += 20;
+
+updateHUD();
+
+winGame();
+
+return;
+
+}
+
+});
+
+animationId =
+requestAnimationFrame(updateRacing);
 
 }
 
 /* ================================= */
-/* SWITCH GAME */
+/* SYSTEM */
 /* ================================= */
 
 function launchGame(type){
 
-currentGame = type;
+stopGame();
+
 score = 0;
-document.getElementById('score').textContent = score;
+level = 1;
 
-if(type === 'space'){
+updateHUD();
 
-document.getElementById('gameTitle').innerHTML = '🚀 Space Dodge';
-updateSpaceGame();
+currentGame = type;
 
-}
+if(type === "space"){
 
-if(type === 'snake'){
+document.getElementById("gameTitle").innerHTML =
+"🚀 Space Dodge";
 
-document.getElementById('gameTitle').innerHTML = '🐍 Neon Snake';
+initSpace();
 
-clearInterval(snakeLoop);
-
-snakeLoop = setInterval(() => {
-drawSnake();
-},100);
+updateSpace();
 
 }
 
+if(type === "combat"){
+
+document.getElementById("gameTitle").innerHTML =
+"⚔️ Cyber Combat";
+
+initCombat();
+
+updateCombat();
+
 }
 
-launchGame('space');
+if(type === "snake"){
+
+document.getElementById("gameTitle").innerHTML =
+"🐍 Snake";
+
+initSnake();
+
+updateSnake();
+
+}
+
+if(type === "memory"){
+
+document.getElementById("gameTitle").innerHTML =
+"🧠 Memory";
+
+initMemory();
+
+}
+
+if(type === "racing"){
+
+document.getElementById("gameTitle").innerHTML =
+"🏁 Animal Racing";
+
+initRacing();
+
+updateRacing();
+
+}
+
+}
+
+function gameOver(){
+
+stopGame();
+
+if(score > highScore){
+
+highScore = score;
+
+localStorage.setItem(
+"jackieHigh",
+highScore
+);
+
+document.getElementById("highScore")
+.textContent = highScore;
+
+}
+
+document.getElementById("overlay")
+.classList.remove("hidden");
+
+document.getElementById("overlayTitle")
+.innerHTML = "💀 GAME OVER";
+
+document.getElementById("overlayText")
+.innerHTML = "Score: " + score;
+
+}
+
+function winGame(){
+
+stopGame();
+
+document.getElementById("overlay")
+.classList.remove("hidden");
+
+document.getElementById("overlayTitle")
+.innerHTML = "🏆 YOU WIN";
+
+document.getElementById("overlayText")
+.innerHTML = "Champion Victory!";
+
+}
+
+function restartGame(){
+
+document.getElementById("overlay")
+.classList.add("hidden");
+
+launchGame(currentGame);
+
+}
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+function mobileMove(dir){
+
+if(currentGame === "space"){
+
+if(dir==="left") player.x -= 40;
+if(dir==="right") player.x += 40;
+
+}
+
+if(currentGame === "combat"){
+
+if(dir==="left") fighter.x -= 30;
+if(dir==="right") fighter.x += 30;
+
+}
+
+if(currentGame === "snake"){
+
+if(dir==="up"){
+dx=0;
+dy=-1;
+}
+
+if(dir==="down"){
+dx=0;
+dy=1;
+}
+
+if(dir==="left"){
+dx=-1;
+dy=0;
+}
+
+if(dir==="right"){
+dx=1;
+dy=0;
+}
+
+}
+
+}
+
+window.addEventListener("keydown",e=>{
+
+if(currentGame !== "snake") return;
+
+if(e.key==="ArrowUp"){
+dx=0;
+dy=-1;
+}
+
+if(e.key==="ArrowDown"){
+dx=0;
+dy=1;
+}
+
+if(e.key==="ArrowLeft"){
+dx=-1;
+dy=0;
+}
+
+if(e.key==="ArrowRight"){
+dx=1;
+dy=0;
+}
+
+});
+
+/* ================================= */
+/* START */
+/* ================================= */
+
+launchGame("space");
 
 </script>
 
 </body>
 </html>
-```
-
-## Features Included
-
-* Jackie #1 Sample in the world
-* Mobile & desktop responsive
-* Free Play gaming section
-* Live chat simulation
-* Space Dodge playable game
-* Snake game playable
-* Memory game section
-* Premium subscription popup (₱1/day)
-* Local storage high score
-* Mobile touch controls
-* Glassmorphism design
-* Tailwind CSS based
-* Single file copy-paste setup
-
-## To Run
-
-1. Save as `index.html`
-2. Put inside your folder
-3. Open in browser
-4. Upload to hosting or GitHub Pages
-5. Replace demo chat & subscription with backend/API later
