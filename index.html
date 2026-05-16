@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 
-<title>Jackie & Gelic Arcade Universe X</title>
+<title>🎮 Jackie & Gelic #1 Arcade Universe X</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -17,38 +17,22 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-width:100%;
-min-height:100%;
-overflow-x:hidden;
-overflow-y:auto;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:#020617;
-color:white;
-scroll-behavior:smooth;
-touch-action:manipulation;
-}
-
 body{
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:
-radial-gradient(circle at top,#2563eb55,transparent 25%),
-radial-gradient(circle at bottom,#9333ea55,transparent 25%),
+radial-gradient(circle at top,#2563eb44,transparent 30%),
+radial-gradient(circle at bottom,#9333ea44,transparent 30%),
 linear-gradient(135deg,#020617,#0f172a,#111827);
-animation:bgmove 12s infinite alternate;
-}
-
-@keyframes bgmove{
-from{filter:hue-rotate(0deg);}
-to{filter:hue-rotate(25deg);}
+min-height:100vh;
+overflow-x:hidden;
+color:white;
 }
 
 .glass{
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.07);
+backdrop-filter:blur(24px);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-box-shadow:
-0 10px 40px rgba(0,0,0,.4),
-inset 0 0 20px rgba(255,255,255,.03);
+box-shadow:0 10px 40px rgba(0,0,0,.4);
 }
 
 .gradient{
@@ -58,78 +42,44 @@ background:linear-gradient(90deg,#60a5fa,#a855f7,#ec4899);
 }
 
 .card{
-position:relative;
-overflow:hidden;
-transition:.35s;
+transition:.3s;
 cursor:pointer;
 }
 
 .card:hover{
-transform:translateY(-8px) scale(1.02);
-}
-
-.card::before{
-content:'';
-position:absolute;
-top:-100%;
-left:-100%;
-width:200%;
-height:200%;
-background:
-linear-gradient(
-45deg,
-transparent,
-rgba(255,255,255,.12),
-transparent
-);
-transform:rotate(25deg);
-transition:.8s;
-}
-
-.card:hover::before{
-top:100%;
-left:100%;
+transform:translateY(-6px) scale(1.03);
 }
 
 .btn{
 padding:14px 24px;
 border-radius:20px;
-font-weight:800;
+font-weight:900;
 transition:.2s;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
 .btn:hover{
-transform:translateY(-4px);
+transform:translateY(-3px);
 }
 
 canvas{
 width:100%;
 max-width:1200px;
-height:600px;
+height:620px;
 display:block;
 margin:auto;
-border-radius:28px;
 background:#000;
+border-radius:28px;
 border:2px solid rgba(255,255,255,.08);
 box-shadow:
-0 0 50px rgba(96,165,250,.2),
-0 0 100px rgba(168,85,247,.12);
-touch-action:none;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
+0 0 50px rgba(59,130,246,.2),
+0 0 100px rgba(168,85,247,.15);
 }
 
 .mobile-controls{
 display:flex;
 justify-content:center;
-align-items:center;
+margin-top:20px;
 gap:18px;
-margin-top:25px;
 flex-wrap:wrap;
 }
 
@@ -143,49 +93,34 @@ gap:10px;
 .control-btn{
 width:80px;
 height:80px;
-border-radius:22px;
-border:1px solid rgba(255,255,255,.08);
+border-radius:24px;
 background:rgba(255,255,255,.08);
 backdrop-filter:blur(20px);
-font-size:30px;
-font-weight:900;
+border:1px solid rgba(255,255,255,.08);
 display:flex;
 align-items:center;
 justify-content:center;
-color:white;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-transition:.15s;
-user-select:none;
+font-size:28px;
 }
 
 .control-btn:active{
-transform:scale(.88);
-background:rgba(255,255,255,.18);
+transform:scale(.9);
 }
 
 .empty{
 visibility:hidden;
 }
 
-.footer{
-opacity:.7;
-font-size:14px;
-text-align:center;
-margin-top:30px;
-padding-bottom:20px;
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:18px;
 }
 
 @media(max-width:768px){
 
 canvas{
-height:330px;
-border-radius:20px;
-}
-
-.control-btn{
-width:70px;
-height:70px;
-font-size:28px;
+height:340px;
 }
 
 .control-pad{
@@ -193,12 +128,14 @@ grid-template-columns:70px 70px 70px;
 grid-template-rows:70px 70px 70px;
 }
 
-h1{
-font-size:38px !important;
+.control-btn{
+width:70px;
+height:70px;
+font-size:24px;
 }
 
-.btn{
-width:100%;
+h1{
+font-size:40px !important;
 }
 
 }
@@ -208,6 +145,8 @@ width:100%;
 
 <body>
 
+<!-- MENU -->
+
 <section id="menu" class="min-h-screen flex items-center justify-center p-4">
 
 <div class="glass rounded-[40px] p-6 w-full max-w-7xl">
@@ -215,72 +154,84 @@ width:100%;
 <div class="text-center">
 
 <h1 class="text-7xl font-black gradient">
-🎮 HD ARCADE UNIVERSE X
+🎮 JACKIE & GELIC ARCADE
 </h1>
 
 <p class="text-gray-300 text-xl mt-4">
-Ultra Smooth Arcade Experience
+IOS ULTRA HD GAME COLLECTION
 </p>
 
 <p class="text-gray-500 mt-2">
-Mobile + Desktop Optimized
+Laptop + Mobile Friendly
 </p>
 
 </div>
 
-<div class="grid md:grid-cols-3 gap-5 mt-10">
+<div class="grid md:grid-cols-4 gap-5 mt-10">
 
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('space')">
-<img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🚀 Space Escape</h2>
+<div class="text-7xl">🚀</div>
+<h2 class="text-3xl font-black mt-4">Space Escape</h2>
 <p class="text-gray-400 mt-2">Dodge meteors</p>
-<button class="btn bg-blue-600 mt-5 w-full">PLAY NOW</button>
+<button class="btn bg-blue-600 mt-5 w-full">PLAY</button>
 </div>
 
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('car')">
-<img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🏎️ Car Rush</h2>
+<div class="text-7xl">🏎️</div>
+<h2 class="text-3xl font-black mt-4">Car Rush</h2>
 <p class="text-gray-400 mt-2">Avoid traffic</p>
-<button class="btn bg-pink-600 mt-5 w-full">PLAY NOW</button>
-</div>
-
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('shooter')">
-<img src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">⚔️ Shooter</h2>
-<p class="text-gray-400 mt-2">Destroy enemies</p>
-<button class="btn bg-purple-600 mt-5 w-full">PLAY NOW</button>
-</div>
-
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('runner')">
-<img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🏃 Runner</h2>
-<p class="text-gray-400 mt-2">Jump obstacles</p>
-<button class="btn bg-green-600 mt-5 w-full">PLAY NOW</button>
-</div>
-
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('brick')">
-<img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🧱 Brick Breaker</h2>
-<p class="text-gray-400 mt-2">Classic arcade</p>
-<button class="btn bg-orange-500 mt-5 w-full">PLAY NOW</button>
+<button class="btn bg-pink-600 mt-5 w-full">PLAY</button>
 </div>
 
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('snake')">
-<img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🐍 Snake</h2>
-<p class="text-gray-400 mt-2">Eat and grow</p>
-<button class="btn bg-cyan-600 mt-5 w-full">PLAY NOW</button>
+<div class="text-7xl">🐍</div>
+<h2 class="text-3xl font-black mt-4">Snake</h2>
+<p class="text-gray-400 mt-2">Smooth snake</p>
+<button class="btn bg-green-600 mt-5 w-full">PLAY</button>
 </div>
 
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('tetris')">
+<div class="text-7xl">🟦</div>
+<h2 class="text-3xl font-black mt-4">Tetris</h2>
+<p class="text-gray-400 mt-2">Working tetris</p>
+<button class="btn bg-purple-600 mt-5 w-full">PLAY</button>
 </div>
 
-<div class="footer">
-Made with ❤️ for Jackie & Gelic
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('fruit')">
+<div class="text-7xl">🍎</div>
+<h2 class="text-3xl font-black mt-4">Fruit Catch</h2>
+<p class="text-gray-400 mt-2">Catch fruits</p>
+<button class="btn bg-red-500 mt-5 w-full">PLAY</button>
+</div>
+
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('brick')">
+<div class="text-7xl">🧱</div>
+<h2 class="text-3xl font-black mt-4">Brick Breaker</h2>
+<p class="text-gray-400 mt-2">Break blocks</p>
+<button class="btn bg-orange-500 mt-5 w-full">PLAY</button>
+</div>
+
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('runner')">
+<div class="text-7xl">🏃</div>
+<h2 class="text-3xl font-black mt-4">Runner</h2>
+<p class="text-gray-400 mt-2">Jump obstacles</p>
+<button class="btn bg-cyan-600 mt-5 w-full">PLAY</button>
+</div>
+
+<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('shooter')">
+<div class="text-7xl">⚔️</div>
+<h2 class="text-3xl font-black mt-4">Shooter</h2>
+<p class="text-gray-400 mt-2">Destroy enemies</p>
+<button class="btn bg-yellow-500 text-black mt-5 w-full">PLAY</button>
+</div>
+
 </div>
 
 </div>
 
 </section>
+
+<!-- GAME -->
 
 <section id="game" class="hidden p-4 min-h-screen">
 
@@ -315,7 +266,7 @@ Smooth Gameplay
 
 </div>
 
-<canvas id="canvas" width="1200" height="600"></canvas>
+<canvas id="canvas" width="1200" height="620"></canvas>
 
 <div class="mobile-controls">
 
@@ -351,8 +302,8 @@ ontouchend="releaseKey('ArrowRight')">
 
 </div>
 
-<button class="control-btn"
-style="width:90px;height:90px;background:#ef4444;"
+<button class="control-btn bg-red-500"
+style="width:90px;height:90px;"
 ontouchstart="shoot()">
 🔥
 </button>
@@ -377,8 +328,10 @@ ontouchstart="shoot()">
 </div>
 
 <div class="glass rounded-3xl p-5 text-center">
-<p class="text-gray-400">Mode</p>
-<h2 id="mode" class="text-3xl font-black text-yellow-400">ARCADE</h2>
+<p class="text-gray-400">Controls</p>
+<h2 class="text-xl font-black text-yellow-400">
+⌨️ Keyboard + Touch
+</h2>
 </div>
 
 </div>
@@ -389,8 +342,8 @@ ontouchstart="shoot()">
 
 <script>
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
 
 let animation;
 let paused=false;
@@ -399,45 +352,160 @@ let currentGame="space";
 let score=0;
 let lives=3;
 
-let best=localStorage.getItem("hdArcadeBest")||0;
-document.getElementById("best").textContent=best;
+let best=localStorage.getItem("arcadeBest")||0;
+document.getElementById("best").innerText=best;
+
+const keys={};
 
 const player={
 x:550,
 y:500,
 w:70,
 h:70,
-speed:3,
+speed:5,
 dy:0,
 jumping:false
 };
 
 let meteors=[];
-let cars=[];
+let traffic=[];
 let enemies=[];
 let bullets=[];
-let particles=[];
 let obstacles=[];
+let fruits=[];
 let bricks=[];
+
+let snake=[{x:10,y:10}];
+let snakeDir="RIGHT";
+let snakeFood={x:15,y:10};
+let snakeTick=0;
 
 let ball={
 x:600,
 y:400,
-dx:2.5,
-dy:-2.5,
-r:10
+dx:3,
+dy:-3,
+r:12
 };
 
-let snake=[{x:10,y:10}];
-let food={x:15,y:10};
-let snakeDir="RIGHT";
-let snakeTimer=0;
+/* TETRIS */
 
-let keys={};
-let lastShoot=0;
+const COLS=10;
+const ROWS=20;
+const BLOCK=28;
 
-const ship=new Image();
-ship.src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
+let board=[];
+let piece;
+let dropCounter=0;
+
+const SHAPES=[
+[[1,1],[1,1]],
+[[1,1,1,1]],
+[[1,1,1],[0,1,0]],
+[[1,1,0],[0,1,1]]
+];
+
+function initTetris(){
+
+board=[];
+
+for(let r=0;r<ROWS;r++){
+
+board[r]=[];
+
+for(let c=0;c<COLS;c++){
+
+board[r][c]=0;
+
+}
+
+}
+
+spawnPiece();
+
+}
+
+function spawnPiece(){
+
+piece={
+shape:SHAPES[Math.floor(Math.random()*SHAPES.length)],
+x:3,
+y:0,
+color:[
+"#3b82f6",
+"#22c55e",
+"#f59e0b",
+"#ec4899"
+][Math.floor(Math.random()*4)]
+};
+
+}
+
+function drawBackground(){
+
+ctx.fillStyle="#000";
+ctx.fillRect(0,0,1200,620);
+
+for(let i=0;i<30;i++){
+
+ctx.fillStyle="rgba(255,255,255,.5)";
+
+ctx.fillRect(
+Math.random()*1200,
+Math.random()*620,
+2,
+2
+);
+
+}
+
+}
+
+function updateUI(){
+
+document.getElementById("score").innerText=score;
+document.getElementById("best").innerText=best;
+document.getElementById("lives").innerText=lives;
+
+}
+
+function addScore(v=1){
+
+score+=v;
+
+if(score>best){
+
+best=score;
+
+localStorage.setItem("arcadeBest",best);
+
+}
+
+updateUI();
+
+}
+
+function damage(){
+
+lives--;
+
+navigator.vibrate?.(100);
+
+updateUI();
+
+if(lives<=0){
+
+setTimeout(()=>{
+
+alert("💀 GAME OVER\n\nScore: "+score);
+
+restartGame();
+
+},100);
+
+}
+
+}
 
 function startGame(type){
 
@@ -450,11 +518,11 @@ score=0;
 lives=3;
 
 meteors=[];
-cars=[];
+traffic=[];
 enemies=[];
 bullets=[];
-particles=[];
 obstacles=[];
+fruits=[];
 
 player.x=550;
 player.y=500;
@@ -462,126 +530,22 @@ player.dy=0;
 player.jumping=false;
 
 snake=[{x:10,y:10}];
-food={x:15,y:10};
+snakeDir="RIGHT";
+snakeFood={x:15,y:10};
 
 createBricks();
+initTetris();
 
 updateUI();
 
-const names={
-space:"🚀 SPACE ESCAPE",
-car:"🏎️ CAR RUSH",
-shooter:"⚔️ SHOOTER",
-runner:"🏃 RUNNER",
-brick:"🧱 BRICK BREAKER",
-snake:"🐍 SNAKE"
-};
-
-document.getElementById("gameTitle").innerHTML=names[type];
-document.getElementById("mode").innerHTML=type.toUpperCase();
-
-cancelAnimationFrame(animation);
+document.getElementById("gameTitle").innerHTML=
+type.toUpperCase();
 
 paused=false;
 
+cancelAnimationFrame(animation);
+
 gameLoop();
-
-}
-
-function updateUI(){
-
-document.getElementById("score").textContent=score;
-document.getElementById("best").textContent=best;
-document.getElementById("lives").textContent=lives;
-
-}
-
-function addScore(v=1){
-
-score+=v;
-
-if(score>best){
-
-best=score;
-
-localStorage.setItem("hdArcadeBest",best);
-
-}
-
-updateUI();
-
-}
-
-function createExplosion(x,y,color="#fff"){
-
-for(let i=0;i<20;i++){
-
-particles.push({
-x,
-y,
-dx:(Math.random()-.5)*5,
-dy:(Math.random()-.5)*5,
-size:Math.random()*4+2,
-life:35,
-color
-});
-
-}
-
-}
-
-function drawBackground(){
-
-let bg=ctx.createLinearGradient(0,0,0,600);
-
-bg.addColorStop(0,"#020617");
-bg.addColorStop(1,"#111827");
-
-ctx.fillStyle=bg;
-ctx.fillRect(0,0,1200,600);
-
-for(let i=0;i<60;i++){
-
-ctx.globalAlpha=Math.random();
-
-ctx.fillStyle="white";
-
-ctx.fillRect(
-Math.random()*1200,
-Math.random()*600,
-2,
-2
-);
-
-}
-
-ctx.globalAlpha=1;
-
-}
-
-function drawPlayer(){
-
-if(currentGame==="car"){
-
-ctx.fillStyle="#06b6d4";
-ctx.fillRect(player.x,player.y,player.w,player.h);
-
-}else if(currentGame==="runner"){
-
-ctx.fillStyle="#22c55e";
-ctx.fillRect(player.x,player.y,player.w,player.h);
-
-}else{
-
-ctx.drawImage(
-ship,
-player.x,
-player.y,
-player.w,
-player.h
-);
-
-}
 
 }
 
@@ -591,61 +555,70 @@ if(paused) return;
 
 drawBackground();
 
-if(keys["ArrowLeft"]){
-player.x-=player.speed;
+switch(currentGame){
+
+case "space":
+spaceGame();
+break;
+
+case "car":
+carGame();
+break;
+
+case "snake":
+snakeGame();
+break;
+
+case "tetris":
+tetrisGame();
+break;
+
+case "fruit":
+fruitGame();
+break;
+
+case "brick":
+brickGame();
+break;
+
+case "runner":
+runnerGame();
+break;
+
+case "shooter":
+shooterGame();
+break;
+
 }
-
-if(keys["ArrowRight"]){
-player.x+=player.speed;
-}
-
-if(keys["ArrowUp"] && currentGame==="snake"){
-if(snakeDir!=="DOWN") snakeDir="UP";
-}
-
-if(keys["ArrowDown"] && currentGame==="snake"){
-if(snakeDir!=="UP") snakeDir="DOWN";
-}
-
-if(keys["ArrowLeft"] && currentGame==="snake"){
-if(snakeDir!=="RIGHT") snakeDir="LEFT";
-}
-
-if(keys["ArrowRight"] && currentGame==="snake"){
-if(snakeDir!=="LEFT") snakeDir="RIGHT";
-}
-
-player.x=Math.max(
-0,
-Math.min(1120,player.x)
-);
-
-if(currentGame!=="snake"){
-drawPlayer();
-}
-
-if(currentGame==="space") spaceGame();
-if(currentGame==="car") carGame();
-if(currentGame==="shooter") shooterGame();
-if(currentGame==="runner") runnerGame();
-if(currentGame==="brick") brickGame();
-if(currentGame==="snake") snakeGame();
-
-drawParticles();
 
 animation=requestAnimationFrame(gameLoop);
 
 }
 
+/* PLAYER */
+
+function movePlayer(){
+
+if(keys["ArrowLeft"]) player.x-=player.speed;
+if(keys["ArrowRight"]) player.x+=player.speed;
+
+player.x=Math.max(0,Math.min(1130,player.x));
+
+}
+
+/* SPACE */
+
 function spaceGame(){
 
-if(Math.random()<0.008){
+ctx.font="60px Arial";
+ctx.fillText("🚀",player.x,player.y);
+
+if(Math.random()<0.01){
 
 meteors.push({
 x:Math.random()*1150,
-y:-50,
-r:18+Math.random()*12,
-speed:1.5+Math.random()*1.2
+y:-20,
+speed:2
 });
 
 }
@@ -654,28 +627,15 @@ meteors.forEach((m,index)=>{
 
 m.y+=m.speed;
 
-let glow=ctx.createRadialGradient(
-m.x,m.y,5,
-m.x,m.y,m.r
-);
-
-glow.addColorStop(0,"#fca5a5");
-glow.addColorStop(1,"#ef4444");
-
-ctx.fillStyle=glow;
-
-ctx.beginPath();
-ctx.arc(m.x,m.y,m.r,0,Math.PI*2);
-ctx.fill();
+ctx.font="45px Arial";
+ctx.fillText("☄️",m.x,m.y);
 
 if(
-player.x < m.x+m.r &&
-player.x+player.w > m.x-m.r &&
-player.y < m.y+m.r &&
-player.y+player.h > m.y-m.r
+player.x<m.x+40 &&
+player.x+50>m.x &&
+player.y<m.y+40 &&
+player.y+50>m.y
 ){
-
-createExplosion(m.x,m.y,"red");
 
 meteors.splice(index,1);
 
@@ -693,54 +653,57 @@ addScore();
 
 });
 
+movePlayer();
+
 }
+
+/* CAR */
 
 function carGame(){
 
-ctx.fillStyle="#222";
-ctx.fillRect(350,0,500,600);
+ctx.fillStyle="#2d2d2d";
+ctx.fillRect(300,0,600,620);
 
 ctx.strokeStyle="#fff";
 ctx.lineWidth=6;
 
-for(let i=0;i<600;i+=70){
+for(let i=0;i<620;i+=80){
 
 ctx.beginPath();
-ctx.moveTo(600,i+(Date.now()/30)%70);
-ctx.lineTo(600,i+40+(Date.now()/30)%70);
+ctx.moveTo(600,i+(Date.now()/15)%80);
+ctx.lineTo(600,i+40+(Date.now()/15)%80);
 ctx.stroke();
 
 }
 
-if(Math.random()<0.008){
+ctx.font="60px Arial";
+ctx.fillText("🏎️",player.x,550);
 
-cars.push({
-x:[400,520,650,760][Math.floor(Math.random()*4)],
-y:-100,
-w:70,
-h:100,
-speed:2.5
+if(Math.random()<0.012){
+
+traffic.push({
+x:[360,500,650,790][Math.floor(Math.random()*4)],
+y:-80,
+speed:3
 });
 
 }
 
-cars.forEach((c,index)=>{
+traffic.forEach((c,index)=>{
 
 c.y+=c.speed;
 
-ctx.fillStyle="#ef4444";
-ctx.fillRect(c.x,c.y,c.w,c.h);
+ctx.font="60px Arial";
+ctx.fillText("🚗",c.x,c.y);
 
 if(
-player.x < c.x+c.w &&
-player.x+player.w > c.x &&
-player.y < c.y+c.h &&
-player.y+player.h > c.y
+player.x<c.x+50 &&
+player.x+50>c.x &&
+520<c.y+50 &&
+570>c.y
 ){
 
-createExplosion(c.x,c.y,"orange");
-
-cars.splice(index,1);
+traffic.splice(index,1);
 
 damage();
 
@@ -748,7 +711,7 @@ damage();
 
 if(c.y>700){
 
-cars.splice(index,1);
+traffic.splice(index,1);
 
 addScore();
 
@@ -756,18 +719,457 @@ addScore();
 
 });
 
+movePlayer();
+
 }
+
+/* SNAKE */
+
+function snakeGame(){
+
+snakeTick++;
+
+if(snakeTick<15) return;
+
+snakeTick=0;
+
+ctx.fillStyle="#000";
+ctx.fillRect(0,0,1200,620);
+
+let head={...snake[0]};
+
+if(keys["ArrowUp"]&&snakeDir!=="DOWN") snakeDir="UP";
+if(keys["ArrowDown"]&&snakeDir!=="UP") snakeDir="DOWN";
+if(keys["ArrowLeft"]&&snakeDir!=="RIGHT") snakeDir="LEFT";
+if(keys["ArrowRight"]&&snakeDir!=="LEFT") snakeDir="RIGHT";
+
+if(snakeDir==="RIGHT") head.x++;
+if(snakeDir==="LEFT") head.x--;
+if(snakeDir==="UP") head.y--;
+if(snakeDir==="DOWN") head.y++;
+
+if(head.x<0) head.x=29;
+if(head.x>29) head.x=0;
+if(head.y<0) head.y=14;
+if(head.y>14) head.y=0;
+
+for(let s of snake){
+
+if(s.x===head.x&&s.y===head.y){
+
+damage();
+
+snake=[{x:10,y:10}];
+
+return;
+
+}
+
+}
+
+snake.unshift(head);
+
+if(head.x===snakeFood.x&&head.y===snakeFood.y){
+
+snakeFood={
+x:Math.floor(Math.random()*30),
+y:Math.floor(Math.random()*15)
+};
+
+addScore();
+
+}else{
+
+snake.pop();
+
+}
+
+snake.forEach((s,index)=>{
+
+ctx.fillStyle=index===0?"#4ade80":"#22c55e";
+
+ctx.fillRect(s.x*40,s.y*40,38,38);
+
+});
+
+ctx.font="34px Arial";
+ctx.fillText(
+"🍎",
+snakeFood.x*40,
+snakeFood.y*40+30
+);
+
+}
+
+/* TETRIS */
+
+function tetrisGame(){
+
+ctx.fillStyle="#111";
+ctx.fillRect(450,20,COLS*BLOCK,ROWS*BLOCK);
+
+dropCounter++;
+
+if(dropCounter>35){
+
+piece.y++;
+
+if(checkCollision()){
+
+piece.y--;
+
+mergePiece();
+
+clearLines();
+
+spawnPiece();
+
+}
+
+dropCounter=0;
+
+}
+
+drawBoard();
+
+drawPiece();
+
+}
+
+function drawBoard(){
+
+for(let r=0;r<ROWS;r++){
+
+for(let c=0;c<COLS;c++){
+
+ctx.strokeStyle="#222";
+
+ctx.strokeRect(
+450+c*BLOCK,
+20+r*BLOCK,
+BLOCK,
+BLOCK
+);
+
+if(board[r][c]){
+
+ctx.fillStyle=board[r][c];
+
+ctx.fillRect(
+450+c*BLOCK,
+20+r*BLOCK,
+BLOCK,
+BLOCK
+);
+
+}
+
+}
+
+}
+
+}
+
+function drawPiece(){
+
+ctx.fillStyle=piece.color;
+
+for(let r=0;r<piece.shape.length;r++){
+
+for(let c=0;c<piece.shape[r].length;c++){
+
+if(piece.shape[r][c]){
+
+ctx.fillRect(
+450+(piece.x+c)*BLOCK,
+20+(piece.y+r)*BLOCK,
+BLOCK,
+BLOCK
+);
+
+}
+
+}
+
+}
+
+}
+
+function checkCollision(){
+
+for(let r=0;r<piece.shape.length;r++){
+
+for(let c=0;c<piece.shape[r].length;c++){
+
+if(piece.shape[r][c]){
+
+let newX=piece.x+c;
+let newY=piece.y+r;
+
+if(
+newX<0 ||
+newX>=COLS ||
+newY>=ROWS ||
+(board[newY]&&board[newY][newX])
+){
+
+return true;
+
+}
+
+}
+
+}
+
+}
+
+return false;
+
+}
+
+function mergePiece(){
+
+for(let r=0;r<piece.shape.length;r++){
+
+for(let c=0;c<piece.shape[r].length;c++){
+
+if(piece.shape[r][c]){
+
+board[piece.y+r][piece.x+c]=piece.color;
+
+}
+
+}
+
+}
+
+}
+
+function clearLines(){
+
+for(let r=ROWS-1;r>=0;r--){
+
+if(board[r].every(cell=>cell!==0)){
+
+board.splice(r,1);
+
+board.unshift(new Array(COLS).fill(0));
+
+addScore(10);
+
+}
+
+}
+
+}
+
+/* FRUIT */
+
+function fruitGame(){
+
+ctx.font="60px Arial";
+ctx.fillText("🧺",player.x,560);
+
+if(Math.random()<0.015){
+
+fruits.push({
+x:Math.random()*1100,
+y:-20,
+speed:2,
+emoji:["🍎","🍌","🍉","🍓"][Math.floor(Math.random()*4)]
+});
+
+}
+
+fruits.forEach((f,index)=>{
+
+f.y+=f.speed;
+
+ctx.font="40px Arial";
+ctx.fillText(f.emoji,f.x,f.y);
+
+if(
+player.x<f.x+40 &&
+player.x+60>f.x &&
+520<f.y+40 &&
+570>f.y
+){
+
+fruits.splice(index,1);
+
+addScore();
+
+}
+
+if(f.y>650){
+
+fruits.splice(index,1);
+
+damage();
+
+}
+
+});
+
+movePlayer();
+
+}
+
+/* BRICK */
+
+function createBricks(){
+
+bricks=[];
+
+for(let r=0;r<5;r++){
+
+for(let c=0;c<10;c++){
+
+bricks.push({
+x:100+c*100,
+y:60+r*40,
+alive:true
+});
+
+}
+
+}
+
+}
+
+function brickGame(){
+
+ctx.font="70px Arial";
+ctx.fillText("🟦",player.x,590);
+
+ball.x+=ball.dx;
+ball.y+=ball.dy;
+
+ctx.font="35px Arial";
+ctx.fillText("⚪",ball.x,ball.y);
+
+if(ball.x<0||ball.x>1200) ball.dx*=-1;
+if(ball.y<0) ball.dy*=-1;
+
+if(ball.y>620){
+
+ball.x=600;
+ball.y=400;
+
+damage();
+
+}
+
+if(ball.y>540&&ball.x>player.x&&ball.x<player.x+80){
+
+ball.dy=-Math.abs(ball.dy);
+
+}
+
+bricks.forEach(b=>{
+
+if(!b.alive) return;
+
+ctx.font="45px Arial";
+ctx.fillText("🧱",b.x,b.y+30);
+
+if(
+ball.x>b.x &&
+ball.x<b.x+60 &&
+ball.y>b.y &&
+ball.y<b.y+30
+){
+
+b.alive=false;
+
+ball.dy*=-1;
+
+addScore();
+
+}
+
+});
+
+movePlayer();
+
+}
+
+/* RUNNER */
+
+function runnerGame(){
+
+ctx.fillStyle="#444";
+ctx.fillRect(0,570,1200,50);
+
+ctx.font="60px Arial";
+ctx.fillText("🏃",player.x,player.y+60);
+
+player.dy+=0.4;
+player.y+=player.dy;
+
+if(player.y>500){
+
+player.y=500;
+player.dy=0;
+player.jumping=false;
+
+}
+
+if(Math.random()<0.01){
+
+obstacles.push({
+x:1200,
+speed:4
+});
+
+}
+
+obstacles.forEach((o,index)=>{
+
+o.x-=o.speed;
+
+ctx.font="50px Arial";
+ctx.fillText("🪨",o.x,560);
+
+if(
+player.x<o.x+40 &&
+player.x+40>o.x &&
+player.y+60>520
+){
+
+damage();
+
+obstacles.splice(index,1);
+
+}
+
+if(o.x<-100){
+
+obstacles.splice(index,1);
+
+addScore();
+
+}
+
+});
+
+movePlayer();
+
+}
+
+/* SHOOTER */
 
 function shooterGame(){
 
-if(Math.random()<0.008){
+ctx.font="60px Arial";
+ctx.fillText("🛸",player.x,560);
+
+if(Math.random()<0.01){
 
 enemies.push({
 x:Math.random()*1100,
-y:-50,
-w:60,
-h:60,
-speed:1.3
+y:-20,
+speed:2
 });
 
 }
@@ -776,19 +1178,17 @@ enemies.forEach((e,eIndex)=>{
 
 e.y+=e.speed;
 
-ctx.fillStyle="#a855f7";
-ctx.fillRect(e.x,e.y,e.w,e.h);
+ctx.font="50px Arial";
+ctx.fillText("👾",e.x,e.y);
 
 bullets.forEach((b,bIndex)=>{
 
 if(
-b.x < e.x+e.w &&
-b.x+b.w > e.x &&
-b.y < e.y+e.h &&
-b.y+b.h > e.y
+b.x<e.x+40 &&
+b.x+20>e.x &&
+b.y<e.y+40 &&
+b.y+20>e.y
 ){
-
-createExplosion(e.x,e.y,"#a855f7");
 
 enemies.splice(eIndex,1);
 bullets.splice(bIndex,1);
@@ -811,234 +1211,20 @@ damage();
 
 bullets.forEach((b,index)=>{
 
-b.y-=5;
+b.y-=6;
 
-ctx.fillStyle="#38bdf8";
-ctx.fillRect(b.x,b.y,b.w,b.h);
+ctx.font="30px Arial";
+ctx.fillText("🔥",b.x,b.y);
 
 if(b.y<-20){
+
 bullets.splice(index,1);
-}
-
-});
-
-}
-
-function runnerGame(){
-
-ctx.fillStyle="#444";
-ctx.fillRect(0,560,1200,40);
-
-player.dy+=0.45;
-player.y+=player.dy;
-
-if(player.y>490){
-
-player.y=490;
-player.dy=0;
-player.jumping=false;
-
-}
-
-if(Math.random()<0.008){
-
-obstacles.push({
-x:1200,
-y:500,
-w:40,
-h:60,
-speed:3
-});
-
-}
-
-obstacles.forEach((o,index)=>{
-
-o.x-=o.speed;
-
-ctx.fillStyle="#ef4444";
-ctx.fillRect(o.x,o.y,o.w,o.h);
-
-if(
-player.x < o.x+o.w &&
-player.x+player.w > o.x &&
-player.y < o.y+o.h &&
-player.y+player.h > o.y
-){
-
-damage();
-
-obstacles.splice(index,1);
-
-}
-
-if(o.x<-50){
-
-obstacles.splice(index,1);
-
-addScore();
 
 }
 
 });
 
-}
-
-function createBricks(){
-
-bricks=[];
-
-for(let r=0;r<5;r++){
-
-for(let c=0;c<10;c++){
-
-bricks.push({
-x:100+c*100,
-y:60+r*40,
-w:90,
-h:30,
-alive:true
-});
-
-}
-
-}
-
-ball.x=600;
-ball.y=400;
-ball.dx=2.5;
-ball.dy=-2.5;
-
-}
-
-function brickGame(){
-
-ctx.fillStyle="#3b82f6";
-ctx.fillRect(player.x,550,160,20);
-
-ball.x+=ball.dx;
-ball.y+=ball.dy;
-
-ctx.fillStyle="#fff";
-
-ctx.beginPath();
-ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
-ctx.fill();
-
-if(ball.x<0 || ball.x>1200){
-ball.dx*=-1;
-}
-
-if(ball.y<0){
-ball.dy*=-1;
-}
-
-if(ball.y>600){
-
-damage();
-
-ball.x=600;
-ball.y=400;
-
-}
-
-if(
-ball.y+ball.r>550 &&
-ball.x>player.x &&
-ball.x<player.x+160
-){
-
-ball.dy=-Math.abs(ball.dy);
-
-}
-
-bricks.forEach(b=>{
-
-if(!b.alive) return;
-
-ctx.fillStyle="#a855f7";
-ctx.fillRect(b.x,b.y,b.w,b.h);
-
-if(
-ball.x>b.x &&
-ball.x<b.x+b.w &&
-ball.y>b.y &&
-ball.y<b.y+b.h
-){
-
-b.alive=false;
-
-ball.dy*=-1;
-
-addScore();
-
-}
-
-});
-
-}
-
-function snakeGame(){
-
-snakeTimer++;
-
-if(snakeTimer<10) return;
-
-snakeTimer=0;
-
-ctx.fillStyle="#000";
-ctx.fillRect(0,0,1200,600);
-
-let head={...snake[0]};
-
-if(snakeDir==="RIGHT") head.x++;
-if(snakeDir==="LEFT") head.x--;
-if(snakeDir==="UP") head.y--;
-if(snakeDir==="DOWN") head.y++;
-
-if(head.x<0) head.x=29;
-if(head.x>29) head.x=0;
-if(head.y<0) head.y=14;
-if(head.y>14) head.y=0;
-
-snake.unshift(head);
-
-if(head.x===food.x && head.y===food.y){
-
-food={
-x:Math.floor(Math.random()*30),
-y:Math.floor(Math.random()*15)
-};
-
-addScore();
-
-}else{
-
-snake.pop();
-
-}
-
-ctx.fillStyle="#22c55e";
-
-snake.forEach(s=>{
-
-ctx.fillRect(
-s.x*40,
-s.y*40,
-38,
-38
-);
-
-});
-
-ctx.fillStyle="#ef4444";
-
-ctx.fillRect(
-food.x*40,
-food.y*40,
-38,
-38
-);
+movePlayer();
 
 }
 
@@ -1046,77 +1232,25 @@ function shoot(){
 
 if(currentGame!=="shooter") return;
 
-let now=Date.now();
-
-if(now-lastShoot<300) return;
-
-lastShoot=now;
-
 bullets.push({
-x:player.x+35,
-y:player.y,
-w:10,
-h:25
+x:player.x+20,
+y:520
 });
 
 }
 
 function jump(){
 
-if(currentGame==="runner" && !player.jumping){
+if(currentGame==="runner"&&!player.jumping){
 
-player.dy=-9;
+player.dy=-10;
 player.jumping=true;
 
 }
 
 }
 
-function drawParticles(){
-
-particles.forEach((p,index)=>{
-
-p.x+=p.dx;
-p.y+=p.dy;
-p.life--;
-
-ctx.fillStyle=p.color;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fill();
-
-if(p.life<=0){
-particles.splice(index,1);
-}
-
-});
-
-}
-
-function damage(){
-
-lives--;
-
-updateUI();
-
-navigator.vibrate?.(120);
-
-if(lives<=0){
-
-setTimeout(()=>{
-
-alert(
-"💀 GAME OVER\n\nScore: "+score
-);
-
-restartGame();
-
-},100);
-
-}
-
-}
+/* CONTROLS */
 
 window.addEventListener("keydown",e=>{
 
@@ -1126,6 +1260,32 @@ if(e.key===" ") shoot();
 
 if(e.key==="ArrowUp") jump();
 
+if(currentGame==="tetris"){
+
+if(e.key==="ArrowLeft"){
+
+piece.x--;
+
+if(checkCollision()) piece.x++;
+
+}
+
+if(e.key==="ArrowRight"){
+
+piece.x++;
+
+if(checkCollision()) piece.x--;
+
+}
+
+if(e.key==="ArrowDown"){
+
+piece.y++;
+
+}
+
+}
+
 });
 
 window.addEventListener("keyup",e=>{
@@ -1134,19 +1294,43 @@ keys[e.key]=false;
 
 });
 
-function pressKey(key){
+function pressKey(k){
 
-keys[key]=true;
+keys[k]=true;
 
-if(key==="ArrowUp"){
-jump();
+if(k==="ArrowUp") jump();
+
+if(currentGame==="tetris"){
+
+if(k==="ArrowLeft"){
+
+piece.x--;
+
+if(checkCollision()) piece.x++;
+
+}
+
+if(k==="ArrowRight"){
+
+piece.x++;
+
+if(checkCollision()) piece.x--;
+
+}
+
+if(k==="ArrowDown"){
+
+piece.y++;
+
 }
 
 }
 
-function releaseKey(key){
+}
 
-keys[key]=false;
+function releaseKey(k){
+
+keys[k]=false;
 
 }
 
@@ -1162,11 +1346,9 @@ function goMenu(){
 
 cancelAnimationFrame(animation);
 
-document.getElementById("menu")
-.classList.remove("hidden");
+document.getElementById("menu").classList.remove("hidden");
 
-document.getElementById("game")
-.classList.add("hidden");
+document.getElementById("game").classList.add("hidden");
 
 }
 
@@ -1177,20 +1359,6 @@ paused=!paused;
 if(!paused){
 
 gameLoop();
-
-}else{
-
-ctx.fillStyle="rgba(0,0,0,.5)";
-ctx.fillRect(0,0,1200,600);
-
-ctx.fillStyle="white";
-ctx.font="bold 70px Arial";
-
-ctx.fillText(
-"PAUSED",
-420,
-300
-);
 
 }
 
