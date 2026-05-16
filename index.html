@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 
-<title>🎮 Jackie & Gelic #1 Arcade Universe X</title>
+<title>🎮 JACKIE & GELIC ARCADE ULTRA</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -17,118 +17,85 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:
-radial-gradient(circle at top left,#f472b655,transparent 30%),
-radial-gradient(circle at top right,#a855f755,transparent 30%),
-radial-gradient(circle at bottom,#ffffff22,transparent 35%),
-linear-gradient(135deg,#14051f,#2d0b45,#5b21b6,#ec4899);
+radial-gradient(circle at top left,#ec489955,transparent 30%),
+radial-gradient(circle at top right,#8b5cf655,transparent 30%),
+linear-gradient(135deg,#020617,#111827,#312e81,#7e22ce);
 min-height:100vh;
 overflow-x:hidden;
 color:white;
 }
 
 .glass{
-background:rgba(255,255,255,.10);
-backdrop-filter:blur(24px);
-border:1px solid rgba(255,255,255,.14);
-box-shadow:0 10px 40px rgba(0,0,0,.25);
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.12);
+box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
 .gradient{
-background:linear-gradient(90deg,#fff,#f9a8d4,#c084fc,#ffffff);
+background:linear-gradient(90deg,#fff,#f9a8d4,#c084fc,#fff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .card{
-transition:.35s;
+transition:.25s;
 cursor:pointer;
-overflow:hidden;
-position:relative;
-}
-
-.card::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(145deg,transparent,rgba(255,255,255,.08));
-opacity:0;
-transition:.35s;
-}
-
-.card:hover::before{
-opacity:1;
 }
 
 .card:hover{
-transform:translateY(-8px) scale(1.03);
-}
-
-.btn{
-padding:14px 24px;
-border-radius:22px;
-font-weight:900;
-transition:.25s;
-box-shadow:0 8px 20px rgba(0,0,0,.25);
-}
-
-.btn:hover{
-transform:translateY(-3px) scale(1.03);
+transform:translateY(-6px) scale(1.03);
 }
 
 canvas{
 width:100%;
-max-width:1200px;
-height:620px;
+max-width:1100px;
+aspect-ratio:16/9;
+background:#020617;
+border-radius:24px;
 display:block;
 margin:auto;
-background:
-linear-gradient(180deg,#0f172a,#020617);
-border-radius:28px;
 border:2px solid rgba(255,255,255,.08);
-box-shadow:
-0 0 50px rgba(236,72,153,.25),
-0 0 100px rgba(168,85,247,.20);
+touch-action:none;
+}
+
+.btn{
+padding:12px 18px;
+border-radius:18px;
+font-weight:800;
+transition:.2s;
+border:none;
+color:white;
+}
+
+.btn:active{
+transform:scale(.95);
 }
 
 .mobile-controls{
-display:flex;
-justify-content:center;
-align-items:center;
-margin-top:20px;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.control-pad{
 display:grid;
-grid-template-columns:80px 80px 80px;
-grid-template-rows:80px 80px 80px;
+grid-template-columns:repeat(3,70px);
 gap:10px;
+justify-content:center;
+margin-top:20px;
 }
 
 .control-btn{
-width:80px;
-height:80px;
-border-radius:24px;
+width:70px;
+height:70px;
+border:none;
+border-radius:18px;
+font-size:24px;
 background:rgba(255,255,255,.12);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.12);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-transition:.2s;
+color:white;
 }
 
 .control-btn:active{
 transform:scale(.9);
+background:#ec4899;
 }
 
 .empty{
@@ -137,46 +104,21 @@ visibility:hidden;
 
 .stats{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
-}
-
-.badge{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:10px 18px;
-border-radius:999px;
-background:rgba(255,255,255,.1);
-border:1px solid rgba(255,255,255,.1);
-font-size:14px;
-font-weight:700;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:15px;
+margin-top:18px;
 }
 
 @media(max-width:768px){
 
-canvas{
-height:360px;
-}
-
-.control-pad{
-grid-template-columns:68px 68px 68px;
-grid-template-rows:68px 68px 68px;
+h1{
+font-size:30px !important;
 }
 
 .control-btn{
-width:68px;
-height:68px;
-font-size:24px;
-}
-
-h1{
-font-size:36px !important;
-}
-
-.btn{
-padding:12px 16px;
-font-size:14px;
+width:60px;
+height:60px;
+font-size:20px;
 }
 
 }
@@ -188,84 +130,62 @@ font-size:14px;
 
 <section id="menu" class="min-h-screen flex items-center justify-center p-4">
 
-<div class="glass rounded-[40px] p-6 w-full max-w-7xl">
+<div class="glass rounded-[30px] p-5 w-full max-w-7xl">
 
 <div class="text-center">
 
-<div class="badge mb-5">
-🍎 Jackie & Gelic #1 Gemes
-</div>
+<div class="text-7xl">🎮</div>
 
-<h1 class="text-7xl font-black gradient leading-tight">
-🎮 JACKIE & GELIC ARCADE
+<h1 class="text-6xl font-black gradient mt-3">
+JACKIE & GELIC ARCADE ULTRA
 </h1>
 
-<p class="text-pink-100 text-xl mt-4">
-J&G
-</p>
-
-<p class="text-white/60 mt-2">
-Smooth Gameplay • Mobile Friendly • iPhone Style UI
+<p class="text-white/70 mt-4">
+Smooth Games • Mobile Friendly • Working Games
 </p>
 
 </div>
 
-<div class="grid md:grid-cols-4 gap-5 mt-10">
+<div class="grid md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('space')">
-<div class="text-7xl">🚀</div>
-<h2 class="text-3xl font-black mt-4">Space Escape</h2>
-<p class="text-white/70 mt-2">Fly & avoid planets</p>
-<button class="btn bg-blue-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('space')">
+<div class="text-6xl">🚀</div>
+<h2 class="text-2xl font-black mt-2">Space</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('car')">
-<div class="text-7xl">🏎️</div>
-<h2 class="text-3xl font-black mt-4">Car Rush</h2>
-<p class="text-white/70 mt-2">Real driving road</p>
-<button class="btn bg-pink-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('car')">
+<div class="text-6xl">🏎️</div>
+<h2 class="text-2xl font-black mt-2">Car</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('snake')">
-<div class="text-7xl">🐍</div>
-<h2 class="text-3xl font-black mt-4">Snake</h2>
-<p class="text-white/70 mt-2">HD smooth snake</p>
-<button class="btn bg-green-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('snake')">
+<div class="text-6xl">🐍</div>
+<h2 class="text-2xl font-black mt-2">Snake</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('tetris')">
-<div class="text-7xl">🟦</div>
-<h2 class="text-3xl font-black mt-4">Tetris</h2>
-<p class="text-white/70 mt-2">Rotate blocks</p>
-<button class="btn bg-purple-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('brick')">
+<div class="text-6xl">🧱</div>
+<h2 class="text-2xl font-black mt-2">Brick</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('fruit')">
-<div class="text-7xl">🍎</div>
-<h2 class="text-3xl font-black mt-4">Fruit Catch</h2>
-<p class="text-white/70 mt-2">Catch in basket</p>
-<button class="btn bg-red-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('pong')">
+<div class="text-6xl">🏓</div>
+<h2 class="text-2xl font-black mt-2">Pong</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('brick')">
-<div class="text-7xl">🧱</div>
-<h2 class="text-3xl font-black mt-4">Brick Breaker</h2>
-<p class="text-white/70 mt-2">Fast movement</p>
-<button class="btn bg-orange-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('combat')">
+<div class="text-6xl">⚔️</div>
+<h2 class="text-2xl font-black mt-2">Combat</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('runner')">
-<div class="text-7xl">🏃</div>
-<h2 class="text-3xl font-black mt-4">Runner</h2>
-<p class="text-white/70 mt-2">Hold jump higher</p>
-<button class="btn bg-cyan-500 mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('runner')">
+<div class="text-6xl">🏃</div>
+<h2 class="text-2xl font-black mt-2">Runner</h2>
 </div>
 
-<div class="card glass rounded-3xl p-6 text-center" onclick="startGame('shooter')">
-<div class="text-7xl">⚔️</div>
-<h2 class="text-3xl font-black mt-4">Shooter</h2>
-<p class="text-white/70 mt-2">Destroy enemies</p>
-<button class="btn bg-yellow-400 text-black mt-5 w-full">PLAY</button>
+<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('catch')">
+<div class="text-6xl">🍎</div>
+<h2 class="text-2xl font-black mt-2">Catch</h2>
 </div>
 
 </div>
@@ -276,27 +196,38 @@ Smooth Gameplay • Mobile Friendly • iPhone Style UI
 
 <section id="game" class="hidden p-4 min-h-screen">
 
-<div class="glass rounded-[35px] p-4 max-w-7xl mx-auto">
+<div class="glass rounded-[30px] p-4 max-w-7xl mx-auto">
 
-<div class="flex justify-between items-center flex-wrap gap-4 mb-5">
+<div class="flex flex-wrap gap-3 justify-between items-center mb-5">
 
 <div>
-<h1 id="gameTitle" class="text-5xl font-black gradient">
+
+<h1 id="gameTitle" class="text-4xl font-black gradient">
 GAME
 </h1>
-<p class="text-white/70 mt-2">
-🎮 Smooth Gameplay Experience
+
+<p class="text-white/60">
+Smooth Gameplay Experience
 </p>
+
 </div>
 
-<div class="flex gap-3 flex-wrap">
+<div class="flex flex-wrap gap-2">
 
 <button class="btn bg-blue-500" onclick="restartGame()">
 🔄 Restart
 </button>
 
-<button class="btn bg-yellow-400 text-black" onclick="togglePause()">
+<button class="btn bg-yellow-500 text-black" onclick="togglePause()">
 ⏸ Pause
+</button>
+
+<button class="btn bg-green-500" onclick="slowMode()">
+🐢 Slow
+</button>
+
+<button class="btn bg-pink-500" onclick="speedMode()">
+⚡ Speed
 </button>
 
 <button class="btn bg-red-500" onclick="goMenu()">
@@ -307,11 +238,9 @@ GAME
 
 </div>
 
-<canvas id="canvas" width="1200" height="620"></canvas>
+<canvas id="canvas" width="1100" height="620"></canvas>
 
 <div class="mobile-controls">
-
-<div class="control-pad">
 
 <div class="empty"></div>
 
@@ -343,36 +272,26 @@ ontouchend="releaseKey('ArrowRight')">
 
 </div>
 
-<button class="control-btn bg-pink-500"
-style="width:90px;height:90px;"
-ontouchstart="shoot()">
-🔥
-</button>
+<div class="stats">
 
-</div>
-
-<div class="stats mt-6">
-
-<div class="glass rounded-3xl p-5 text-center">
+<div class="glass rounded-3xl p-4 text-center">
 <p class="text-white/60">Score</p>
-<h2 id="score" class="text-5xl font-black text-pink-300">0</h2>
+<h2 id="score" class="text-4xl font-black text-pink-300">0</h2>
 </div>
 
-<div class="glass rounded-3xl p-5 text-center">
-<p class="text-white/60">Best</p>
-<h2 id="best" class="text-5xl font-black text-purple-300">0</h2>
-</div>
-
-<div class="glass rounded-3xl p-5 text-center">
+<div class="glass rounded-3xl p-4 text-center">
 <p class="text-white/60">Lives</p>
-<h2 id="lives" class="text-5xl font-black text-green-300">3</h2>
+<h2 id="lives" class="text-4xl font-black text-green-300">3</h2>
 </div>
 
-<div class="glass rounded-3xl p-5 text-center">
-<p class="text-white/60">Controls</p>
-<h2 class="text-xl font-black text-yellow-300">
-⌨️ Keyboard + Touch
-</h2>
+<div class="glass rounded-3xl p-4 text-center">
+<p class="text-white/60">Best</p>
+<h2 id="best" class="text-4xl font-black text-yellow-300">0</h2>
+</div>
+
+<div class="glass rounded-3xl p-4 text-center">
+<p class="text-white/60">Level</p>
+<h2 id="level" class="text-4xl font-black text-cyan-300">1</h2>
 </div>
 
 </div>
@@ -386,137 +305,65 @@ ontouchstart="shoot()">
 const canvas=document.getElementById("canvas");
 const ctx=canvas.getContext("2d");
 
+let game="space";
 let animation;
 let paused=false;
-let currentGame="space";
+
+let gameSpeed=1;
 
 let score=0;
 let lives=3;
+let level=1;
 
-let best=localStorage.getItem("arcadeBest")||0;
+let best=localStorage.getItem("arcadeBest") || 0;
+
 document.getElementById("best").innerText=best;
 
 const keys={};
 
 const player={
-x:560,
+x:520,
 y:500,
-w:70,
-h:70,
-speed:8,
-dy:0,
-jumping:false
+speed:5
 };
 
+let stars=[];
 let meteors=[];
 let traffic=[];
 let enemies=[];
-let bullets=[];
 let obstacles=[];
 let fruits=[];
-let caughtFruits=[];
 let bricks=[];
 
 let snake=[];
 let snakeDir="RIGHT";
-let snakeFood={x:15,y:10};
+let snakeFood={x:10,y:10};
 let snakeTick=0;
 
 let ball={
-x:600,
-y:500,
-dx:6,
-dy:-6,
-r:12
+x:550,
+y:400,
+dx:4,
+dy:-4
 };
 
-const COLS=10;
-const ROWS=20;
-const BLOCK=28;
+for(let i=0;i<100;i++){
 
-let board=[];
-let piece;
-let dropCounter=0;
-
-const SHAPES=[
-[[1,1],[1,1]],
-[[1,1,1,1]],
-[[1,1,1],[0,1,0]],
-[[1,1,0],[0,1,1]],
-[[0,1,1],[1,1,0]]
-];
-
-function rotateMatrix(matrix){
-return matrix[0].map((_,i)=>
-matrix.map(row=>row[i]).reverse()
-);
-}
-
-function initTetris(){
-
-board=[];
-
-for(let r=0;r<ROWS;r++){
-board[r]=[];
-for(let c=0;c<COLS;c++){
-board[r][c]=0;
-}
-}
-
-spawnPiece();
-
-}
-
-function spawnPiece(){
-
-piece={
-shape:JSON.parse(JSON.stringify(
-SHAPES[Math.floor(Math.random()*SHAPES.length)]
-)),
-x:3,
-y:0,
-color:[
-"#60a5fa",
-"#22c55e",
-"#f59e0b",
-"#ec4899",
-"#a855f7"
-][Math.floor(Math.random()*5)]
-};
-
-if(checkCollision()){
-damage();
-initTetris();
-}
-
-}
-
-function drawBackground(){
-
-ctx.fillStyle="#020617";
-ctx.fillRect(0,0,1200,620);
-
-for(let i=0;i<70;i++){
-
-ctx.font="20px Arial";
-
-const items=["✨","⭐","💫","🌙"];
-
-ctx.fillText(
-items[Math.floor(Math.random()*items.length)],
-Math.random()*1200,
-Math.random()*620
-);
-
-}
+stars.push({
+x:Math.random()*1100,
+y:Math.random()*620,
+size:Math.random()*2,
+speed:1
+});
 
 }
 
 function updateUI(){
 
 document.getElementById("score").innerText=score;
-document.getElementById("best").innerText=best;
 document.getElementById("lives").innerText=lives;
+document.getElementById("best").innerText=best;
+document.getElementById("level").innerText=level;
 
 }
 
@@ -525,9 +372,14 @@ function addScore(v=1){
 score+=v;
 
 if(score>best){
+
 best=score;
+
 localStorage.setItem("arcadeBest",best);
+
 }
+
+level=Math.floor(score/25)+1;
 
 updateUI();
 
@@ -537,7 +389,7 @@ function damage(){
 
 lives--;
 
-navigator.vibrate?.(100);
+navigator.vibrate?.(80);
 
 updateUI();
 
@@ -555,71 +407,75 @@ restartGame();
 
 }
 
+function slowMode(){
+
+gameSpeed=.7;
+
+}
+
+function speedMode(){
+
+gameSpeed=1.2;
+
+}
+
 function startGame(type){
 
-currentGame=type;
+game=type;
 
 document.getElementById("menu").classList.add("hidden");
 document.getElementById("game").classList.remove("hidden");
 
+document.getElementById("gameTitle").innerText=
+type.toUpperCase();
+
 score=0;
 lives=3;
+level=1;
+
+player.x=520;
+player.y=500;
 
 meteors=[];
 traffic=[];
 enemies=[];
-bullets=[];
 obstacles=[];
 fruits=[];
-caughtFruits=[];
-
-player.x=560;
-player.y=500;
-player.dy=0;
-player.jumping=false;
 
 snake=[
-{x:8,y:8},
-{x:7,y:8},
-{x:6,y:8}
+{x:5,y:5},
+{x:4,y:5},
+{x:3,y:5}
 ];
 
 snakeDir="RIGHT";
 
 snakeFood={
-x:15,
-y:10,
-emoji:"🐔"
+x:10,
+y:10
 };
 
 createBricks();
-initTetris();
-
-ball.x=600;
-ball.y=500;
-ball.dx=6;
-ball.dy=-6;
-
-updateUI();
-
-document.getElementById("gameTitle").innerHTML=
-type.toUpperCase()+" 🎮";
 
 paused=false;
 
+gameSpeed=1;
+
+updateUI();
+
 cancelAnimationFrame(animation);
 
-gameLoop();
+loop();
 
 }
 
-function gameLoop(){
+function loop(){
 
 if(paused) return;
 
 drawBackground();
 
-switch(currentGame){
+switch(game){
 
 case "space":
 spaceGame();
@@ -633,38 +489,89 @@ case "snake":
 snakeGame();
 break;
 
-case "tetris":
-tetrisGame();
-break;
-
-case "fruit":
-fruitGame();
-break;
-
 case "brick":
 brickGame();
+break;
+
+case "pong":
+pongGame();
+break;
+
+case "combat":
+combatGame();
 break;
 
 case "runner":
 runnerGame();
 break;
 
-case "shooter":
-shooterGame();
+case "catch":
+catchGame();
 break;
 
 }
 
-animation=requestAnimationFrame(gameLoop);
+animation=requestAnimationFrame(loop);
 
 }
 
-function movePlayer(speed=player.speed){
+function drawBackground(){
 
-if(keys["ArrowLeft"]) player.x-=speed;
-if(keys["ArrowRight"]) player.x+=speed;
+const g=ctx.createLinearGradient(0,0,0,620);
 
-player.x=Math.max(0,Math.min(1120,player.x));
+g.addColorStop(0,"#020617");
+g.addColorStop(1,"#312e81");
+
+ctx.fillStyle=g;
+ctx.fillRect(0,0,1100,620);
+
+stars.forEach(s=>{
+
+s.y+=s.speed;
+
+if(s.y>620){
+
+s.y=0;
+s.x=Math.random()*1100;
+
+}
+
+ctx.fillStyle="white";
+
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+ctx.fill();
+
+});
+
+}
+
+function glow(text,x,y,size=50){
+
+ctx.save();
+
+ctx.font=size+"px Arial";
+
+ctx.shadowColor="#ec4899";
+ctx.shadowBlur=15;
+
+ctx.fillStyle="white";
+
+ctx.fillText(text,x,y);
+
+ctx.restore();
+
+}
+
+function movePlayer(){
+
+if(keys["ArrowLeft"]) player.x-=player.speed;
+if(keys["ArrowRight"]) player.x+=player.speed;
+if(keys["ArrowUp"]) player.y-=player.speed;
+if(keys["ArrowDown"]) player.y+=player.speed;
+
+player.x=Math.max(0,Math.min(1040,player.x));
+player.y=Math.max(0,Math.min(560,player.y));
 
 }
 
@@ -672,21 +579,14 @@ player.x=Math.max(0,Math.min(1120,player.x));
 
 function spaceGame(){
 
-ctx.font="70px Arial";
-ctx.fillText("🛸",player.x,player.y);
+glow("🚀",player.x,player.y,55);
 
-if(keys["ArrowUp"]) player.y-=5;
-if(keys["ArrowDown"]) player.y+=5;
-
-player.y=Math.max(60,Math.min(560,player.y));
-
-if(Math.random()<0.02){
+if(Math.random()<0.01){
 
 meteors.push({
-x:Math.random()*1150,
+x:Math.random()*1040,
 y:-40,
-speed:3+Math.random()*3,
-emoji:["☄️","🪐","🌑","⭐"][Math.floor(Math.random()*4)]
+speed:(2+level*.2)*gameSpeed
 });
 
 }
@@ -695,31 +595,32 @@ meteors.forEach((m,index)=>{
 
 m.y+=m.speed;
 
-ctx.font="50px Arial";
-ctx.fillText(m.emoji,m.x,m.y);
+glow("☄️",m.x,m.y,40);
 
 if(
 player.x<m.x+40 &&
-player.x+50>m.x &&
+player.x+40>m.x &&
 player.y<m.y+40 &&
-player.y+50>m.y
+player.y+40>m.y
 ){
 
 meteors.splice(index,1);
+
 damage();
 
 }
 
-if(m.y>660){
+if(m.y>650){
 
 meteors.splice(index,1);
-addScore();
+
+addScore(2);
 
 }
 
 });
 
-movePlayer(6);
+movePlayer();
 
 }
 
@@ -727,30 +628,17 @@ movePlayer(6);
 
 function carGame(){
 
-ctx.fillStyle="#222";
-ctx.fillRect(250,0,700,620);
+ctx.fillStyle="#1f2937";
+ctx.fillRect(250,0,600,620);
 
-ctx.strokeStyle="#fff";
-ctx.lineWidth=8;
+glow("🏎️",player.x,560,55);
 
-for(let i=0;i<620;i+=80){
-
-ctx.beginPath();
-ctx.moveTo(600,i+(Date.now()/8)%80);
-ctx.lineTo(600,i+40+(Date.now()/8)%80);
-ctx.stroke();
-
-}
-
-ctx.font="80px Arial";
-ctx.fillText("🏎️",player.x,520);
-
-if(Math.random()<0.025){
+if(Math.random()<0.012){
 
 traffic.push({
 x:[320,470,620,770][Math.floor(Math.random()*4)],
-y:-120,
-speed:7
+y:-80,
+speed:(3+level*.15)*gameSpeed
 });
 
 }
@@ -759,31 +647,35 @@ traffic.forEach((c,index)=>{
 
 c.y+=c.speed;
 
-ctx.font="75px Arial";
-ctx.fillText("🚗",c.x,c.y);
+glow("🚗",c.x,c.y,50);
 
 if(
-player.x<c.x+55 &&
-player.x+55>c.x &&
-500<c.y+60 &&
-570>c.y
+player.x<c.x+40 &&
+player.x+40>c.x &&
+540<c.y+40 &&
+590>c.y
 ){
 
 traffic.splice(index,1);
+
 damage();
 
 }
 
-if(c.y>700){
+if(c.y>650){
 
 traffic.splice(index,1);
-addScore();
+
+addScore(3);
 
 }
 
 });
 
-movePlayer(10);
+if(keys["ArrowLeft"]) player.x-=6;
+if(keys["ArrowRight"]) player.x+=6;
+
+player.x=Math.max(260,Math.min(780,player.x));
 
 }
 
@@ -791,291 +683,319 @@ movePlayer(10);
 
 function snakeGame(){
 
-ctx.fillStyle="#04111f";
-ctx.fillRect(0,0,1200,620);
-
 snakeTick++;
 
-if(snakeTick<7){
-
-drawSnakeOnly();
+if(snakeTick<12){
+drawSnake();
 return;
-
 }
 
 snakeTick=0;
-
-let head={...snake[0]};
 
 if(keys["ArrowUp"]&&snakeDir!=="DOWN") snakeDir="UP";
 if(keys["ArrowDown"]&&snakeDir!=="UP") snakeDir="DOWN";
 if(keys["ArrowLeft"]&&snakeDir!=="RIGHT") snakeDir="LEFT";
 if(keys["ArrowRight"]&&snakeDir!=="LEFT") snakeDir="RIGHT";
 
+let head={...snake[0]};
+
 if(snakeDir==="RIGHT") head.x++;
 if(snakeDir==="LEFT") head.x--;
 if(snakeDir==="UP") head.y--;
 if(snakeDir==="DOWN") head.y++;
 
-if(head.x<0) head.x=29;
-if(head.x>29) head.x=0;
-if(head.y<0) head.y=14;
-if(head.y>14) head.y=0;
-
-for(let i=1;i<snake.length;i++){
-
-if(snake[i].x===head.x&&snake[i].y===head.y){
-
-damage();
-
-snake=[
-{x:8,y:8},
-{x:7,y:8},
-{x:6,y:8}
-];
-
-return;
-
-}
-
-}
+if(head.x<0) head.x=21;
+if(head.x>21) head.x=0;
+if(head.y<0) head.y=11;
+if(head.y>11) head.y=0;
 
 snake.unshift(head);
 
 if(head.x===snakeFood.x&&head.y===snakeFood.y){
 
-addScore();
-
-const animals=["🐔","🐷","🐭","🐸"];
+addScore(5);
 
 snakeFood={
-x:Math.floor(Math.random()*30),
-y:Math.floor(Math.random()*15),
-emoji:animals[Math.floor(Math.random()*animals.length)]
+x:Math.floor(Math.random()*22),
+y:Math.floor(Math.random()*12)
 };
 
 }else{
 snake.pop();
 }
 
-drawSnakeOnly();
+drawSnake();
 
 }
 
-function drawSnakeOnly(){
+function drawSnake(){
 
 snake.forEach((s,index)=>{
 
-ctx.fillStyle=index===0?"#ec4899":"#a855f7";
+ctx.fillStyle=index===0 ? "#ec4899" : "#22c55e";
+
+ctx.fillRect(
+s.x*48,
+s.y*48,
+42,
+42
+);
+
+});
+
+glow("🍎",snakeFood.x*48,snakeFood.y*48+35,35);
+
+}
+
+/* BRICK */
+
+function createBricks(){
+
+bricks=[];
+
+for(let r=0;r<5;r++){
+
+for(let c=0;c<8;c++){
+
+bricks.push({
+x:90+c*110,
+y:60+r*50,
+alive:true
+});
+
+}
+
+}
+
+}
+
+function brickGame(){
+
+glow("🛡️",player.x,580,55);
+
+ball.x+=ball.dx*gameSpeed;
+ball.y+=ball.dy*gameSpeed;
 
 ctx.beginPath();
-
-ctx.roundRect(
-s.x*40,
-s.y*40,
-36,
-36,
-12
-);
-
+ctx.arc(ball.x,ball.y,12,0,Math.PI*2);
+ctx.fillStyle="#60a5fa";
 ctx.fill();
 
-});
+if(ball.x<0||ball.x>1100) ball.dx*=-1;
+if(ball.y<0) ball.dy*=-1;
 
-ctx.font="34px Arial";
+if(ball.y>620){
 
-ctx.fillText(
-snakeFood.emoji,
-snakeFood.x*40,
-snakeFood.y*40+30
-);
+damage();
 
-}
-
-/* TETRIS */
-
-function tetrisGame(){
-
-ctx.fillStyle="#111827";
-ctx.fillRect(450,20,COLS*BLOCK,ROWS*BLOCK);
-
-dropCounter++;
-
-if(dropCounter>35){
-
-piece.y++;
-
-if(checkCollision()){
-
-piece.y--;
-
-mergePiece();
-
-clearLines();
-
-spawnPiece();
+ball.x=550;
+ball.y=400;
 
 }
-
-dropCounter=0;
-
-}
-
-drawBoard();
-drawPiece();
-
-}
-
-function drawBoard(){
-
-for(let r=0;r<ROWS;r++){
-
-for(let c=0;c<COLS;c++){
-
-ctx.strokeStyle="#312e81";
-
-ctx.strokeRect(
-450+c*BLOCK,
-20+r*BLOCK,
-BLOCK,
-BLOCK
-);
-
-if(board[r][c]){
-
-ctx.fillStyle=board[r][c];
-
-ctx.fillRect(
-450+c*BLOCK,
-20+r*BLOCK,
-BLOCK-2,
-BLOCK-2
-);
-
-}
-
-}
-
-}
-
-}
-
-function drawPiece(){
-
-ctx.fillStyle=piece.color;
-
-for(let r=0;r<piece.shape.length;r++){
-
-for(let c=0;c<piece.shape[r].length;c++){
-
-if(piece.shape[r][c]){
-
-ctx.fillRect(
-450+(piece.x+c)*BLOCK,
-20+(piece.y+r)*BLOCK,
-BLOCK-2,
-BLOCK-2
-);
-
-}
-
-}
-
-}
-
-}
-
-function checkCollision(){
-
-for(let r=0;r<piece.shape.length;r++){
-
-for(let c=0;c<piece.shape[r].length;c++){
-
-if(piece.shape[r][c]){
-
-let newX=piece.x+c;
-let newY=piece.y+r;
 
 if(
-newX<0 ||
-newX>=COLS ||
-newY>=ROWS ||
-(board[newY]&&board[newY][newX])
+ball.y>540 &&
+ball.x>player.x &&
+ball.x<player.x+100
 ){
 
-return true;
+ball.dy=-Math.abs(ball.dy);
 
 }
 
-}
+bricks.forEach(b=>{
+
+if(!b.alive) return;
+
+glow("🧱",b.x,b.y,35);
+
+if(
+ball.x>b.x &&
+ball.x<b.x+40 &&
+ball.y>b.y &&
+ball.y<b.y+30
+){
+
+b.alive=false;
+
+ball.dy*=-1;
+
+addScore(4);
 
 }
-
-}
-
-return false;
-
-}
-
-function mergePiece(){
-
-for(let r=0;r<piece.shape.length;r++){
-
-for(let c=0;c<piece.shape[r].length;c++){
-
-if(piece.shape[r][c]){
-
-board[piece.y+r][piece.x+c]=piece.color;
-
-}
-
-}
-
-}
-
-}
-
-function clearLines(){
-
-for(let r=ROWS-1;r>=0;r--){
-
-if(board[r].every(cell=>cell!==0)){
-
-board.splice(r,1);
-
-board.unshift(new Array(COLS).fill(0));
-
-addScore(10);
-
-}
-
-}
-
-}
-
-/* FRUIT */
-
-function fruitGame(){
-
-ctx.font="80px Arial";
-ctx.fillText("🧺",player.x,560);
-
-caughtFruits.forEach((f,i)=>{
-
-ctx.font="24px Arial";
-ctx.fillText(f,player.x+10+i*18,520);
 
 });
 
-if(Math.random()<0.03){
+if(keys["ArrowLeft"]) player.x-=7;
+if(keys["ArrowRight"]) player.x+=7;
 
-const items=["🍎","🍌","🍓","🍉","🍇"];
+player.x=Math.max(0,Math.min(1000,player.x));
+
+}
+
+/* PONG */
+
+function pongGame(){
+
+ctx.fillStyle="white";
+ctx.fillRect(player.x,560,120,15);
+
+ball.x+=ball.dx*gameSpeed;
+ball.y+=ball.dy*gameSpeed;
+
+ctx.beginPath();
+ctx.arc(ball.x,ball.y,12,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
+if(ball.x<0||ball.x>1100) ball.dx*=-1;
+if(ball.y<0) ball.dy*=-1;
+
+if(ball.y>620){
+
+damage();
+
+ball.x=550;
+ball.y=300;
+
+}
+
+if(ball.y>540&&ball.x>player.x&&ball.x<player.x+120){
+
+ball.dy=-4;
+
+addScore();
+
+}
+
+if(keys["ArrowLeft"]) player.x-=7;
+if(keys["ArrowRight"]) player.x+=7;
+
+player.x=Math.max(0,Math.min(980,player.x));
+
+}
+
+/* COMBAT */
+
+function combatGame(){
+
+glow("⚔️",player.x,player.y,55);
+
+if(Math.random()<0.01){
+
+enemies.push({
+x:Math.random()*1000,
+y:-30,
+speed:(2+level*.15)*gameSpeed
+});
+
+}
+
+enemies.forEach((e,index)=>{
+
+e.y+=e.speed;
+
+glow("👹",e.x,e.y,45);
+
+if(
+player.x<e.x+40 &&
+player.x+40>e.x &&
+player.y<e.y+40 &&
+player.y+40>e.y
+){
+
+enemies.splice(index,1);
+
+damage();
+
+}
+
+if(e.y>650){
+
+enemies.splice(index,1);
+
+addScore(2);
+
+}
+
+});
+
+movePlayer();
+
+}
+
+/* RUNNER */
+
+function runnerGame(){
+
+ctx.fillStyle="#374151";
+ctx.fillRect(0,580,1100,40);
+
+glow("🏃",player.x,560,55);
+
+if(Math.random()<0.012){
+
+obstacles.push({
+x:1100,
+speed:4*gameSpeed
+});
+
+}
+
+obstacles.forEach((o,index)=>{
+
+o.x-=o.speed;
+
+glow("🪨",o.x,570,40);
+
+if(
+player.x<o.x+40 &&
+player.x+40>o.x &&
+player.y>500
+){
+
+damage();
+
+obstacles.splice(index,1);
+
+}
+
+if(o.x<-50){
+
+obstacles.splice(index,1);
+
+addScore(2);
+
+}
+
+});
+
+if(keys["ArrowUp"]){
+player.y-=6;
+}else{
+player.y+=4;
+}
+
+player.y=Math.min(520,player.y);
+
+if(keys["ArrowLeft"]) player.x-=5;
+if(keys["ArrowRight"]) player.x+=5;
+
+}
+
+/* CATCH */
+
+function catchGame(){
+
+glow("🧺",player.x,560,60);
+
+if(Math.random()<0.015){
 
 fruits.push({
-x:Math.random()*1100,
+x:Math.random()*1000,
 y:-20,
-speed:3+Math.random()*3,
-emoji:items[Math.floor(Math.random()*items.length)]
+emoji:["🍎","🍓","🍌","🍉"][Math.floor(Math.random()*4)],
+speed:(2+Math.random()*2)*gameSpeed
 });
 
 }
@@ -1084,8 +1004,7 @@ fruits.forEach((f,index)=>{
 
 f.y+=f.speed;
 
-ctx.font="40px Arial";
-ctx.fillText(f.emoji,f.x,f.y);
+glow(f.emoji,f.x,f.y,35);
 
 if(
 player.x<f.x+40 &&
@@ -1094,15 +1013,9 @@ player.x+80>f.x &&
 570>f.y
 ){
 
-caughtFruits.push(f.emoji);
-
-if(caughtFruits.length>5){
-caughtFruits.shift();
-}
-
 fruits.splice(index,1);
 
-addScore();
+addScore(2);
 
 }
 
@@ -1116,319 +1029,16 @@ damage();
 
 });
 
-movePlayer(14);
+if(keys["ArrowLeft"]) player.x-=6;
+if(keys["ArrowRight"]) player.x+=6;
 
 }
 
-/* BRICK */
-
-function createBricks(){
-
-bricks=[];
-
-for(let r=0;r<5;r++){
-
-for(let c=0;c<10;c++){
-
-bricks.push({
-x:100+c*100,
-y:60+r*45,
-alive:true
-});
-
-}
-
-}
-
-}
-
-function brickGame(){
-
-ctx.font="80px Arial";
-ctx.fillText("🟦",player.x,590);
-
-ball.x+=ball.dx;
-ball.y+=ball.dy;
-
-ctx.font="35px Arial";
-ctx.fillText("⚪",ball.x,ball.y);
-
-if(ball.x<0||ball.x>1180) ball.dx*=-1;
-if(ball.y<0) ball.dy*=-1;
-
-if(ball.y>620){
-
-ball.x=600;
-ball.y=500;
-
-damage();
-
-}
-
-if(ball.y>540&&ball.x>player.x&&ball.x<player.x+90){
-
-ball.dy=-Math.abs(ball.dy);
-
-}
-
-bricks.forEach(b=>{
-
-if(!b.alive) return;
-
-ctx.font="45px Arial";
-ctx.fillText("🧱",b.x,b.y+30);
-
-if(
-ball.x>b.x &&
-ball.x<b.x+60 &&
-ball.y>b.y &&
-ball.y<b.y+35
-){
-
-b.alive=false;
-
-ball.dy*=-1;
-
-addScore();
-
-}
-
-});
-
-movePlayer(16);
-
-}
-
-/* RUNNER */
-
-function runnerGame(){
-
-ctx.fillStyle="#374151";
-ctx.fillRect(0,570,1200,50);
-
-ctx.font="65px Arial";
-ctx.fillText("🏃",player.x,player.y+60);
-
-if(keys["ArrowUp"]&&player.jumping){
-
-player.dy-=0.25;
-}
-
-player.dy+=0.45;
-player.y+=player.dy;
-
-if(player.y>500){
-
-player.y=500;
-player.dy=0;
-player.jumping=false;
-
-}
-
-if(Math.random()<0.02){
-
-obstacles.push({
-x:1200,
-speed:8
-});
-
-}
-
-obstacles.forEach((o,index)=>{
-
-o.x-=o.speed;
-
-ctx.font="55px Arial";
-ctx.fillText("🪨",o.x,560);
-
-if(
-player.x<o.x+40 &&
-player.x+40>o.x &&
-player.y+60>520
-){
-
-damage();
-
-obstacles.splice(index,1);
-
-}
-
-if(o.x<-100){
-
-obstacles.splice(index,1);
-
-addScore();
-
-}
-
-});
-
-movePlayer(6);
-
-}
-
-/* SHOOTER */
-
-function shooterGame(){
-
-ctx.font="70px Arial";
-ctx.fillText("🤖",player.x,560);
-
-if(Math.random()<0.025){
-
-enemies.push({
-x:Math.random()*1100,
-y:-20,
-speed:3+Math.random()*2
-});
-
-}
-
-enemies.forEach((e,eIndex)=>{
-
-e.y+=e.speed;
-
-ctx.font="50px Arial";
-ctx.fillText("👾",e.x,e.y);
-
-if(
-player.x<e.x+40 &&
-player.x+50>e.x &&
-500<e.y+40 &&
-560>e.y
-){
-
-damage();
-enemies.splice(eIndex,1);
-
-}
-
-bullets.forEach((b,bIndex)=>{
-
-if(
-b.x<e.x+40 &&
-b.x+20>e.x &&
-b.y<e.y+40 &&
-b.y+20>e.y
-){
-
-enemies.splice(eIndex,1);
-bullets.splice(bIndex,1);
-
-addScore(2);
-
-}
-
-});
-
-if(e.y>650){
-
-enemies.splice(eIndex,1);
-
-damage();
-
-}
-
-});
-
-bullets.forEach((b,index)=>{
-
-b.y-=12;
-
-ctx.font="34px Arial";
-ctx.fillText("🔥",b.x,b.y);
-
-if(b.y<-20){
-
-bullets.splice(index,1);
-
-}
-
-});
-
-movePlayer(10);
-
-}
-
-function shoot(){
-
-if(currentGame!=="shooter") return;
-
-bullets.push({
-x:player.x+25,
-y:520
-});
-
-}
-
-function jump(){
-
-if(currentGame==="runner"&&!player.jumping){
-
-player.dy=-11;
-player.jumping=true;
-
-}
-
-}
+/* CONTROLS */
 
 window.addEventListener("keydown",e=>{
 
 keys[e.key]=true;
-
-if(e.code==="Space"){
-
-if(currentGame==="shooter"){
-shoot();
-}
-
-if(currentGame==="tetris"){
-
-const oldShape=piece.shape;
-
-piece.shape=rotateMatrix(piece.shape);
-
-if(checkCollision()){
-piece.shape=oldShape;
-}
-
-}
-
-}
-
-if(e.key==="ArrowUp"){
-jump();
-}
-
-if(currentGame==="tetris"){
-
-if(e.key==="ArrowLeft"){
-
-piece.x--;
-
-if(checkCollision()) piece.x++;
-
-}
-
-if(e.key==="ArrowRight"){
-
-piece.x++;
-
-if(checkCollision()) piece.x--;
-
-}
-
-if(e.key==="ArrowDown"){
-
-piece.y++;
-
-if(checkCollision()){
-piece.y--;
-}
-
-}
-
-}
 
 });
 
@@ -1442,40 +1052,6 @@ function pressKey(k){
 
 keys[k]=true;
 
-if(k==="ArrowUp"){
-jump();
-}
-
-if(currentGame==="tetris"){
-
-if(k==="ArrowLeft"){
-
-piece.x--;
-
-if(checkCollision()) piece.x++;
-
-}
-
-if(k==="ArrowRight"){
-
-piece.x++;
-
-if(checkCollision()) piece.x--;
-
-}
-
-if(k==="ArrowDown"){
-
-piece.y++;
-
-if(checkCollision()){
-piece.y--;
-}
-
-}
-
-}
-
 }
 
 function releaseKey(k){
@@ -1486,19 +1062,7 @@ keys[k]=false;
 
 function restartGame(){
 
-cancelAnimationFrame(animation);
-
-startGame(currentGame);
-
-}
-
-function goMenu(){
-
-cancelAnimationFrame(animation);
-
-document.getElementById("menu").classList.remove("hidden");
-
-document.getElementById("game").classList.add("hidden");
+startGame(game);
 
 }
 
@@ -1507,8 +1071,18 @@ function togglePause(){
 paused=!paused;
 
 if(!paused){
-gameLoop();
+loop();
 }
+
+}
+
+function goMenu(){
+
+cancelAnimationFrame(animation);
+
+document.getElementById("game").classList.add("hidden");
+
+document.getElementById("menu").classList.remove("hidden");
 
 }
 
