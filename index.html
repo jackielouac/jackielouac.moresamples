@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-<title>Jackie & Gelic HD Arcade Universe X</title>
+<title>Jackie & Gelic Arcade Universe X</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -26,6 +26,7 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:#020617;
 color:white;
 scroll-behavior:smooth;
+touch-action:manipulation;
 }
 
 body{
@@ -38,7 +39,7 @@ animation:bgmove 12s infinite alternate;
 
 @keyframes bgmove{
 from{filter:hue-rotate(0deg);}
-to{filter:hue-rotate(30deg);}
+to{filter:hue-rotate(25deg);}
 }
 
 .glass{
@@ -46,7 +47,7 @@ background:rgba(255,255,255,.08);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(20px);
 box-shadow:
-0 10px 50px rgba(0,0,0,.45),
+0 10px 40px rgba(0,0,0,.4),
 inset 0 0 20px rgba(255,255,255,.03);
 }
 
@@ -74,7 +75,8 @@ top:-100%;
 left:-100%;
 width:200%;
 height:200%;
-background:linear-gradient(
+background:
+linear-gradient(
 45deg,
 transparent,
 rgba(255,255,255,.12),
@@ -90,19 +92,15 @@ left:100%;
 }
 
 .btn{
-padding:14px 22px;
+padding:14px 24px;
 border-radius:20px;
 font-weight:800;
-transition:.25s;
+transition:.2s;
 box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
 .btn:hover{
-transform:translateY(-4px) scale(1.03);
-}
-
-.btn:active{
-transform:scale(.95);
+transform:translateY(-4px);
 }
 
 canvas{
@@ -111,38 +109,62 @@ max-width:1200px;
 height:600px;
 display:block;
 margin:auto;
-border-radius:30px;
+border-radius:28px;
 background:#000;
 border:2px solid rgba(255,255,255,.08);
 box-shadow:
-0 0 50px rgba(96,165,250,.18),
-0 0 90px rgba(168,85,247,.12);
+0 0 50px rgba(96,165,250,.2),
+0 0 100px rgba(168,85,247,.12);
 touch-action:none;
-}
-
-.mobile{
-display:none;
-}
-
-.mobile-btn{
-width:75px;
-height:75px;
-border-radius:22px;
-font-size:28px;
-font-weight:bold;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.1);
-}
-
-.mobile-btn:active{
-transform:scale(.88);
 }
 
 .stats{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:18px;
+}
+
+.mobile-controls{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:18px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.control-pad{
+display:grid;
+grid-template-columns:80px 80px 80px;
+grid-template-rows:80px 80px 80px;
+gap:10px;
+}
+
+.control-btn{
+width:80px;
+height:80px;
+border-radius:22px;
+border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+font-size:30px;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+transition:.15s;
+user-select:none;
+}
+
+.control-btn:active{
+transform:scale(.88);
+background:rgba(255,255,255,.18);
+}
+
+.empty{
+visibility:hidden;
 }
 
 .footer{
@@ -156,11 +178,19 @@ padding-bottom:20px;
 @media(max-width:768px){
 
 canvas{
-height:340px;
+height:330px;
+border-radius:20px;
 }
 
-.mobile{
-display:flex;
+.control-btn{
+width:70px;
+height:70px;
+font-size:28px;
+}
+
+.control-pad{
+grid-template-columns:70px 70px 70px;
+grid-template-rows:70px 70px 70px;
 }
 
 h1{
@@ -189,75 +219,63 @@ width:100%;
 </h1>
 
 <p class="text-gray-300 text-xl mt-4">
-Ultra Smooth Real Play Arcade Experience
+Ultra Smooth Arcade Experience
 </p>
 
 <p class="text-gray-500 mt-2">
-Now With 6 Playable Games
+Mobile + Desktop Optimized
 </p>
 
 </div>
 
 <div class="grid md:grid-cols-3 gap-5 mt-10">
 
-<!-- SPACE -->
-
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('space')">
 <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" class="w-28 h-28 mx-auto">
 <h2 class="text-3xl font-black mt-5">🚀 Space Escape</h2>
-<p class="text-gray-400 mt-2">Dodge meteors in deep space</p>
+<p class="text-gray-400 mt-2">Dodge meteors</p>
 <button class="btn bg-blue-600 mt-5 w-full">PLAY NOW</button>
 </div>
 
-<!-- CAR -->
-
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('car')">
 <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🏎️ Neon Car Rush</h2>
-<p class="text-gray-400 mt-2">Avoid traffic at speed</p>
+<h2 class="text-3xl font-black mt-5">🏎️ Car Rush</h2>
+<p class="text-gray-400 mt-2">Avoid traffic</p>
 <button class="btn bg-pink-600 mt-5 w-full">PLAY NOW</button>
 </div>
 
-<!-- SHOOTER -->
-
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('shooter')">
 <img src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">⚔️ Galaxy Shooter</h2>
-<p class="text-gray-400 mt-2">Destroy alien enemies</p>
+<h2 class="text-3xl font-black mt-5">⚔️ Shooter</h2>
+<p class="text-gray-400 mt-2">Destroy enemies</p>
 <button class="btn bg-purple-600 mt-5 w-full">PLAY NOW</button>
 </div>
 
-<!-- RUNNER -->
-
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('runner')">
 <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🏃 Sky Runner</h2>
-<p class="text-gray-400 mt-2">Jump over obstacles</p>
+<h2 class="text-3xl font-black mt-5">🏃 Runner</h2>
+<p class="text-gray-400 mt-2">Jump obstacles</p>
 <button class="btn bg-green-600 mt-5 w-full">PLAY NOW</button>
 </div>
-
-<!-- BRICK -->
 
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('brick')">
 <img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" class="w-28 h-28 mx-auto">
 <h2 class="text-3xl font-black mt-5">🧱 Brick Breaker</h2>
-<p class="text-gray-400 mt-2">Classic arcade fun</p>
+<p class="text-gray-400 mt-2">Classic arcade</p>
 <button class="btn bg-orange-500 mt-5 w-full">PLAY NOW</button>
 </div>
 
-<!-- SNAKE -->
-
 <div class="card glass rounded-3xl p-6 text-center" onclick="startGame('snake')">
 <img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" class="w-28 h-28 mx-auto">
-<h2 class="text-3xl font-black mt-5">🐍 Neon Snake</h2>
-<p class="text-gray-400 mt-2">Eat and grow bigger</p>
+<h2 class="text-3xl font-black mt-5">🐍 Snake</h2>
+<p class="text-gray-400 mt-2">Eat and grow</p>
 <button class="btn bg-cyan-600 mt-5 w-full">PLAY NOW</button>
 </div>
 
 </div>
 
 <div class="footer">
-Made with ❤️ for Jackie & Gelic Arcade Universe
+Made with ❤️ for Jackie & Gelic
 </div>
 
 </div>
@@ -271,15 +289,27 @@ Made with ❤️ for Jackie & Gelic Arcade Universe
 <div class="flex justify-between items-center flex-wrap gap-4 mb-5">
 
 <div>
-<h1 id="gameTitle" class="text-5xl font-black gradient">GAME</h1>
-<p class="text-gray-400 mt-2">Smooth HD Gameplay</p>
+<h1 id="gameTitle" class="text-5xl font-black gradient">
+GAME
+</h1>
+<p class="text-gray-400 mt-2">
+Smooth Gameplay
+</p>
 </div>
 
 <div class="flex gap-3 flex-wrap">
 
-<button class="btn bg-blue-600" onclick="restartGame()">🔄 Restart</button>
-<button class="btn bg-yellow-500 text-black" onclick="togglePause()">⏸ Pause</button>
-<button class="btn bg-red-600" onclick="goMenu()">🏠 Menu</button>
+<button class="btn bg-blue-600" onclick="restartGame()">
+🔄 Restart
+</button>
+
+<button class="btn bg-yellow-500 text-black" onclick="togglePause()">
+⏸ Pause
+</button>
+
+<button class="btn bg-red-600" onclick="goMenu()">
+🏠 Menu
+</button>
 
 </div>
 
@@ -287,12 +317,45 @@ Made with ❤️ for Jackie & Gelic Arcade Universe
 
 <canvas id="canvas" width="1200" height="600"></canvas>
 
-<div class="mobile justify-center gap-5 flex-wrap mt-6">
+<div class="mobile-controls">
 
-<button class="mobile-btn" onclick="moveLeft()">⬅️</button>
-<button class="mobile-btn" onclick="jump()">⬆️</button>
-<button class="mobile-btn" onclick="shoot()">🔥</button>
-<button class="mobile-btn" onclick="moveRight()">➡️</button>
+<div class="control-pad">
+
+<div class="empty"></div>
+
+<button class="control-btn"
+ontouchstart="pressKey('ArrowUp')"
+ontouchend="releaseKey('ArrowUp')">
+⬆️
+</button>
+
+<div class="empty"></div>
+
+<button class="control-btn"
+ontouchstart="pressKey('ArrowLeft')"
+ontouchend="releaseKey('ArrowLeft')">
+⬅️
+</button>
+
+<button class="control-btn"
+ontouchstart="pressKey('ArrowDown')"
+ontouchend="releaseKey('ArrowDown')">
+⬇️
+</button>
+
+<button class="control-btn"
+ontouchstart="pressKey('ArrowRight')"
+ontouchend="releaseKey('ArrowRight')">
+➡️
+</button>
+
+</div>
+
+<button class="control-btn"
+style="width:90px;height:90px;background:#ef4444;"
+ontouchstart="shoot()">
+🔥
+</button>
 
 </div>
 
@@ -330,21 +393,21 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let animation;
-let paused = false;
-let currentGame = "space";
+let paused=false;
+let currentGame="space";
 
-let score = 0;
-let lives = 3;
+let score=0;
+let lives=3;
 
-let best = localStorage.getItem("hdArcadeBest") || 0;
-document.getElementById("best").textContent = best;
+let best=localStorage.getItem("hdArcadeBest")||0;
+document.getElementById("best").textContent=best;
 
-const player = {
+const player={
 x:550,
 y:500,
 w:70,
 h:70,
-speed:5,
+speed:3,
 dy:0,
 jumping:false
 };
@@ -356,20 +419,29 @@ let bullets=[];
 let particles=[];
 let obstacles=[];
 let bricks=[];
-let ball={x:600,y:400,dx:4,dy:-4,r:10};
+
+let ball={
+x:600,
+y:400,
+dx:2.5,
+dy:-2.5,
+r:10
+};
+
 let snake=[{x:10,y:10}];
 let food={x:15,y:10};
 let snakeDir="RIGHT";
 let snakeTimer=0;
 
 let keys={};
+let lastShoot=0;
 
-const ship = new Image();
+const ship=new Image();
 ship.src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png";
 
 function startGame(type){
 
-currentGame = type;
+currentGame=type;
 
 document.getElementById("menu").classList.add("hidden");
 document.getElementById("game").classList.remove("hidden");
@@ -398,11 +470,11 @@ updateUI();
 
 const names={
 space:"🚀 SPACE ESCAPE",
-car:"🏎️ NEON CAR RUSH",
-shooter:"⚔️ GALAXY SHOOTER",
-runner:"🏃 SKY RUNNER",
+car:"🏎️ CAR RUSH",
+shooter:"⚔️ SHOOTER",
+runner:"🏃 RUNNER",
 brick:"🧱 BRICK BREAKER",
-snake:"🐍 NEON SNAKE"
+snake:"🐍 SNAKE"
 };
 
 document.getElementById("gameTitle").innerHTML=names[type];
@@ -417,9 +489,11 @@ gameLoop();
 }
 
 function updateUI(){
+
 document.getElementById("score").textContent=score;
 document.getElementById("best").textContent=best;
 document.getElementById("lives").textContent=lives;
+
 }
 
 function addScore(v=1){
@@ -427,8 +501,11 @@ function addScore(v=1){
 score+=v;
 
 if(score>best){
+
 best=score;
+
 localStorage.setItem("hdArcadeBest",best);
+
 }
 
 updateUI();
@@ -440,11 +517,12 @@ function createExplosion(x,y,color="#fff"){
 for(let i=0;i<20;i++){
 
 particles.push({
-x,y,
-dx:(Math.random()-.5)*6,
-dy:(Math.random()-.5)*6,
-size:Math.random()*5+2,
-life:40,
+x,
+y,
+dx:(Math.random()-.5)*5,
+dy:(Math.random()-.5)*5,
+size:Math.random()*4+2,
+life:35,
 color
 });
 
@@ -462,7 +540,7 @@ bg.addColorStop(1,"#111827");
 ctx.fillStyle=bg;
 ctx.fillRect(0,0,1200,600);
 
-for(let i=0;i<80;i++){
+for(let i=0;i<60;i++){
 
 ctx.globalAlpha=Math.random();
 
@@ -495,7 +573,13 @@ ctx.fillRect(player.x,player.y,player.w,player.h);
 
 }else{
 
-ctx.drawImage(ship,player.x,player.y,player.w,player.h);
+ctx.drawImage(
+ship,
+player.x,
+player.y,
+player.w,
+player.h
+);
 
 }
 
@@ -507,10 +591,34 @@ if(paused) return;
 
 drawBackground();
 
-if(keys["ArrowLeft"]) player.x-=player.speed;
-if(keys["ArrowRight"]) player.x+=player.speed;
+if(keys["ArrowLeft"]){
+player.x-=player.speed;
+}
 
-player.x=Math.max(0,Math.min(1120,player.x));
+if(keys["ArrowRight"]){
+player.x+=player.speed;
+}
+
+if(keys["ArrowUp"] && currentGame==="snake"){
+if(snakeDir!=="DOWN") snakeDir="UP";
+}
+
+if(keys["ArrowDown"] && currentGame==="snake"){
+if(snakeDir!=="UP") snakeDir="DOWN";
+}
+
+if(keys["ArrowLeft"] && currentGame==="snake"){
+if(snakeDir!=="RIGHT") snakeDir="LEFT";
+}
+
+if(keys["ArrowRight"] && currentGame==="snake"){
+if(snakeDir!=="LEFT") snakeDir="RIGHT";
+}
+
+player.x=Math.max(
+0,
+Math.min(1120,player.x)
+);
 
 if(currentGame!=="snake"){
 drawPlayer();
@@ -531,13 +639,13 @@ animation=requestAnimationFrame(gameLoop);
 
 function spaceGame(){
 
-if(Math.random()<0.015){
+if(Math.random()<0.008){
 
 meteors.push({
 x:Math.random()*1150,
 y:-50,
-r:20,
-speed:2+Math.random()*2
+r:18+Math.random()*12,
+speed:1.5+Math.random()*1.2
 });
 
 }
@@ -546,7 +654,15 @@ meteors.forEach((m,index)=>{
 
 m.y+=m.speed;
 
-ctx.fillStyle="#ef4444";
+let glow=ctx.createRadialGradient(
+m.x,m.y,5,
+m.x,m.y,m.r
+);
+
+glow.addColorStop(0,"#fca5a5");
+glow.addColorStop(1,"#ef4444");
+
+ctx.fillStyle=glow;
 
 ctx.beginPath();
 ctx.arc(m.x,m.y,m.r,0,Math.PI*2);
@@ -560,7 +676,9 @@ player.y+player.h > m.y-m.r
 ){
 
 createExplosion(m.x,m.y,"red");
+
 meteors.splice(index,1);
+
 damage();
 
 }
@@ -568,6 +686,7 @@ damage();
 if(m.y>650){
 
 meteors.splice(index,1);
+
 addScore();
 
 }
@@ -582,25 +701,25 @@ ctx.fillStyle="#222";
 ctx.fillRect(350,0,500,600);
 
 ctx.strokeStyle="#fff";
-ctx.lineWidth=5;
+ctx.lineWidth=6;
 
-for(let i=0;i<600;i+=60){
+for(let i=0;i<600;i+=70){
 
 ctx.beginPath();
-ctx.moveTo(600,i+(Date.now()/20)%60);
-ctx.lineTo(600,i+30+(Date.now()/20)%60);
+ctx.moveTo(600,i+(Date.now()/30)%70);
+ctx.lineTo(600,i+40+(Date.now()/30)%70);
 ctx.stroke();
 
 }
 
-if(Math.random()<0.015){
+if(Math.random()<0.008){
 
 cars.push({
 x:[400,520,650,760][Math.floor(Math.random()*4)],
 y:-100,
 w:70,
 h:100,
-speed:4
+speed:2.5
 });
 
 }
@@ -620,7 +739,9 @@ player.y+player.h > c.y
 ){
 
 createExplosion(c.x,c.y,"orange");
+
 cars.splice(index,1);
+
 damage();
 
 }
@@ -628,6 +749,7 @@ damage();
 if(c.y>700){
 
 cars.splice(index,1);
+
 addScore();
 
 }
@@ -638,14 +760,14 @@ addScore();
 
 function shooterGame(){
 
-if(Math.random()<0.015){
+if(Math.random()<0.008){
 
 enemies.push({
 x:Math.random()*1100,
 y:-50,
 w:60,
 h:60,
-speed:2
+speed:1.3
 });
 
 }
@@ -680,6 +802,7 @@ addScore(2);
 if(e.y>650){
 
 enemies.splice(eIndex,1);
+
 damage();
 
 }
@@ -688,12 +811,14 @@ damage();
 
 bullets.forEach((b,index)=>{
 
-b.y-=8;
+b.y-=5;
 
 ctx.fillStyle="#38bdf8";
 ctx.fillRect(b.x,b.y,b.w,b.h);
 
-if(b.y<-20) bullets.splice(index,1);
+if(b.y<-20){
+bullets.splice(index,1);
+}
 
 });
 
@@ -704,7 +829,7 @@ function runnerGame(){
 ctx.fillStyle="#444";
 ctx.fillRect(0,560,1200,40);
 
-player.dy+=0.5;
+player.dy+=0.45;
 player.y+=player.dy;
 
 if(player.y>490){
@@ -715,14 +840,14 @@ player.jumping=false;
 
 }
 
-if(Math.random()<0.015){
+if(Math.random()<0.008){
 
 obstacles.push({
 x:1200,
 y:500,
 w:40,
 h:60,
-speed:5
+speed:3
 });
 
 }
@@ -742,6 +867,7 @@ player.y+player.h > o.y
 ){
 
 damage();
+
 obstacles.splice(index,1);
 
 }
@@ -749,6 +875,7 @@ obstacles.splice(index,1);
 if(o.x<-50){
 
 obstacles.splice(index,1);
+
 addScore();
 
 }
@@ -779,15 +906,15 @@ alive:true
 
 ball.x=600;
 ball.y=400;
-ball.dx=4;
-ball.dy=-4;
+ball.dx=2.5;
+ball.dy=-2.5;
 
 }
 
 function brickGame(){
 
 ctx.fillStyle="#3b82f6";
-ctx.fillRect(player.x,550,140,20);
+ctx.fillRect(player.x,550,160,20);
 
 ball.x+=ball.dx;
 ball.y+=ball.dy;
@@ -798,21 +925,31 @@ ctx.beginPath();
 ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
 ctx.fill();
 
-if(ball.x<0 || ball.x>1200) ball.dx*=-1;
-if(ball.y<0) ball.dy*=-1;
+if(ball.x<0 || ball.x>1200){
+ball.dx*=-1;
+}
+
+if(ball.y<0){
+ball.dy*=-1;
+}
 
 if(ball.y>600){
+
 damage();
+
 ball.x=600;
 ball.y=400;
+
 }
 
 if(
 ball.y+ball.r>550 &&
 ball.x>player.x &&
-ball.x<player.x+140
+ball.x<player.x+160
 ){
+
 ball.dy=-Math.abs(ball.dy);
+
 }
 
 bricks.forEach(b=>{
@@ -830,6 +967,7 @@ ball.y<b.y+b.h
 ){
 
 b.alive=false;
+
 ball.dy*=-1;
 
 addScore();
@@ -844,7 +982,8 @@ function snakeGame(){
 
 snakeTimer++;
 
-if(snakeTimer<8) return;
+if(snakeTimer<10) return;
+
 snakeTimer=0;
 
 ctx.fillStyle="#000";
@@ -874,7 +1013,9 @@ y:Math.floor(Math.random()*15)
 addScore();
 
 }else{
+
 snake.pop();
+
 }
 
 ctx.fillStyle="#22c55e";
@@ -892,7 +1033,12 @@ s.y*40,
 
 ctx.fillStyle="#ef4444";
 
-ctx.fillRect(food.x*40,food.y*40,38,38);
+ctx.fillRect(
+food.x*40,
+food.y*40,
+38,
+38
+);
 
 }
 
@@ -900,8 +1046,14 @@ function shoot(){
 
 if(currentGame!=="shooter") return;
 
+let now=Date.now();
+
+if(now-lastShoot<300) return;
+
+lastShoot=now;
+
 bullets.push({
-x:player.x+30,
+x:player.x+35,
 y:player.y,
 w:10,
 h:25
@@ -913,7 +1065,7 @@ function jump(){
 
 if(currentGame==="runner" && !player.jumping){
 
-player.dy=-12;
+player.dy=-9;
 player.jumping=true;
 
 }
@@ -934,7 +1086,9 @@ ctx.beginPath();
 ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
 ctx.fill();
 
-if(p.life<=0) particles.splice(index,1);
+if(p.life<=0){
+particles.splice(index,1);
+}
 
 });
 
@@ -952,7 +1106,9 @@ if(lives<=0){
 
 setTimeout(()=>{
 
-alert("💀 GAME OVER\n\nScore: "+score);
+alert(
+"💀 GAME OVER\n\nScore: "+score
+);
 
 restartGame();
 
@@ -966,15 +1122,6 @@ window.addEventListener("keydown",e=>{
 
 keys[e.key]=true;
 
-if(currentGame==="snake"){
-
-if(e.key==="ArrowUp") snakeDir="UP";
-if(e.key==="ArrowDown") snakeDir="DOWN";
-if(e.key==="ArrowLeft") snakeDir="LEFT";
-if(e.key==="ArrowRight") snakeDir="RIGHT";
-
-}
-
 if(e.key===" ") shoot();
 
 if(e.key==="ArrowUp") jump();
@@ -982,15 +1129,25 @@ if(e.key==="ArrowUp") jump();
 });
 
 window.addEventListener("keyup",e=>{
+
 keys[e.key]=false;
+
 });
 
-function moveLeft(){
-player.x-=35;
+function pressKey(key){
+
+keys[key]=true;
+
+if(key==="ArrowUp"){
+jump();
 }
 
-function moveRight(){
-player.x+=35;
+}
+
+function releaseKey(key){
+
+keys[key]=false;
+
 }
 
 function restartGame(){
@@ -1005,8 +1162,11 @@ function goMenu(){
 
 cancelAnimationFrame(animation);
 
-document.getElementById("menu").classList.remove("hidden");
-document.getElementById("game").classList.add("hidden");
+document.getElementById("menu")
+.classList.remove("hidden");
+
+document.getElementById("game")
+.classList.add("hidden");
 
 }
 
@@ -1026,7 +1186,11 @@ ctx.fillRect(0,0,1200,600);
 ctx.fillStyle="white";
 ctx.font="bold 70px Arial";
 
-ctx.fillText("PAUSED",420,300);
+ctx.fillText(
+"PAUSED",
+420,
+300
+);
 
 }
 
