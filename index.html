@@ -2,1090 +2,767 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-
-<title>🎮 JACKIE & GELIC ARCADE ULTRA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gr8 ERP Quotation System</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:
-radial-gradient(circle at top left,#ec489955,transparent 30%),
-radial-gradient(circle at top right,#8b5cf655,transparent 30%),
-linear-gradient(135deg,#020617,#111827,#312e81,#7e22ce);
-min-height:100vh;
-overflow-x:hidden;
-color:white;
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#f8fbff,#e0f2fe,#fff7ed);
+color:#111827;
 }
-
 .glass{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.12);
-box-shadow:0 10px 30px rgba(0,0,0,.35);
+background:rgba(255,255,255,.96);
+border:1px solid #bfdbfe;
+box-shadow:0 15px 40px rgba(2,132,199,.14);
 }
-
-.gradient{
-background:linear-gradient(90deg,#fff,#f9a8d4,#c084fc,#fff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.card{
-transition:.25s;
-cursor:pointer;
-}
-
-.card:hover{
-transform:translateY(-6px) scale(1.03);
-}
-
-canvas{
-width:100%;
-max-width:1100px;
-aspect-ratio:16/9;
-background:#020617;
-border-radius:24px;
-display:block;
-margin:auto;
-border:2px solid rgba(255,255,255,.08);
-touch-action:none;
-}
-
 .btn{
-padding:12px 18px;
-border-radius:18px;
+padding:11px 15px;
+border-radius:14px;
 font-weight:800;
+border:none;
+cursor:pointer;
 transition:.2s;
-border:none;
-color:white;
 }
-
-.btn:active{
-transform:scale(.95);
+.btn:active{transform:scale(.94)}
+input,select,textarea{
+width:100%;
+padding:11px 13px;
+border:1px solid #bae6fd;
+border-radius:12px;
+outline:none;
+background:white;
 }
-
-.mobile-controls{
-display:grid;
-grid-template-columns:repeat(3,70px);
-gap:10px;
-justify-content:center;
-margin-top:20px;
+label{font-size:12px;font-weight:800;color:#0369a1}
+.logo{
+font-size:38px;
+font-weight:1000;
+color:#f97316;
+letter-spacing:-2px;
+line-height:1;
 }
-
-.control-btn{
-width:70px;
-height:70px;
-border:none;
-border-radius:18px;
-font-size:24px;
-background:rgba(255,255,255,.12);
-color:white;
+.logo span{color:#0369a1}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #111;padding:6px;font-size:12px;vertical-align:top}
+th{background:#e0f2fe}
+.card{cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px)}
+.modal{
+position:fixed;inset:0;background:rgba(0,0,0,.55);
+display:none;align-items:flex-start;justify-content:center;
+padding:25px;z-index:99;overflow:auto;
 }
-
-.control-btn:active{
-transform:scale(.9);
-background:#ec4899;
+.modal.show{display:flex}
+.preview-paper{
+width:850px;
+background:white;
+padding:28px;
+color:#111;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
-
-.empty{
-visibility:hidden;
+.page-break{page-break-before:always;margin-top:30px}
+.small{font-size:12px}
+.section-title{font-size:15px;font-weight:900;margin:16px 0 6px}
+@media print{
+.no-print{display:none!important}
+body{background:white}
+.preview-paper{box-shadow:none;width:100%;padding:0}
 }
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:15px;
-margin-top:18px;
-}
-
-@media(max-width:768px){
-
-h1{
-font-size:30px !important;
-}
-
-.control-btn{
-width:60px;
-height:60px;
-font-size:20px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<section id="menu" class="min-h-screen flex items-center justify-center p-4">
+<div class="max-w-7xl mx-auto p-4">
 
-<div class="glass rounded-[30px] p-5 w-full max-w-7xl">
-
-<div class="text-center">
-
-<div class="text-7xl">🎮</div>
-
-<h1 class="text-6xl font-black gradient mt-3">
-JACKIE & GELIC ARCADE ULTRA
-</h1>
-
-<p class="text-white/70 mt-4">
-Smooth Games • Mobile Friendly • Working Games
-</p>
-
-</div>
-
-<div class="grid md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('space')">
-<div class="text-6xl">🚀</div>
-<h2 class="text-2xl font-black mt-2">Space</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('car')">
-<div class="text-6xl">🏎️</div>
-<h2 class="text-2xl font-black mt-2">Car</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('snake')">
-<div class="text-6xl">🐍</div>
-<h2 class="text-2xl font-black mt-2">Snake</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('brick')">
-<div class="text-6xl">🧱</div>
-<h2 class="text-2xl font-black mt-2">Brick</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('pong')">
-<div class="text-6xl">🏓</div>
-<h2 class="text-2xl font-black mt-2">Pong</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('combat')">
-<div class="text-6xl">⚔️</div>
-<h2 class="text-2xl font-black mt-2">Combat</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('runner')">
-<div class="text-6xl">🏃</div>
-<h2 class="text-2xl font-black mt-2">Runner</h2>
-</div>
-
-<div class="card glass rounded-3xl p-5 text-center" onclick="startGame('catch')">
-<div class="text-6xl">🍎</div>
-<h2 class="text-2xl font-black mt-2">Catch</h2>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="game" class="hidden p-4 min-h-screen">
-
-<div class="glass rounded-[30px] p-4 max-w-7xl mx-auto">
-
-<div class="flex flex-wrap gap-3 justify-between items-center mb-5">
-
+<div class="glass rounded-3xl p-5 mb-5 no-print">
+<div class="flex flex-wrap justify-between items-center gap-3">
 <div>
-
-<h1 id="gameTitle" class="text-4xl font-black gradient">
-GAME
-</h1>
-
-<p class="text-white/60">
-Smooth Gameplay Experience
-</p>
-
+<div class="logo">Gr8 <span>ERP</span></div>
+<p class="font-bold text-sky-700">Quotation System • Sales Tagging • PDF Generator</p>
 </div>
-
 <div class="flex flex-wrap gap-2">
+<button class="btn bg-sky-500 text-white" onclick="newQuote()">➕ New</button>
+<button class="btn bg-green-500 text-white" onclick="saveQuote()">💾 Save</button>
+<button class="btn bg-orange-500 text-white" onclick="openPreview()">👁 Preview</button>
+<button class="btn bg-blue-700 text-white" onclick="downloadPDF()">📄 PDF</button>
+<button class="btn bg-pink-500 text-white" onclick="printPreview()">🖨 Print</button>
+</div>
+</div>
+</div>
 
-<button class="btn bg-blue-500" onclick="restartGame()">
-🔄 Restart
-</button>
+<div class="grid lg:grid-cols-3 gap-5">
 
-<button class="btn bg-yellow-500 text-black" onclick="togglePause()">
-⏸ Pause
-</button>
+<div class="lg:col-span-2 glass rounded-3xl p-5 no-print">
 
-<button class="btn bg-green-500" onclick="slowMode()">
-🐢 Slow
-</button>
+<h2 class="text-2xl font-black text-sky-700 mb-4">Client Details</h2>
 
-<button class="btn bg-pink-500" onclick="speedMode()">
-⚡ Speed
-</button>
+<div class="grid md:grid-cols-3 gap-3">
+<div><label>SQ No.</label><input id="sqNo"></div>
+<div><label>Date</label><input id="sqDate" type="date"></div>
+<div><label>Valid Until</label><input id="validUntil" type="date"></div>
 
-<button class="btn bg-red-500" onclick="goMenu()">
-🏠 Menu
-</button>
+<div><label>Company Name</label><input id="company" placeholder="Company Name"></div>
+<div><label>Contact Person</label><input id="contact" placeholder="Contact Person"></div>
+<div><label>Position</label><input id="position" placeholder="Position"></div>
 
+<div><label>Email</label><input id="email" placeholder="Email"></div>
+<div><label>Sales Person</label>
+<select id="sales">
+<option>Jackielou Cadlum</option>
+<option>Gelic</option>
+<option>Maria Eloisa</option>
+<option>Kane Miral</option>
+<option>Other Sales</option>
+</select>
+</div>
+<div><label>Status</label>
+<select id="status">
+<option>Draft</option>
+<option>Sent</option>
+<option>For Follow-up</option>
+<option>Negotiation</option>
+<option>Approved</option>
+<option>Declined</option>
+</select>
+</div>
+
+<div><label>Software Product</label>
+<select id="product" onchange="applyProductTemplate()">
+<option>Gr8 ERP Accounting and Inventory</option>
+<option>Gr8 Payroll (On Premise) & HRIS (Cloud)</option>
+<option>Gr8 ERP for Brokerage with Fixed Asset Module (Cloud)</option>
+<option>Gr8 ERP Cooperative System</option>
+<option>Gr8 ERP Manufacturing / Production</option>
+<option>Gr8 ERP POS System</option>
+<option>Customized Software System</option>
+</select>
+</div>
+<div><label>No. of Users / Workstations</label><input id="users" type="number" value="5" oninput="compute()"></div>
+<div><label>No. of Employees if Payroll</label><input id="employees" type="number" value="0" oninput="compute()"></div>
+</div>
+
+<div class="grid md:grid-cols-4 gap-3 mt-5">
+<div><label>Software Amount</label><input id="softwareAmount" type="number" value="0" oninput="compute()"></div>
+<div><label>Implementation Fee</label><input id="implementationFee" type="number" value="0" oninput="compute()"></div>
+<div><label>Discount</label><input id="discount" type="number" value="0" oninput="compute()"></div>
+<div><label>VAT %</label><input id="vat" type="number" value="12" oninput="compute()"></div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-3 mt-5">
+<div class="glass rounded-2xl p-4 text-center">
+<p class="text-sky-700 font-bold">Subtotal</p>
+<h2 id="subtotalText" class="text-2xl font-black">₱0.00</h2>
+</div>
+<div class="glass rounded-2xl p-4 text-center">
+<p class="text-sky-700 font-bold">VAT</p>
+<h2 id="vatText" class="text-2xl font-black">₱0.00</h2>
+</div>
+<div class="glass rounded-2xl p-4 text-center">
+<p class="text-sky-700 font-bold">Grand Total</p>
+<h2 id="grandText" class="text-2xl font-black text-orange-500">₱0.00</h2>
+</div>
+</div>
+
+<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Scope Builder</h2>
+
+<div class="flex flex-wrap gap-2 mb-3">
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Accounting')">+ Accounting</button>
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Inventory')">+ Inventory</button>
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Payroll')">+ Payroll</button>
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('HRIS')">+ HRIS</button>
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Brokerage')">+ Brokerage</button>
+<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Fixed Asset')">+ Fixed Asset</button>
+<button class="btn bg-red-100 text-red-700" onclick="clearScope()">Clear Scope</button>
+</div>
+
+<textarea id="scope" rows="12"></textarea>
+
+<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Optional Add-ons</h2>
+
+<div class="grid md:grid-cols-4 gap-3">
+<input id="addonDesc" placeholder="Add-on description">
+<input id="addonQty" type="number" value="1">
+<input id="addonPrice" type="number" placeholder="Price">
+<button class="btn bg-orange-500 text-white" onclick="addAddon()">➕ Add</button>
+</div>
+
+<div class="overflow-x-auto mt-3">
+<table>
+<thead><tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th><th>Action</th></tr></thead>
+<tbody id="addonTable"></tbody>
+</table>
+</div>
+
+<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Terms / Notes</h2>
+<textarea id="terms" rows="7"></textarea>
+
+</div>
+
+<div class="glass rounded-3xl p-5 no-print">
+<h2 class="text-2xl font-black text-sky-700 mb-3">Saved Quotations</h2>
+<input id="search" placeholder="Search..." oninput="renderSaved()">
+<div id="savedList" class="mt-4 space-y-3"></div>
 </div>
 
 </div>
 
-<canvas id="canvas" width="1100" height="620"></canvas>
-
-<div class="mobile-controls">
-
-<div class="empty"></div>
-
-<button class="control-btn"
-ontouchstart="pressKey('ArrowUp')"
-ontouchend="releaseKey('ArrowUp')">
-⬆️
-</button>
-
-<div class="empty"></div>
-
-<button class="control-btn"
-ontouchstart="pressKey('ArrowLeft')"
-ontouchend="releaseKey('ArrowLeft')">
-⬅️
-</button>
-
-<button class="control-btn"
-ontouchstart="pressKey('ArrowDown')"
-ontouchend="releaseKey('ArrowDown')">
-⬇️
-</button>
-
-<button class="control-btn"
-ontouchstart="pressKey('ArrowRight')"
-ontouchend="releaseKey('ArrowRight')">
-➡️
-</button>
-
 </div>
 
-<div class="stats">
-
-<div class="glass rounded-3xl p-4 text-center">
-<p class="text-white/60">Score</p>
-<h2 id="score" class="text-4xl font-black text-pink-300">0</h2>
+<div id="previewModal" class="modal">
+<div>
+<div class="flex justify-end gap-2 mb-3 no-print">
+<button class="btn bg-blue-600 text-white" onclick="downloadPDF()">📄 Download PDF</button>
+<button class="btn bg-pink-500 text-white" onclick="printPreview()">🖨 Print</button>
+<button class="btn bg-red-500 text-white" onclick="closePreview()">✖ Close</button>
 </div>
-
-<div class="glass rounded-3xl p-4 text-center">
-<p class="text-white/60">Lives</p>
-<h2 id="lives" class="text-4xl font-black text-green-300">3</h2>
+<div id="preview" class="preview-paper"></div>
 </div>
-
-<div class="glass rounded-3xl p-4 text-center">
-<p class="text-white/60">Best</p>
-<h2 id="best" class="text-4xl font-black text-yellow-300">0</h2>
 </div>
-
-<div class="glass rounded-3xl p-4 text-center">
-<p class="text-white/60">Level</p>
-<h2 id="level" class="text-4xl font-black text-cyan-300">1</h2>
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 <script>
+let addons=[];
+let saved=JSON.parse(localStorage.getItem("gr8QuotationSystem")||"[]");
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+const templates={
+Accounting:`A. ACCOUNTING MODULE
+SET UP WIZARD
+1. Company Information
+2. Chart of Accounts
+3. Vendor Masterfile
+4. Customer Masterfile
+5. Employee Masterfile
+6. Bank Masterfile
 
-let game="space";
-let animation;
-let paused=false;
+SYSTEM MAINTENANCE
+1. Terms Management
+2. Branch Management
+3. Responsibility Center
+4. Tax Default Account Set Up
+5. Default Account Set Up
+6. Petty Cash Maintenance
 
-let gameSpeed=1;
+MODULES
+1. Purchase Request
+2. Purchase Order
+3. Accounts Payable Voucher
+4. Cash Disbursements
+5. Billing Statement
+6. Sales Invoice
+7. Official Receipt
+8. Collection Receipt
+9. Journal Voucher
+10. Bank Reconciliation
+11. Period End Closing
+12. Subsidiary Ledger
+13. Audit Trail
 
-let score=0;
-let lives=3;
-let level=1;
+SYSTEM REPORTS
+1. Transaction Reports
+2. Sales Reports
+3. Preliminary Trial Balance
+4. Balance Sheet
+5. Income Statement
+6. General Ledger
+7. Subsidiary Ledger
+8. Aging of Accounts Payable`,
 
-let best=localStorage.getItem("arcadeBest") || 0;
+Inventory:`B. INVENTORY MODULE
+MASTERFILE
+1. Item Masterfile
+2. Warehouse Masterfile
+3. Supplier Item Setup
+4. Unit of Measure
 
-document.getElementById("best").innerText=best;
+TRANSACTIONS
+1. Receiving Report
+2. Inventory Transfer
+3. Inventory Adjustment
+4. Stock Issuance
+5. Stock Return
 
-const keys={};
+REPORTS
+1. Inventory Ledger
+2. Stock Card
+3. Inventory Summary
+4. Inventory Movement
+5. Fast / Slow Moving Items`,
 
-const player={
-x:520,
-y:500,
-speed:5
+Payroll:`A. GR8 PAYROLL (ON PREMISE)
+SET UP WIZARD
+1. Company Information
+2. Employee Masterfile
+3. User Management
+4. Organization Maintenance
+5. Payroll Period
+6. Timekeeping & Payroll Settings
+
+SYSTEM MAINTENANCE
+1. Shift Code
+2. Group Code
+3. Employee Schedule
+4. Holiday
+5. Leave Type
+6. Employee Position
+7. RFID Setup
+8. Leave Credits / Balances
+9. Income Type
+10. Deduction Type
+
+MODULES
+1. Timekeeping Ledger
+2. Timekeeping Logs Uploader
+3. ATM Uploader
+4. Employee Ledger
+5. Payroll Generator
+6. 13th Month Generator
+7. Bankfile
+8. Query Generator
+9. Alphalist Report
+
+PAYROLL REPORTS
+1. Payslip
+2. Payroll Ledger
+3. Payroll Summary
+4. SSS
+5. PhilHealth
+6. HDMF
+7. Withholding Tax
+8. BIR 2316`,
+
+HRIS:`B. HRIS (CLOUD)
+EMPLOYEE PORTAL
+1. Employee Profile
+2. Employee Daily Time Record
+3. Viewing of Payslip with History
+4. Certificate of Employment
+5. Certificate of SSS Contributions
+6. Certificate of PhilHealth Contributions
+7. Certificate of HDMF Contributions
+8. 2316 Viewing
+9. Record of Training
+
+ADMIN ACCESS
+1. Performance Appraisal
+2. Leave Approval
+3. Notice to Explain
+4. Request Certificate of Employment and Compensation
+5. Disciplinary Action
+6. RTWO (Return to Work Order)`,
+
+Brokerage:`D. BROKERAGE MODULE
+SYSTEM MAINTENANCE
+1. Charges Maintenance
+2. Shipper Maintenance
+3. Shipping Lines Maintenance
+4. Consignee Maintenance
+
+MODULES
+1. Refund Monitoring
+2. SOA Batch Update
+3. Statement of Account
+
+REPORTS
+1. Shipment per Consignee
+2. Cash Advance Report
+3. Refund Monitoring Report
+4. SOA Ledger`,
+
+"Fixed Asset":`E. FIXED ASSET MODULE
+MODULES
+1. Depreciation Parameters
+2. Depreciation Schedules
+3. Copy to JV
+4. Additional Parts
+5. Job Order Maintenance
+6. Tire Monitoring
+7. File Attachment`
 };
 
-let stars=[];
-let meteors=[];
-let traffic=[];
-let enemies=[];
-let obstacles=[];
-let fruits=[];
-let bricks=[];
+function peso(n){
+return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
 
-let snake=[];
-let snakeDir="RIGHT";
-let snakeFood={x:10,y:10};
-let snakeTick=0;
+function today(){
+return new Date().toISOString().slice(0,10);
+}
 
-let ball={
-x:550,
-y:400,
-dx:4,
-dy:-4
+function addDays(d){
+let x=new Date();
+x.setDate(x.getDate()+d);
+return x.toISOString().slice(0,10);
+}
+
+function newQuote(){
+document.getElementById("sqNo").value=Math.floor(1000+Math.random()*9000);
+document.getElementById("sqDate").value=today();
+document.getElementById("validUntil").value=addDays(15);
+document.getElementById("company").value="";
+document.getElementById("contact").value="";
+document.getElementById("position").value="";
+document.getElementById("email").value="";
+document.getElementById("users").value=5;
+document.getElementById("employees").value=0;
+document.getElementById("softwareAmount").value=0;
+document.getElementById("implementationFee").value=0;
+document.getElementById("discount").value=0;
+document.getElementById("vat").value=12;
+document.getElementById("scope").value="";
+addons=[];
+document.getElementById("terms").value=`III. Terms of Payment
+
+Option 1: Full Cash Payment Upon Confirmation of Sales Quotation.
+Option 2: 50% Downpayment, balance 3 months PDC.
+Option 3: 20% Downpayment, balance 12 months PDC.
+
+IV. Implementation Methodology
+
+1. Kick Off & Templates Discussion
+2. Scoping for System Alignment
+3. Submission of Signed Scoping Form
+4. System Alignment
+5. System Presentation
+6. User Acceptance Training (UAT)
+7. Data Migration
+8. Training
+9. Go Live
+
+Responsibilities of the Client:
+The Client shall provide accurate data, assign competent personnel, attend trainings, and log support concerns through the INTEGR8 CRM Ticketing System.
+
+Software Customization:
+Any additional fields, reports, adjustments, or customization shall be subject to RFC, separate agreement, cost, and timetable.
+
+Site Visit:
+Request for site visits, if any, shall be chargeable at PHP 8,960.00 per manday plus transportation, meals, accommodation, and incidental expenses.`;
+renderAddons();
+compute();
+}
+
+function applyProductTemplate(){
+let p=document.getElementById("product").value;
+if(p.includes("Payroll")){
+document.getElementById("scope").value=templates.Payroll+"\n\n"+templates.HRIS;
+document.getElementById("softwareAmount").value=600000;
+document.getElementById("implementationFee").value=180000;
+document.getElementById("employees").value=1000;
+document.getElementById("users").value=10;
+}
+else if(p.includes("Brokerage")){
+document.getElementById("scope").value=templates.Accounting+"\n\n"+templates.Brokerage+"\n\n"+templates["Fixed Asset"];
+document.getElementById("softwareAmount").value=287880;
+document.getElementById("implementationFee").value=351000;
+document.getElementById("users").value=10;
+}
+else{
+document.getElementById("scope").value=templates.Accounting+"\n\n"+templates.Inventory;
+}
+compute();
+}
+
+function addScope(name){
+let current=document.getElementById("scope").value;
+document.getElementById("scope").value=current+(current? "\n\n":"")+templates[name];
+}
+
+function clearScope(){
+if(confirm("Clear all scope details?")) document.getElementById("scope").value="";
+}
+
+function addAddon(){
+let desc=document.getElementById("addonDesc").value;
+let qty=Number(document.getElementById("addonQty").value);
+let price=Number(document.getElementById("addonPrice").value);
+if(!desc||qty<=0||price<=0){alert("Complete add-on details.");return}
+addons.push({desc,qty,price});
+document.getElementById("addonDesc").value="";
+document.getElementById("addonQty").value=1;
+document.getElementById("addonPrice").value="";
+renderAddons();
+compute();
+}
+
+function removeAddon(i){
+addons.splice(i,1);
+renderAddons();
+compute();
+}
+
+function renderAddons(){
+let html="";
+addons.forEach((a,i)=>{
+html+=`<tr>
+<td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td>
+<td><button class="btn bg-red-500 text-white" onclick="removeAddon(${i})">Remove</button></td>
+</tr>`;
+});
+document.getElementById("addonTable").innerHTML=html;
+}
+
+function compute(){
+let software=Number(document.getElementById("softwareAmount").value||0);
+let implem=Number(document.getElementById("implementationFee").value||0);
+let addonTotal=addons.reduce((s,a)=>s+(a.qty*a.price),0);
+let discount=Number(document.getElementById("discount").value||0);
+let vatRate=Number(document.getElementById("vat").value||0);
+let subtotal=software+implem+addonTotal-discount;
+let vat=subtotal*(vatRate/100);
+let grand=subtotal+vat;
+document.getElementById("subtotalText").innerText=peso(subtotal);
+document.getElementById("vatText").innerText=peso(vat);
+document.getElementById("grandText").innerText=peso(grand);
+return{software,implem,addonTotal,discount,vatRate,subtotal,vat,grand};
+}
+
+function data(){
+return{
+sqNo:val("sqNo"),sqDate:val("sqDate"),validUntil:val("validUntil"),
+company:val("company"),contact:val("contact"),position:val("position"),email:val("email"),
+sales:val("sales"),status:val("status"),product:val("product"),users:val("users"),employees:val("employees"),
+scope:val("scope"),terms:val("terms"),addons,totals:compute()
 };
+}
 
-for(let i=0;i<100;i++){
+function val(id){return document.getElementById(id).value}
 
-stars.push({
-x:Math.random()*1100,
-y:Math.random()*620,
-size:Math.random()*2,
-speed:1
+function saveQuote(){
+let d=data();
+if(!d.company){alert("Please enter company name.");return}
+let i=saved.findIndex(x=>x.sqNo===d.sqNo);
+if(i>=0)saved[i]=d;else saved.unshift(d);
+localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
+renderSaved();
+alert("Saved successfully.");
+}
+
+function renderSaved(){
+let q=val("search").toLowerCase();
+let list=document.getElementById("savedList");
+list.innerHTML="";
+saved.filter(x=>
+(x.company||"").toLowerCase().includes(q)||
+(x.contact||"").toLowerCase().includes(q)||
+(x.sales||"").toLowerCase().includes(q)||
+(x.status||"").toLowerCase().includes(q)||
+(x.sqNo||"").toLowerCase().includes(q)
+).forEach(x=>{
+list.innerHTML+=`
+<div class="glass rounded-2xl p-4 card" onclick="loadQuote('${x.sqNo}')">
+<div class="flex justify-between gap-2">
+<b>${x.company}</b>
+<span class="px-2 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-black">${x.status}</span>
+</div>
+<p class="text-sm text-gray-500">SQ ${x.sqNo} • ${x.sales}</p>
+<p class="font-black text-orange-500">${peso(x.totals.grand)}</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<button class="btn bg-orange-500 text-white" onclick="event.stopPropagation();loadQuote('${x.sqNo}');openPreview()">Preview</button>
+<button class="btn bg-sky-500 text-white" onclick="event.stopPropagation();duplicateQuote('${x.sqNo}')">Duplicate</button>
+<button class="btn bg-red-500 text-white" onclick="event.stopPropagation();deleteQuote('${x.sqNo}')">Delete</button>
+</div>
+</div>`;
 });
-
 }
 
-function updateUI(){
-
-document.getElementById("score").innerText=score;
-document.getElementById("lives").innerText=lives;
-document.getElementById("best").innerText=best;
-document.getElementById("level").innerText=level;
-
+function loadQuote(no){
+let x=saved.find(a=>a.sqNo===no);
+if(!x)return;
+set("sqNo",x.sqNo);set("sqDate",x.sqDate);set("validUntil",x.validUntil);
+set("company",x.company);set("contact",x.contact);set("position",x.position);set("email",x.email);
+set("sales",x.sales);set("status",x.status);set("product",x.product);set("users",x.users);set("employees",x.employees);
+set("scope",x.scope);set("terms",x.terms);
+set("softwareAmount",x.totals.software);set("implementationFee",x.totals.implem);set("discount",x.totals.discount);set("vat",x.totals.vatRate);
+addons=x.addons||[];
+renderAddons();compute();
 }
 
-function addScore(v=1){
+function set(id,v){document.getElementById(id).value=v||""}
 
-score+=v;
-
-if(score>best){
-
-best=score;
-
-localStorage.setItem("arcadeBest",best);
-
+function duplicateQuote(no){
+loadQuote(no);
+document.getElementById("sqNo").value=Math.floor(1000+Math.random()*9000);
+alert("Duplicated. Review then save as new quotation.");
 }
 
-level=Math.floor(score/25)+1;
-
-updateUI();
-
+function deleteQuote(no){
+if(!confirm("Delete quotation?"))return;
+saved=saved.filter(x=>x.sqNo!==no);
+localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
+renderSaved();
 }
 
-function damage(){
-
-lives--;
-
-navigator.vibrate?.(80);
-
-updateUI();
-
-if(lives<=0){
-
-setTimeout(()=>{
-
-alert("💀 GAME OVER\n\nScore: "+score);
-
-restartGame();
-
-},100);
-
-}
-
-}
-
-function slowMode(){
-
-gameSpeed=.7;
-
-}
-
-function speedMode(){
-
-gameSpeed=1.2;
-
-}
-
-function startGame(type){
-
-game=type;
-
-document.getElementById("menu").classList.add("hidden");
-document.getElementById("game").classList.remove("hidden");
-
-document.getElementById("gameTitle").innerText=
-type.toUpperCase();
-
-score=0;
-lives=3;
-level=1;
-
-player.x=520;
-player.y=500;
-
-meteors=[];
-traffic=[];
-enemies=[];
-obstacles=[];
-fruits=[];
-
-snake=[
-{x:5,y:5},
-{x:4,y:5},
-{x:3,y:5}
-];
-
-snakeDir="RIGHT";
-
-snakeFood={
-x:10,
-y:10
-};
-
-createBricks();
-
-paused=false;
-
-gameSpeed=1;
-
-updateUI();
-
-cancelAnimationFrame(animation);
-
-loop();
-
-}
-
-function loop(){
-
-if(paused) return;
-
-drawBackground();
-
-switch(game){
-
-case "space":
-spaceGame();
-break;
-
-case "car":
-carGame();
-break;
-
-case "snake":
-snakeGame();
-break;
-
-case "brick":
-brickGame();
-break;
-
-case "pong":
-pongGame();
-break;
-
-case "combat":
-combatGame();
-break;
-
-case "runner":
-runnerGame();
-break;
-
-case "catch":
-catchGame();
-break;
-
-}
-
-animation=requestAnimationFrame(loop);
-
-}
-
-function drawBackground(){
-
-const g=ctx.createLinearGradient(0,0,0,620);
-
-g.addColorStop(0,"#020617");
-g.addColorStop(1,"#312e81");
-
-ctx.fillStyle=g;
-ctx.fillRect(0,0,1100,620);
-
-stars.forEach(s=>{
-
-s.y+=s.speed;
-
-if(s.y>620){
-
-s.y=0;
-s.x=Math.random()*1100;
-
-}
-
-ctx.fillStyle="white";
-
-ctx.beginPath();
-ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-ctx.fill();
-
-});
-
-}
-
-function glow(text,x,y,size=50){
-
-ctx.save();
-
-ctx.font=size+"px Arial";
-
-ctx.shadowColor="#ec4899";
-ctx.shadowBlur=15;
-
-ctx.fillStyle="white";
-
-ctx.fillText(text,x,y);
-
-ctx.restore();
-
-}
-
-function movePlayer(){
-
-if(keys["ArrowLeft"]) player.x-=player.speed;
-if(keys["ArrowRight"]) player.x+=player.speed;
-if(keys["ArrowUp"]) player.y-=player.speed;
-if(keys["ArrowDown"]) player.y+=player.speed;
-
-player.x=Math.max(0,Math.min(1040,player.x));
-player.y=Math.max(0,Math.min(560,player.y));
-
-}
-
-/* SPACE */
-
-function spaceGame(){
-
-glow("🚀",player.x,player.y,55);
-
-if(Math.random()<0.01){
-
-meteors.push({
-x:Math.random()*1040,
-y:-40,
-speed:(2+level*.2)*gameSpeed
-});
-
-}
-
-meteors.forEach((m,index)=>{
-
-m.y+=m.speed;
-
-glow("☄️",m.x,m.y,40);
-
-if(
-player.x<m.x+40 &&
-player.x+40>m.x &&
-player.y<m.y+40 &&
-player.y+40>m.y
-){
-
-meteors.splice(index,1);
-
-damage();
-
-}
-
-if(m.y>650){
-
-meteors.splice(index,1);
-
-addScore(2);
-
-}
-
-});
-
-movePlayer();
-
-}
-
-/* CAR */
-
-function carGame(){
-
-ctx.fillStyle="#1f2937";
-ctx.fillRect(250,0,600,620);
-
-glow("🏎️",player.x,560,55);
-
-if(Math.random()<0.012){
-
-traffic.push({
-x:[320,470,620,770][Math.floor(Math.random()*4)],
-y:-80,
-speed:(3+level*.15)*gameSpeed
-});
-
-}
-
-traffic.forEach((c,index)=>{
-
-c.y+=c.speed;
-
-glow("🚗",c.x,c.y,50);
-
-if(
-player.x<c.x+40 &&
-player.x+40>c.x &&
-540<c.y+40 &&
-590>c.y
-){
-
-traffic.splice(index,1);
-
-damage();
-
-}
-
-if(c.y>650){
-
-traffic.splice(index,1);
-
-addScore(3);
-
-}
-
-});
-
-if(keys["ArrowLeft"]) player.x-=6;
-if(keys["ArrowRight"]) player.x+=6;
-
-player.x=Math.max(260,Math.min(780,player.x));
-
-}
-
-/* SNAKE */
-
-function snakeGame(){
-
-snakeTick++;
-
-if(snakeTick<12){
-drawSnake();
-return;
-}
-
-snakeTick=0;
-
-if(keys["ArrowUp"]&&snakeDir!=="DOWN") snakeDir="UP";
-if(keys["ArrowDown"]&&snakeDir!=="UP") snakeDir="DOWN";
-if(keys["ArrowLeft"]&&snakeDir!=="RIGHT") snakeDir="LEFT";
-if(keys["ArrowRight"]&&snakeDir!=="LEFT") snakeDir="RIGHT";
-
-let head={...snake[0]};
-
-if(snakeDir==="RIGHT") head.x++;
-if(snakeDir==="LEFT") head.x--;
-if(snakeDir==="UP") head.y--;
-if(snakeDir==="DOWN") head.y++;
-
-if(head.x<0) head.x=21;
-if(head.x>21) head.x=0;
-if(head.y<0) head.y=11;
-if(head.y>11) head.y=0;
-
-snake.unshift(head);
-
-if(head.x===snakeFood.x&&head.y===snakeFood.y){
-
-addScore(5);
-
-snakeFood={
-x:Math.floor(Math.random()*22),
-y:Math.floor(Math.random()*12)
-};
-
+function scopeTable(text){
+let lines=text.split("\n").filter(x=>x.trim());
+let html="";
+let n=1;
+lines.forEach(l=>{
+if(l.length<40 && (l.includes("MODULE")||l.includes("WIZARD")||l.includes("REPORT")||l.includes("MAINTENANCE")||l.match(/^[A-Z]/))){
+html+=`<tr><th colspan="2">${l}</th></tr>`;
+n=1;
 }else{
-snake.pop();
+html+=`<tr><td style="width:35px">${n++}</td><td>${l.replace(/^\d+\.\s*/,"")}</td></tr>`;
 }
-
-drawSnake();
-
-}
-
-function drawSnake(){
-
-snake.forEach((s,index)=>{
-
-ctx.fillStyle=index===0 ? "#ec4899" : "#22c55e";
-
-ctx.fillRect(
-s.x*48,
-s.y*48,
-42,
-42
-);
-
 });
-
-glow("🍎",snakeFood.x*48,snakeFood.y*48+35,35);
-
+return html;
 }
 
-/* BRICK */
+function buildPreview(){
+let d=data();
+let t=d.totals;
+let addonRows=d.addons.map(a=>`<tr><td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td></tr>`).join("");
 
-function createBricks(){
+document.getElementById("preview").innerHTML=`
+<div>
+<div style="display:flex;justify-content:space-between;gap:20px;align-items:flex-start">
+<div>
+<div class="logo">integr<span>8</span></div>
+<div class="small" style="font-weight:bold;color:#1e3a8a">SOFTWARE SOLUTIONS, INC.</div>
+</div>
+<div style="border:1px solid #2563eb;padding:8px;width:360px;font-size:12px">
+<b>INTEGR8 SOFTWARE SOLUTIONS, INC.</b><br>
+2nd Floor, Units 2A9-11 THE MHUB Governor's Drive, Brgy. Manggahan,<br>
+General Trias City Cavite TIN 010-629-125-000<br>
+Mobile No: 0917-120-5043<br>
+www.integr8.com.ph
+</div>
+</div>
 
-bricks=[];
+<div style="display:flex;justify-content:space-between;margin-top:18px">
+<div class="small">
+<b>${formatDate(d.sqDate)}</b><br><br>
+<b>Company Name:</b> ${d.company}<br>
+<b>Attention:</b> ${d.contact}<br>
+<b>Email:</b> ${d.email}
+</div>
+<div style="border:2px solid #111;text-align:center;width:310px;padding:8px">
+<b>SQ No: ${d.sqNo}</b><br>
+<span style="color:red;font-weight:900">QUOTATION IS VALID UP TO:</span><br>
+${formatDate(d.validUntil)}
+</div>
+</div>
 
-for(let r=0;r<5;r++){
+<p style="margin-top:28px;font-size:13px">
+Thank you very much for your interest in Gr8 ERP Solutions. We are pleased to submit the following quotation for GR8 ERP Software and Services:
+</p>
 
-for(let c=0;c<8;c++){
+<div class="section-title">I. SCOPE OF WORK - ${d.product}</div>
+<table>${scopeTable(d.scope)}</table>
 
-bricks.push({
-x:90+c*110,
-y:60+r*50,
-alive:true
-});
+<div class="page-break"></div>
 
+<div class="section-title">II. PRICING</div>
+<table>
+<tr>
+<th>Software Product</th>
+<th>No. of Users / Workstations</th>
+<th>No. of Employees</th>
+<th>Amount</th>
+</tr>
+<tr>
+<td>${d.product}</td>
+<td>${d.users}</td>
+<td>${d.employees}</td>
+<td>${peso(t.software)}</td>
+</tr>
+<tr><td>Implementation Fee</td><td></td><td></td><td>${peso(t.implem)}</td></tr>
+<tr><td>Optional Add-ons</td><td></td><td></td><td>${peso(t.addonTotal)}</td></tr>
+<tr><td>Discount</td><td></td><td></td><td>(${peso(t.discount)})</td></tr>
+<tr><td><b>TOTAL</b></td><td></td><td></td><td><b>${peso(t.subtotal)}</b></td></tr>
+<tr><td>Value-Added Tax (${t.vatRate}%)</td><td></td><td></td><td>${peso(t.vat)}</td></tr>
+<tr><td><b>TOTAL VAT INC.</b></td><td></td><td></td><td><b>${peso(t.grand)}</b></td></tr>
+<tr><td>Annual License Fee</td><td colspan="2">To be paid yearly commencing one year from granting of user license.</td><td>${peso(t.grand*.10)}</td></tr>
+</table>
+
+<div class="section-title">Optional Add-ons</div>
+<table>
+<tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th></tr>
+${addonRows || `<tr><td colspan="4">No optional add-ons</td></tr>`}
+</table>
+
+<div class="section-title">III. Terms / Implementation / Responsibilities</div>
+<div style="white-space:pre-line;font-size:12px;line-height:1.45">${d.terms}</div>
+
+<div class="section-title">IV. Cancellation of Agreement</div>
+<p class="small">Should the Client unilaterally rescind this Agreement/Signed Quotation after issuing to INTEGR8, any amount already paid by the Client shall be forfeited in favor of INTEGR8.</p>
+
+<div class="section-title">V. Copyright</div>
+<p class="small">The Client agrees to respect and not remove any copyright, trademark, confidentiality or proprietary notice appearing on any of the Software or output generated by the Software.</p>
+
+<div class="section-title">VI. Confidentiality Agreement and Data Privacy</div>
+<p class="small">The Client and Integr8 agree not to disclose confidential information obtained from this agreement.</p>
+
+<br><br>
+<div style="display:flex;justify-content:space-between;margin-top:45px">
+<div style="width:40%">
+<b>Sincerely,</b><br><br><br>
+<u>${d.sales}</u><br>
+Sales Associate
+</div>
+<div style="width:40%">
+<b>Conforme:</b><br><br><br>
+<u>${d.contact}</u><br>
+${d.position || "Authorized Representative"}<br>
+Date Signed: ____________
+</div>
+</div>
+</div>`;
 }
 
+function formatDate(x){
+if(!x)return "";
+return new Date(x).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"2-digit"});
 }
 
+function openPreview(){
+if(!val("company")){alert("Please enter company name first.");return}
+buildPreview();
+document.getElementById("previewModal").classList.add("show");
 }
 
-function brickGame(){
-
-glow("🛡️",player.x,580,55);
-
-ball.x+=ball.dx*gameSpeed;
-ball.y+=ball.dy*gameSpeed;
-
-ctx.beginPath();
-ctx.arc(ball.x,ball.y,12,0,Math.PI*2);
-ctx.fillStyle="#60a5fa";
-ctx.fill();
-
-if(ball.x<0||ball.x>1100) ball.dx*=-1;
-if(ball.y<0) ball.dy*=-1;
-
-if(ball.y>620){
-
-damage();
-
-ball.x=550;
-ball.y=400;
-
+function closePreview(){
+document.getElementById("previewModal").classList.remove("show");
 }
 
-if(
-ball.y>540 &&
-ball.x>player.x &&
-ball.x<player.x+100
-){
-
-ball.dy=-Math.abs(ball.dy);
-
+async function downloadPDF(){
+if(!val("company")){alert("Please enter company name first.");return}
+buildPreview();
+const {jsPDF}=window.jspdf;
+let pdf=new jsPDF("p","mm","a4");
+let paper=document.getElementById("preview");
+let canvas=await html2canvas(paper,{scale:2});
+let img=canvas.toDataURL("image/png");
+let pdfW=210,pdfH=297;
+let imgW=pdfW;
+let imgH=canvas.height*imgW/canvas.width;
+let heightLeft=imgH;
+let position=0;
+pdf.addImage(img,"PNG",0,position,imgW,imgH);
+heightLeft-=pdfH;
+while(heightLeft>0){
+position=heightLeft-imgH;
+pdf.addPage();
+pdf.addImage(img,"PNG",0,position,imgW,imgH);
+heightLeft-=pdfH;
+}
+pdf.save("SQ-"+val("sqNo")+"-"+val("company")+".pdf");
 }
 
-bricks.forEach(b=>{
-
-if(!b.alive) return;
-
-glow("🧱",b.x,b.y,35);
-
-if(
-ball.x>b.x &&
-ball.x<b.x+40 &&
-ball.y>b.y &&
-ball.y<b.y+30
-){
-
-b.alive=false;
-
-ball.dy*=-1;
-
-addScore(4);
-
+function printPreview(){
+if(!val("company")){alert("Please enter company name first.");return}
+buildPreview();
+let w=window.open("");
+w.document.write(`<html><head><title>Print Quotation</title><style>${document.querySelector("style").innerHTML}</style></head><body><div class="preview-paper">${document.getElementById("preview").innerHTML}</div></body></html>`);
+w.document.close();
+w.print();
 }
 
-});
-
-if(keys["ArrowLeft"]) player.x-=7;
-if(keys["ArrowRight"]) player.x+=7;
-
-player.x=Math.max(0,Math.min(1000,player.x));
-
-}
-
-/* PONG */
-
-function pongGame(){
-
-ctx.fillStyle="white";
-ctx.fillRect(player.x,560,120,15);
-
-ball.x+=ball.dx*gameSpeed;
-ball.y+=ball.dy*gameSpeed;
-
-ctx.beginPath();
-ctx.arc(ball.x,ball.y,12,0,Math.PI*2);
-ctx.fillStyle="white";
-ctx.fill();
-
-if(ball.x<0||ball.x>1100) ball.dx*=-1;
-if(ball.y<0) ball.dy*=-1;
-
-if(ball.y>620){
-
-damage();
-
-ball.x=550;
-ball.y=300;
-
-}
-
-if(ball.y>540&&ball.x>player.x&&ball.x<player.x+120){
-
-ball.dy=-4;
-
-addScore();
-
-}
-
-if(keys["ArrowLeft"]) player.x-=7;
-if(keys["ArrowRight"]) player.x+=7;
-
-player.x=Math.max(0,Math.min(980,player.x));
-
-}
-
-/* COMBAT */
-
-function combatGame(){
-
-glow("⚔️",player.x,player.y,55);
-
-if(Math.random()<0.01){
-
-enemies.push({
-x:Math.random()*1000,
-y:-30,
-speed:(2+level*.15)*gameSpeed
-});
-
-}
-
-enemies.forEach((e,index)=>{
-
-e.y+=e.speed;
-
-glow("👹",e.x,e.y,45);
-
-if(
-player.x<e.x+40 &&
-player.x+40>e.x &&
-player.y<e.y+40 &&
-player.y+40>e.y
-){
-
-enemies.splice(index,1);
-
-damage();
-
-}
-
-if(e.y>650){
-
-enemies.splice(index,1);
-
-addScore(2);
-
-}
-
-});
-
-movePlayer();
-
-}
-
-/* RUNNER */
-
-function runnerGame(){
-
-ctx.fillStyle="#374151";
-ctx.fillRect(0,580,1100,40);
-
-glow("🏃",player.x,560,55);
-
-if(Math.random()<0.012){
-
-obstacles.push({
-x:1100,
-speed:4*gameSpeed
-});
-
-}
-
-obstacles.forEach((o,index)=>{
-
-o.x-=o.speed;
-
-glow("🪨",o.x,570,40);
-
-if(
-player.x<o.x+40 &&
-player.x+40>o.x &&
-player.y>500
-){
-
-damage();
-
-obstacles.splice(index,1);
-
-}
-
-if(o.x<-50){
-
-obstacles.splice(index,1);
-
-addScore(2);
-
-}
-
-});
-
-if(keys["ArrowUp"]){
-player.y-=6;
-}else{
-player.y+=4;
-}
-
-player.y=Math.min(520,player.y);
-
-if(keys["ArrowLeft"]) player.x-=5;
-if(keys["ArrowRight"]) player.x+=5;
-
-}
-
-/* CATCH */
-
-function catchGame(){
-
-glow("🧺",player.x,560,60);
-
-if(Math.random()<0.015){
-
-fruits.push({
-x:Math.random()*1000,
-y:-20,
-emoji:["🍎","🍓","🍌","🍉"][Math.floor(Math.random()*4)],
-speed:(2+Math.random()*2)*gameSpeed
-});
-
-}
-
-fruits.forEach((f,index)=>{
-
-f.y+=f.speed;
-
-glow(f.emoji,f.x,f.y,35);
-
-if(
-player.x<f.x+40 &&
-player.x+80>f.x &&
-520<f.y+40 &&
-570>f.y
-){
-
-fruits.splice(index,1);
-
-addScore(2);
-
-}
-
-if(f.y>650){
-
-fruits.splice(index,1);
-
-damage();
-
-}
-
-});
-
-if(keys["ArrowLeft"]) player.x-=6;
-if(keys["ArrowRight"]) player.x+=6;
-
-}
-
-/* CONTROLS */
-
-window.addEventListener("keydown",e=>{
-
-keys[e.key]=true;
-
-});
-
-window.addEventListener("keyup",e=>{
-
-keys[e.key]=false;
-
-});
-
-function pressKey(k){
-
-keys[k]=true;
-
-}
-
-function releaseKey(k){
-
-keys[k]=false;
-
-}
-
-function restartGame(){
-
-startGame(game);
-
-}
-
-function togglePause(){
-
-paused=!paused;
-
-if(!paused){
-loop();
-}
-
-}
-
-function goMenu(){
-
-cancelAnimationFrame(animation);
-
-document.getElementById("game").classList.add("hidden");
-
-document.getElementById("menu").classList.remove("hidden");
-
-}
-
+newQuote();
+applyProductTemplate();
+renderSaved();
 </script>
 
 </body>
