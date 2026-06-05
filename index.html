@@ -1,809 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Gr8 ERP Quotation System</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:linear-gradient(135deg,#f8fbff,#e0f2fe,#fff7ed);
-color:#111827;
-}
-.glass{
-background:rgba(255,255,255,.96);
-border:1px solid #bfdbfe;
-box-shadow:0 15px 40px rgba(2,132,199,.14);
-}
-.btn{
-padding:11px 15px;
-border-radius:14px;
-font-weight:800;
-border:none;
-cursor:pointer;
-transition:.2s;
-}
-.btn:active{transform:scale(.94)}
-input,select,textarea{
-width:100%;
-padding:11px 13px;
-border:1px solid #bae6fd;
-border-radius:12px;
-outline:none;
-background:white;
-}
-label{font-size:12px;font-weight:800;color:#0369a1}
-.logo{
-font-size:38px;
-font-weight:1000;
-color:#f97316;
-letter-spacing:-2px;
-line-height:1;
-}
-.logo span{color:#0369a1}
-table{width:100%;border-collapse:collapse}
-th,td{border:1px solid #111;padding:6px;font-size:12px;vertical-align:top}
-th{background:#e0f2fe}
-.card{cursor:pointer;transition:.2s}
-.card:hover{transform:translateY(-3px)}
-.modal{
-position:fixed;inset:0;background:rgba(0,0,0,.55);
-display:none;align-items:flex-start;justify-content:center;
-padding:25px;z-index:99;overflow:auto;
-}
-.modal.show{display:flex}
-.preview-paper{
-width:850px;
-background:white;
-padding:28px;
-color:#111;
-box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
-.page-break{page-break-before:always;margin-top:30px}
-.small{font-size:12px}
-.section-title{font-size:15px;font-weight:900;margin:16px 0 6px}
-@media print{
-.no-print{display:none!important}
-body{background:white}
-.preview-paper{box-shadow:none;width:100%;padding:0}
-}
-</style>
-</head>
-
-<body>
-
-<div class="max-w-7xl mx-auto p-4">
-
-<div class="glass rounded-3xl p-5 mb-5 no-print">
-<div class="flex flex-wrap justify-between items-center gap-3">
-<div>
-<div class="logo">Gr8 <span>ERP</span></div>
-<p class="font-bold text-sky-700">Quotation System • Sales Tagging • PDF Generator</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<button class="btn bg-sky-500 text-white" onclick="newQuote()">➕ New</button>
-<button class="btn bg-green-500 text-white" onclick="saveQuote()">💾 Save</button>
-<button class="btn bg-orange-500 text-white" onclick="openPreview()">👁 Preview</button>
-<button class="btn bg-blue-700 text-white" onclick="downloadPDF()">📄 PDF</button>
-<button class="btn bg-pink-500 text-white" onclick="printPreview()">🖨 Print</button>
-</div>
-</div>
-</div>
-
-<div class="grid lg:grid-cols-3 gap-5">
-
-<div class="lg:col-span-2 glass rounded-3xl p-5 no-print">
-
-<h2 class="text-2xl font-black text-sky-700 mb-4">Client Details</h2>
-
-<div class="grid md:grid-cols-3 gap-3">
-<div><label>SQ No.</label><input id="sqNo"></div>
-<div><label>Date</label><input id="sqDate" type="date"></div>
-<div><label>Valid Until</label><input id="validUntil" type="date"></div>
-
-<div><label>Company Name</label><input id="company" placeholder="Company Name"></div>
-<div><label>Contact Person</label><input id="contact" placeholder="Contact Person"></div>
-<div><label>Position</label><input id="position" placeholder="Position"></div>
-
-<div><label>Email</label><input id="email" placeholder="Email"></div>
-<div><label>Sales Person</label>
-<select id="sales">
-<option>Jackielou Cadlum</option>
-<option>Gelic</option>
-<option>Maria Eloisa</option>
-<option>Kane Miral</option>
-<option>Other Sales</option>
-</select>
-</div>
-<div><label>Status</label>
-<select id="status">
-<option>Draft</option>
-<option>Sent</option>
-<option>For Follow-up</option>
-<option>Negotiation</option>
-<option>Approved</option>
-<option>Declined</option>
-</select>
-</div>
-
-<div><label>Software Product</label>
-<select id="product" onchange="applyProductTemplate()">
-<option>Gr8 ERP Accounting and Inventory</option>
-<option>Gr8 Payroll (On Premise) & HRIS (Cloud)</option>
-<option>Gr8 ERP for Brokerage with Fixed Asset Module (Cloud)</option>
-<option>Gr8 ERP Cooperative System</option>
-<option>Gr8 ERP Manufacturing / Production</option>
-<option>Gr8 ERP POS System</option>
-<option>Customized Software System</option>
-</select>
-</div>
-<div><label>No. of Users / Workstations</label><input id="users" type="number" value="5" oninput="compute()"></div>
-<div><label>No. of Employees if Payroll</label><input id="employees" type="number" value="0" oninput="compute()"></div>
-</div>
-
-<div class="grid md:grid-cols-4 gap-3 mt-5">
-<div><label>Software Amount</label><input id="softwareAmount" type="number" value="0" oninput="compute()"></div>
-<div><label>Implementation Fee</label><input id="implementationFee" type="number" value="0" oninput="compute()"></div>
-<div><label>Discount</label><input id="discount" type="number" value="0" oninput="compute()"></div>
-<div><label>VAT %</label><input id="vat" type="number" value="12" oninput="compute()"></div>
-</div>
-
-<div class="grid md:grid-cols-3 gap-3 mt-5">
-<div class="glass rounded-2xl p-4 text-center">
-<p class="text-sky-700 font-bold">Subtotal</p>
-<h2 id="subtotalText" class="text-2xl font-black">₱0.00</h2>
-</div>
-<div class="glass rounded-2xl p-4 text-center">
-<p class="text-sky-700 font-bold">VAT</p>
-<h2 id="vatText" class="text-2xl font-black">₱0.00</h2>
-</div>
-<div class="glass rounded-2xl p-4 text-center">
-<p class="text-sky-700 font-bold">Grand Total</p>
-<h2 id="grandText" class="text-2xl font-black text-orange-500">₱0.00</h2>
-</div>
-</div>
-
-<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Scope Builder</h2>
-
-<div class="flex flex-wrap gap-2 mb-3">
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Accounting')">+ Accounting</button>
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Inventory')">+ Inventory</button>
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Payroll')">+ Payroll</button>
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('HRIS')">+ HRIS</button>
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Brokerage')">+ Brokerage</button>
-<button class="btn bg-sky-100 text-sky-700" onclick="addScope('Fixed Asset')">+ Fixed Asset</button>
-<button class="btn bg-red-100 text-red-700" onclick="clearScope()">Clear Scope</button>
-</div>
-
-<textarea id="scope" rows="12"></textarea>
-
-<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Optional Add-ons</h2>
-
-<div class="grid md:grid-cols-4 gap-3">
-<input id="addonDesc" placeholder="Add-on description">
-<input id="addonQty" type="number" value="1">
-<input id="addonPrice" type="number" placeholder="Price">
-<button class="btn bg-orange-500 text-white" onclick="addAddon()">➕ Add</button>
-</div>
-
-<div class="overflow-x-auto mt-3">
-<table>
-<thead><tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th><th>Action</th></tr></thead>
-<tbody id="addonTable"></tbody>
-</table>
-</div>
-
-<h2 class="text-2xl font-black text-sky-700 mt-7 mb-3">Terms / Notes</h2>
-<textarea id="terms" rows="7"></textarea>
-
-</div>
-
-<div class="glass rounded-3xl p-5 no-print">
-<h2 class="text-2xl font-black text-sky-700 mb-3">Saved Quotations</h2>
-<input id="search" placeholder="Search..." oninput="renderSaved()">
-<div id="savedList" class="mt-4 space-y-3"></div>
-</div>
-
-</div>
-
-</div>
-
-<div id="previewModal" class="modal">
-<div>
-<div class="flex justify-end gap-2 mb-3 no-print">
-<button class="btn bg-blue-600 text-white" onclick="downloadPDF()">📄 Download PDF</button>
-<button class="btn bg-pink-500 text-white" onclick="printPreview()">🖨 Print</button>
-<button class="btn bg-red-500 text-white" onclick="closePreview()">✖ Close</button>
-</div>
-<div id="preview" class="preview-paper"></div>
-</div>
-</div>
-
-<script>
-let addons=[];
-let saved=JSON.parse(localStorage.getItem("gr8QuotationSystem")||"[]");
-
-const templates={
-Accounting:A. ACCOUNTING MODULE
-SET UP WIZARD
-1. Company Information
-2. Chart of Accounts
-3. Vendor Masterfile
-4. Customer Masterfile
-5. Employee Masterfile
-6. Bank Masterfile
-
-SYSTEM MAINTENANCE
-1. Terms Management
-2. Branch Management
-3. Responsibility Center
-4. Tax Default Account Set Up
-5. Default Account Set Up
-6. Petty Cash Maintenance
-
-MODULES
-1. Purchase Request
-2. Purchase Order
-3. Accounts Payable Voucher
-4. Cash Disbursements
-5. Billing Statement
-6. Sales Invoice
-7. Official Receipt
-8. Collection Receipt
-9. Journal Voucher
-10. Bank Reconciliation
-11. Period End Closing
-12. Subsidiary Ledger
-13. Audit Trail
-
-SYSTEM REPORTS
-1. Transaction Reports
-2. Sales Reports
-3. Preliminary Trial Balance
-4. Balance Sheet
-5. Income Statement
-6. General Ledger
-7. Subsidiary Ledger
-8. Aging of Accounts Payable,
-
-Inventory:B. INVENTORY MODULE
-MASTERFILE
-1. Item Masterfile
-2. Warehouse Masterfile
-3. Supplier Item Setup
-4. Unit of Measure
-
-TRANSACTIONS
-1. Receiving Report
-2. Inventory Transfer
-3. Inventory Adjustment
-4. Stock Issuance
-5. Stock Return
-
-REPORTS
-1. Inventory Ledger
-2. Stock Card
-3. Inventory Summary
-4. Inventory Movement
-5. Fast / Slow Moving Items,
-
-Payroll:A. GR8 PAYROLL (ON PREMISE)
-SET UP WIZARD
-1. Company Information
-2. Employee Masterfile
-3. User Management
-4. Organization Maintenance
-5. Payroll Period
-6. Timekeeping & Payroll Settings
-
-SYSTEM MAINTENANCE
-1. Shift Code
-2. Group Code
-3. Employee Schedule
-4. Holiday
-5. Leave Type
-6. Employee Position
-7. RFID Setup
-8. Leave Credits / Balances
-9. Income Type
-10. Deduction Type
-
-MODULES
-1. Timekeeping Ledger
-2. Timekeeping Logs Uploader
-3. ATM Uploader
-4. Employee Ledger
-5. Payroll Generator
-6. 13th Month Generator
-7. Bankfile
-8. Query Generator
-9. Alphalist Report
-
-PAYROLL REPORTS
-1. Payslip
-2. Payroll Ledger
-3. Payroll Summary
-4. SSS
-5. PhilHealth
-6. HDMF
-7. Withholding Tax
-8. BIR 2316,
-
-HRIS:B. HRIS (CLOUD)
-EMPLOYEE PORTAL
-1. Employee Profile
-2. Employee Daily Time Record
-3. Viewing of Payslip with History
-4. Certificate of Employment
-5. Certificate of SSS Contributions
-6. Certificate of PhilHealth Contributions
-7. Certificate of HDMF Contributions
-8. 2316 Viewing
-9. Record of Training
-
-ADMIN ACCESS
-1. Performance Appraisal
-2. Leave Approval
-3. Notice to Explain
-4. Request Certificate of Employment and Compensation
-5. Disciplinary Action
-6. RTWO (Return to Work Order),
-
-Brokerage:D. BROKERAGE MODULE
-SYSTEM MAINTENANCE
-1. Charges Maintenance
-2. Shipper Maintenance
-3. Shipping Lines Maintenance
-4. Consignee Maintenance
-
-MODULES
-1. Refund Monitoring
-2. SOA Batch Update
-3. Statement of Account
-
-REPORTS
-1. Shipment per Consignee
-2. Cash Advance Report
-3. Refund Monitoring Report
-4. SOA Ledger,
-
-"Fixed Asset":E. FIXED ASSET MODULE
-MODULES
-1. Depreciation Parameters
-2. Depreciation Schedules
-3. Copy to JV
-4. Additional Parts
-5. Job Order Maintenance
-6. Tire Monitoring
-7. File Attachment
-};
-
-function peso(n){
-return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-
-function today(){
-return new Date().toISOString().slice(0,10);
-}
-
-function addDays(d){
-let x=new Date();
-x.setDate(x.getDate()+d);
-return x.toISOString().slice(0,10);
-}
-
-function newQuote(){
-document.getElementById("sqNo").value=Math.floor(1000+Math.random()*9000);
-document.getElementById("sqDate").value=today();
-document.getElementById("validUntil").value=addDays(15);
-document.getElementById("company").value="";
-document.getElementById("contact").value="";
-document.getElementById("position").value="";
-document.getElementById("email").value="";
-document.getElementById("users").value=5;
-document.getElementById("employees").value=0;
-document.getElementById("softwareAmount").value=0;
-document.getElementById("implementationFee").value=0;
-document.getElementById("discount").value=0;
-document.getElementById("vat").value=12;
-document.getElementById("scope").value="";
-addons=[];
-document.getElementById("terms").value=III. Terms of Payment
-
-Option 1: Full Cash Payment Upon Confirmation of Sales Quotation.
-Option 2: 50% Downpayment, balance 3 months PDC.
-Option 3: 20% Downpayment, balance 12 months PDC.
-
-IV. Implementation Methodology
-
-1. Kick Off & Templates Discussion
-2. Scoping for System Alignment
-3. Submission of Signed Scoping Form
-4. System Alignment
-5. System Presentation
-6. User Acceptance Training (UAT)
-7. Data Migration
-8. Training
-9. Go Live
-
-Responsibilities of the Client:
-The Client shall provide accurate data, assign competent personnel, attend trainings, and log support concerns through the INTEGR8 CRM Ticketing System.
-
-Software Customization:
-Any additional fields, reports, adjustments, or customization shall be subject to RFC, separate agreement, cost, and timetable.
-
-Site Visit:
-Request for site visits, if any, shall be chargeable at PHP 8,960.00 per manday plus transportation, meals, accommodation, and incidental expenses.;
-renderAddons();
-compute();
-}
-
-function applyProductTemplate(){
-let p=document.getElementById("product").value;
-if(p.includes("Payroll")){
-document.getElementById("scope").value=templates.Payroll+"\n\n"+templates.HRIS;
-document.getElementById("softwareAmount").value=600000;
-document.getElementById("implementationFee").value=180000;
-document.getElementById("employees").value=1000;
-document.getElementById("users").value=10;
-}
-else if(p.includes("Brokerage")){
-document.getElementById("scope").value=templates.Accounting+"\n\n"+templates.Brokerage+"\n\n"+templates["Fixed Asset"];
-document.getElementById("softwareAmount").value=287880;
-document.getElementById("implementationFee").value=351000;
-document.getElementById("users").value=10;
-}
-else{
-document.getElementById("scope").value=templates.Accounting+"\n\n"+templates.Inventory;
-}
-compute();
-}
-
-function addScope(name){
-let current=document.getElementById("scope").value;
-document.getElementById("scope").value=current+(current? "\n\n":"")+templates[name];
-}
-
-function clearScope(){
-if(confirm("Clear all scope details?")) document.getElementById("scope").value="";
-}
-
-function addAddon(){
-let desc=document.getElementById("addonDesc").value;
-let qty=Number(document.getElementById("addonQty").value);
-let price=Number(document.getElementById("addonPrice").value);
-if(!desc||qty<=0||price<=0){alert("Complete add-on details.");return}
-addons.push({desc,qty,price});
-document.getElementById("addonDesc").value="";
-document.getElementById("addonQty").value=1;
-document.getElementById("addonPrice").value="";
-renderAddons();
-compute();
-}
-
-function removeAddon(i){
-addons.splice(i,1);
-renderAddons();
-compute();
-}
-
-function renderAddons(){
-let html="";
-addons.forEach((a,i)=>{
-html+=<tr>
-<td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td>
-<td><button class="btn bg-red-500 text-white" onclick="removeAddon(${i})">Remove</button></td>
-</tr>;
-});
-document.getElementById("addonTable").innerHTML=html;
-}
-
-function compute(){
-let software=Number(document.getElementById("softwareAmount").value||0);
-let implem=Number(document.getElementById("implementationFee").value||0);
-let addonTotal=addons.reduce((s,a)=>s+(a.qty*a.price),0);
-let discount=Number(document.getElementById("discount").value||0);
-let vatRate=Number(document.getElementById("vat").value||0);
-let subtotal=software+implem+addonTotal-discount;
-let vat=subtotal*(vatRate/100);
-let grand=subtotal+vat;
-document.getElementById("subtotalText").innerText=peso(subtotal);
-document.getElementById("vatText").innerText=peso(vat);
-document.getElementById("grandText").innerText=peso(grand);
-return{software,implem,addonTotal,discount,vatRate,subtotal,vat,grand};
-}
-
-function data(){
-return{
-sqNo:val("sqNo"),sqDate:val("sqDate"),validUntil:val("validUntil"),
-company:val("company"),contact:val("contact"),position:val("position"),email:val("email"),
-sales:val("sales"),status:val("status"),product:val("product"),users:val("users"),employees:val("employees"),
-scope:val("scope"),terms:val("terms"),addons,totals:compute()
-};
-}
-
-function val(id){return document.getElementById(id).value}
-
-function saveQuote(){
-let d=data();
-if(!d.company){alert("Please enter company name.");return}
-let i=saved.findIndex(x=>x.sqNo===d.sqNo);
-if(i>=0)saved[i]=d;else saved.unshift(d);
-localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
-renderSaved();
-alert("Saved successfully.");
-}
-
-function renderSaved(){
-let q=val("search").toLowerCase();
-let list=document.getElementById("savedList");
-list.innerHTML="";
-saved.filter(x=>
-(x.company||"").toLowerCase().includes(q)||
-(x.contact||"").toLowerCase().includes(q)||
-(x.sales||"").toLowerCase().includes(q)||
-(x.status||"").toLowerCase().includes(q)||
-(x.sqNo||"").toLowerCase().includes(q)
-).forEach(x=>{
-list.innerHTML+=
-<div class="glass rounded-2xl p-4 card" onclick="loadQuote('${x.sqNo}')">
-<div class="flex justify-between gap-2">
-<b>${x.company}</b>
-<span class="px-2 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-black">${x.status}</span>
-</div>
-<p class="text-sm text-gray-500">SQ ${x.sqNo} • ${x.sales}</p>
-<p class="font-black text-orange-500">${peso(x.totals.grand)}</p>
-<div class="flex flex-wrap gap-1 mt-2">
-<button class="btn bg-orange-500 text-white" onclick="event.stopPropagation();loadQuote('${x.sqNo}');openPreview()">Preview</button>
-<button class="btn bg-sky-500 text-white" onclick="event.stopPropagation();duplicateQuote('${x.sqNo}')">Duplicate</button>
-<button class="btn bg-red-500 text-white" onclick="event.stopPropagation();deleteQuote('${x.sqNo}')">Delete</button>
-</div>
-</div>;
-});
-}
-
-function loadQuote(no){
-let x=saved.find(a=>a.sqNo===no);
-if(!x)return;
-set("sqNo",x.sqNo);set("sqDate",x.sqDate);set("validUntil",x.validUntil);
-set("company",x.company);set("contact",x.contact);set("position",x.position);set("email",x.email);
-set("sales",x.sales);set("status",x.status);set("product",x.product);set("users",x.users);set("employees",x.employees);
-set("scope",x.scope);set("terms",x.terms);
-set("softwareAmount",x.totals.software);set("implementationFee",x.totals.implem);set("discount",x.totals.discount);set("vat",x.totals.vatRate);
-addons=x.addons||[];
-renderAddons();compute();
-}
-
-function set(id,v){document.getElementById(id).value=v||""}
-
-function duplicateQuote(no){
-loadQuote(no);
-document.getElementById("sqNo").value=Math.floor(1000+Math.random()*9000);
-alert("Duplicated. Review then save as new quotation.");
-}
-
-function deleteQuote(no){
-if(!confirm("Delete quotation?"))return;
-saved=saved.filter(x=>x.sqNo!==no);
-localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
-renderSaved();
-}
-
-function scopeTable(text){
-let lines=text.split("\n").filter(x=>x.trim());
-let html="";
-let n=1;
-lines.forEach(l=>{
-if(l.length<40 && (l.includes("MODULE")||l.includes("WIZARD")||l.includes("REPORT")||l.includes("MAINTENANCE")||l.match(/^[A-Z]/))){
-html+=<tr><th colspan="2">${l}</th></tr>;
-n=1;
-}else{
-html+=<tr><td style="width:35px">${n++}</td><td>${l.replace(/^\d+\.\s*/,"")}</td></tr>;
-}
-});
-return html;
-}
-
-function buildPreview(){
-let d=data();
-let t=d.totals;
-let addonRows=d.addons.map(a=><tr><td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td></tr>).join("");
-
-document.getElementById("preview").innerHTML=
-<div>
-<div style="display:flex;justify-content:space-between;gap:20px;align-items:flex-start">
-<div>
-<div class="logo">integr<span>8</span></div>
-<div class="small" style="font-weight:bold;color:#1e3a8a">SOFTWARE SOLUTIONS, INC.</div>
-</div>
-<div style="border:1px solid #2563eb;padding:8px;width:360px;font-size:12px">
-<b>INTEGR8 SOFTWARE SOLUTIONS, INC.</b><br>
-2nd Floor, Units 2A9-11 THE MHUB Governor's Drive, Brgy. Manggahan,<br>
-General Trias City Cavite TIN 010-629-125-000<br>
-Mobile No: 0917-120-5043<br>
-www.integr8.com.ph
-</div>
-</div>
-
-<div style="display:flex;justify-content:space-between;margin-top:18px">
-<div class="small">
-<b>${formatDate(d.sqDate)}</b><br><br>
-<b>Company Name:</b> ${d.company}<br>
-<b>Attention:</b> ${d.contact}<br>
-<b>Email:</b> ${d.email}
-</div>
-<div style="border:2px solid #111;text-align:center;width:310px;padding:8px">
-<b>SQ No: ${d.sqNo}</b><br>
-<span style="color:red;font-weight:900">QUOTATION IS VALID UP TO:</span><br>
-${formatDate(d.validUntil)}
-</div>
-</div>
-
-<p style="margin-top:28px;font-size:13px">
-Thank you very much for your interest in Gr8 ERP Solutions. We are pleased to submit the following quotation for GR8 ERP Software and Services:
-</p>
-
-<div class="section-title">I. SCOPE OF WORK - ${d.product}</div>
-<table>${scopeTable(d.scope)}</table>
-
-<div class="page-break"></div>
-
-<div class="section-title">II. PRICING</div>
-<table>
-<tr>
-<th>Software Product</th>
-<th>No. of Users / Workstations</th>
-<th>No. of Employees</th>
-<th>Amount</th>
-</tr>
-<tr>
-<td>${d.product}</td>
-<td>${d.users}</td>
-<td>${d.employees}</td>
-<td>${peso(t.software)}</td>
-</tr>
-<tr><td>Implementation Fee</td><td></td><td></td><td>${peso(t.implem)}</td></tr>
-<tr><td>Optional Add-ons</td><td></td><td></td><td>${peso(t.addonTotal)}</td></tr>
-<tr><td>Discount</td><td></td><td></td><td>(${peso(t.discount)})</td></tr>
-<tr><td><b>TOTAL</b></td><td></td><td></td><td><b>${peso(t.subtotal)}</b></td></tr>
-<tr><td>Value-Added Tax (${t.vatRate}%)</td><td></td><td></td><td>${peso(t.vat)}</td></tr>
-<tr><td><b>TOTAL VAT INC.</b></td><td></td><td></td><td><b>${peso(t.grand)}</b></td></tr>
-<tr><td>Annual License Fee</td><td colspan="2">To be paid yearly commencing one year from granting of user license.</td><td>${peso(t.grand*.10)}</td></tr>
-</table>
-
-<div class="section-title">Optional Add-ons</div>
-<table>
-<tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th></tr>
-${addonRows || <tr><td colspan="4">No optional add-ons</td></tr>}
-</table>
-
-<div class="section-title">III. Terms / Implementation / Responsibilities</div>
-<div style="white-space:pre-line;font-size:12px;line-height:1.45">${d.terms}</div>
-
-<div class="section-title">IV. Cancellation of Agreement</div>
-<p class="small">Should the Client unilaterally rescind this Agreement/Signed Quotation after issuing to INTEGR8, any amount already paid by the Client shall be forfeited in favor of INTEGR8.</p>
-
-<div class="section-title">V. Copyright</div>
-<p class="small">The Client agrees to respect and not remove any copyright, trademark, confidentiality or proprietary notice appearing on any of the Software or output generated by the Software.</p>
-
-<div class="section-title">VI. Confidentiality Agreement and Data Privacy</div>
-<p class="small">The Client and Integr8 agree not to disclose confidential information obtained from this agreement.</p>
-
-<br><br>
-<div style="display:flex;justify-content:space-between;margin-top:45px">
-<div style="width:40%">
-<b>Sincerely,</b><br><br><br>
-<u>${d.sales}</u><br>
-Sales Associate
-</div>
-<div style="width:40%">
-<b>Conforme:</b><br><br><br>
-<u>${d.contact}</u><br>
-${d.position || "Authorized Representative"}<br>
-Date Signed: ____________
-</div>
-</div>
-</div>;
-}
-
-function formatDate(x){
-if(!x)return "";
-return new Date(x).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"2-digit"});
-}
-
-function openPreview(){
-if(!val("company")){alert("Please enter company name first.");return}
-buildPreview();
-document.getElementById("previewModal").classList.add("show");
-}
-
-function closePreview(){
-document.getElementById("previewModal").classList.remove("show");
-}
-
-async function downloadPDF(){
-if(!val("company")){alert("Please enter company name first.");return}
-buildPreview();
-const {jsPDF}=window.jspdf;
-let pdf=new jsPDF("p","mm","a4");
-let paper=document.getElementById("preview");
-let canvas=await html2canvas(paper,{scale:2});
-let img=canvas.toDataURL("image/png");
-let pdfW=210,pdfH=297;
-let imgW=pdfW;
-let imgH=canvas.height*imgW/canvas.width;
-let heightLeft=imgH;
-let position=0;
-pdf.addImage(img,"PNG",0,position,imgW,imgH);
-heightLeft-=pdfH;
-while(heightLeft>0){
-position=heightLeft-imgH;
-pdf.addPage();
-pdf.addImage(img,"PNG",0,position,imgW,imgH);
-heightLeft-=pdfH;
-}
-pdf.save("SQ-"+val("sqNo")+"-"+val("company")+".pdf");
-}
-
-function printPreview(){
-if(!val("company")){alert("Please enter company name first.");return}
-buildPreview();
-let w=window.open("");
-w.document.write(<html><head><title>Print Quotation</title><style>${document.querySelector("style").innerHTML}</style></head><body><div class="preview-paper">${document.getElementById("preview").innerHTML}</div></body></html>);
-w.document.close();
-w.print();
-}
-
-newQuote();
-applyProductTemplate();
-renderSaved();
-</script>
-
-</body>
-</html>
-
-
-1. enhanced the report more goodlooking hd blue and orange format with some good format 
-2. In the Software Amount and Implem fee add some comma or format not 15000 make it 15,000.00
-3. discount in % then color red with validity and can add another discount 
-4. add some pop up details when saving are you ready to save 
-5. add button of mainteanance where i can add software product, scope builder and its contents or features
-6. the buttons shall be ios iphone color tinted black and white not too colorful and add integr8 software solutions logo
-
-I’ll revise the whole HTML into one copy-paste file, keeping the quotation workflow but upgrading the UI, amount formatting, discount handling, save confirmation, and maintenance setup.
-
-Thought for a few seconds
-Below is the updated full copy-paste HTML code with enhanced HD blue/orange design, iOS-style buttons, formatted money fields, percentage discounts, save confirmation popup, and Maintenance for products/scopes.
-
-
-overall conso code dont change the ref, all still working well and cliable and can save
-copy paste all code
-
-I’ll keep your current structure and functions, then add the requested upgrades directly into one full consolidated HTML file so it remains copy-paste ready.
-
-Thought for a few seconds
-Here’s the overall consolidated copy-paste code:
-
-
-
-
-8079e0a1-536d-4938-9e14-a8b5c8aae463.png
-in the above there shall be a selection first who is the sales
-Jackielou Cadlum
-Jordan Hayag
-Jom Galisim
-Lourence Indon then thats the time i can go ahead and create quotation for my client logo is not like that use thethis attached sample overall conso code copy pASte  
-
-Thought for 13s
-Copy-paste all code below:
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -969,8 +163,12 @@ body{background:white}
 </div>
 <div><label>Status</label>
 <select id="status">
-<option>Draft</option><option>Sent</option><option>For Follow-up</option>
-<option>Negotiation</option><option>Approved</option><option>Declined</option>
+<option>Draft</option>
+<option>Sent</option>
+<option>For Follow-up</option>
+<option>Negotiation</option>
+<option>Approved</option>
+<option>Declined</option>
 </select>
 </div>
 
@@ -1127,17 +325,19 @@ REPORTS
 3. Inventory Summary
 4. Inventory Movement
 5. Fast / Slow Moving Items`},
+
 {name:"Gr8 Payroll (On Premise) & HRIS (Cloud)",amount:600000,implem:180000,scope:`A. GR8 PAYROLL (ON PREMISE)
 1. Company Information
 2. Employee Masterfile
 3. User Management
-4. Payroll Period
-5. Timekeeping Settings
-6. Payroll Generator
-7. 13th Month Generator
-8. Bankfile
-9. Payslip
-10. SSS / PhilHealth / HDMF / BIR Reports
+4. Organization Maintenance
+5. Payroll Period
+6. Timekeeping & Payroll Settings
+7. Payroll Generator
+8. 13th Month Generator
+9. Bankfile
+10. Payslip
+11. SSS / PhilHealth / HDMF / BIR Reports
 
 B. HRIS CLOUD
 1. Employee Portal
@@ -1150,6 +350,42 @@ B. HRIS CLOUD
 8. Notice to Explain
 9. Disciplinary Action
 10. RTWO`},
+
+{name:"Gr8 ERP for Brokerage with Fixed Asset Module (Cloud)",amount:287880,implem:351000,scope:`A. ACCOUNTING MODULE
+1. Chart of Accounts
+2. Vendor Masterfile
+3. Customer Masterfile
+4. Purchase Request
+5. Purchase Order
+6. Accounts Payable Voucher
+7. Cash Disbursement
+8. Sales Invoice
+9. Official Receipt
+10. Journal Voucher
+11. Bank Reconciliation
+12. Financial Reports
+
+B. BROKERAGE MODULE
+1. Charges Maintenance
+2. Shipper Maintenance
+3. Shipping Lines Maintenance
+4. Consignee Maintenance
+5. Refund Monitoring
+6. SOA Batch Update
+7. Statement of Account
+8. Shipment per Consignee
+9. Cash Advance Report
+10. Refund Monitoring Report
+
+C. FIXED ASSET MODULE
+1. Depreciation Parameters
+2. Depreciation Schedules
+3. Copy to JV
+4. Additional Parts
+5. Job Order Maintenance
+6. Tire Monitoring
+7. File Attachment`},
+
 {name:"Gr8 ERP Cooperative System",amount:0,implem:0,scope:`A. COOPERATIVE MODULE
 1. Member Masterfile
 2. Share Capital
@@ -1165,6 +401,7 @@ B. HRIS CLOUD
 12. Patronage Refund
 13. Profit Sharing
 14. TIMTA Report`},
+
 {name:"Gr8 ERP Manufacturing / Production",amount:0,implem:0,scope:`A. MANUFACTURING / PRODUCTION MODULE
 1. Item Masterfile
 2. Bill of Materials
@@ -1176,6 +413,7 @@ B. HRIS CLOUD
 8. Finished Goods Conversion
 9. Production Costing
 10. Production Reports`},
+
 {name:"Gr8 ERP POS System",amount:0,implem:0,scope:`A. POS MODULE
 1. POS Sales Transaction
 2. Cashier Access
@@ -1187,6 +425,7 @@ B. HRIS CLOUD
 8. Z Reading
 9. Offline Sync
 10. Inventory Integration`},
+
 {name:"Customized Software System",amount:0,implem:0,scope:`A. CUSTOMIZED SOFTWARE SYSTEM
 1. Requirement Gathering
 2. Scoping and Process Review
@@ -1207,17 +446,48 @@ document.getElementById("salesOverlay").style.display="none";
 document.getElementById("sales").value=name;
 newQuote();
 }
-function backToSales(){document.getElementById("salesOverlay").style.display="flex"}
 
-function peso(n){return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function num(v){return Number(String(v||"0").replace(/[₱,]/g,""))||0}
-function money(n){return Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function moneyTyping(el){el.value=el.value.replace(/[^\d.]/g,"")}
-function moneyBlur(el){el.value=money(num(el.value))}
-function today(){return new Date().toISOString().slice(0,10)}
-function addDays(d){let x=new Date();x.setDate(x.getDate()+d);return x.toISOString().slice(0,10)}
-function val(id){return document.getElementById(id).value}
-function set(id,v){document.getElementById(id).value=v??""}
+function backToSales(){
+document.getElementById("salesOverlay").style.display="flex";
+}
+
+function peso(n){
+return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function num(v){
+return Number(String(v||"0").replace(/[₱,]/g,""))||0;
+}
+
+function money(n){
+return Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function moneyTyping(el){
+el.value=el.value.replace(/[^\d.]/g,"");
+}
+
+function moneyBlur(el){
+el.value=money(num(el.value));
+}
+
+function today(){
+return new Date().toISOString().slice(0,10);
+}
+
+function addDays(d){
+let x=new Date();
+x.setDate(x.getDate()+d);
+return x.toISOString().slice(0,10);
+}
+
+function val(id){
+return document.getElementById(id).value;
+}
+
+function set(id,v){
+document.getElementById(id).value=v??"";
+}
 
 function loadProductDropdown(){
 let product=document.getElementById("product");
@@ -1230,10 +500,13 @@ product.appendChild(opt);
 });
 renderScopeButtons();
 }
+
 function renderScopeButtons(){
 let box=document.getElementById("scopeButtons");
 box.innerHTML="";
-products.forEach((p,i)=>box.innerHTML+=`<button class="btn white" onclick="addProductScope(${i})">+ ${p.name}</button>`);
+products.forEach((p,i)=>{
+box.innerHTML+=`<button class="btn white" onclick="addProductScope(${i})">+ ${p.name}</button>`;
+});
 box.innerHTML+=`<button class="btn red" onclick="clearScope()">Clear Scope</button>`;
 }
 
@@ -1293,21 +566,46 @@ set("softwareAmount",money(p.amount));
 set("implementationFee",money(p.implem));
 compute();
 }
-function addProductScope(i){set("scope",val("scope")+(val("scope")? "\n\n":"")+products[i].scope)}
-function clearScope(){if(confirm("Clear all scope details?"))set("scope","")}
+
+function addProductScope(i){
+set("scope",val("scope")+(val("scope")? "\n\n":"")+products[i].scope);
+}
+
+function clearScope(){
+if(confirm("Clear all scope details?"))set("scope","");
+}
 
 function addAddon(){
-let desc=val("addonDesc"), qty=Number(val("addonQty")), price=num(val("addonPrice"));
-if(!desc||qty<=0||price<=0){alert("Complete add-on details.");return}
-addons.push({desc,qty,price});
-set("addonDesc","");set("addonQty",1);set("addonPrice","");
-renderAddons();compute();
+let desc=val("addonDesc");
+let qty=Number(val("addonQty"));
+let price=num(val("addonPrice"));
+if(!desc||qty<=0||price<=0){
+alert("Complete add-on details.");
+return;
 }
-function removeAddon(i){addons.splice(i,1);renderAddons();compute()}
+addons.push({desc,qty,price});
+set("addonDesc","");
+set("addonQty",1);
+set("addonPrice","");
+renderAddons();
+compute();
+}
+
+function removeAddon(i){
+addons.splice(i,1);
+renderAddons();
+compute();
+}
+
 function renderAddons(){
 document.getElementById("addonTable").innerHTML=addons.map((a,i)=>`
-<tr><td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td>
-<td><button class="btn red" onclick="removeAddon(${i})">Remove</button></td></tr>`).join("");
+<tr>
+<td>${a.desc}</td>
+<td>${a.qty}</td>
+<td>${peso(a.price)}</td>
+<td>${peso(a.qty*a.price)}</td>
+<td><button class="btn red" onclick="removeAddon(${i})">Remove</button></td>
+</tr>`).join("");
 }
 
 function compute(){
@@ -1331,15 +629,36 @@ return{software,implem,addonTotal,gross,discountPercent,discountAmount,percentDi
 }
 
 function data(){
-return{sqNo:val("sqNo"),sqDate:val("sqDate"),validUntil:val("validUntil"),company:val("company"),contact:val("contact"),position:val("position"),email:val("email"),sales:val("sales"),status:val("status"),product:val("product"),users:val("users"),employees:val("employees"),scope:val("scope"),terms:val("terms"),addons,totals:compute()};
+return{
+sqNo:val("sqNo"),
+sqDate:val("sqDate"),
+validUntil:val("validUntil"),
+company:val("company"),
+contact:val("contact"),
+position:val("position"),
+email:val("email"),
+sales:val("sales"),
+status:val("status"),
+product:val("product"),
+users:val("users"),
+employees:val("employees"),
+scope:val("scope"),
+terms:val("terms"),
+addons,
+totals:compute()
+};
 }
 
 function saveQuote(){
 let d=data();
-if(!d.company){alert("Please enter company name.");return}
+if(!d.company){
+alert("Please enter company name.");
+return;
+}
 if(!confirm("Are you ready to save this quotation?\n\nCompany: "+d.company+"\nSales: "+d.sales+"\nSQ No: "+d.sqNo+"\nTotal: "+peso(d.totals.grand)))return;
 let i=saved.findIndex(x=>x.sqNo===d.sqNo);
-if(i>=0)saved[i]=d;else saved.unshift(d);
+if(i>=0)saved[i]=d;
+else saved.unshift(d);
 localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
 renderSaved();
 alert("Saved successfully.");
@@ -1348,48 +667,79 @@ alert("Saved successfully.");
 function renderSaved(){
 let q=val("search").toLowerCase();
 document.getElementById("savedList").innerHTML=saved.filter(x=>
-(x.company||"").toLowerCase().includes(q)||(x.contact||"").toLowerCase().includes(q)||(x.sales||"").toLowerCase().includes(q)||(x.status||"").toLowerCase().includes(q)||(x.sqNo||"").toLowerCase().includes(q)
+(x.company||"").toLowerCase().includes(q)||
+(x.contact||"").toLowerCase().includes(q)||
+(x.sales||"").toLowerCase().includes(q)||
+(x.status||"").toLowerCase().includes(q)||
+(x.sqNo||"").toLowerCase().includes(q)
 ).map(x=>`
 <div class="glass rounded-2xl p-4 card" onclick="loadQuote('${x.sqNo}')">
-<div class="flex justify-between gap-2"><b>${x.company}</b><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-black">${x.status}</span></div>
+<div class="flex justify-between gap-2">
+<b>${x.company}</b>
+<span class="px-2 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-black">${x.status}</span>
+</div>
 <p class="text-sm text-gray-500">SQ ${x.sqNo} • ${x.sales}</p>
 <p class="font-black text-orange-500">${peso(x.totals.grand)}</p>
 <div class="flex flex-wrap gap-1 mt-2">
 <button class="btn orange" onclick="event.stopPropagation();loadQuote('${x.sqNo}');openPreview()">Preview</button>
 <button class="btn white" onclick="event.stopPropagation();duplicateQuote('${x.sqNo}')">Duplicate</button>
 <button class="btn red" onclick="event.stopPropagation();deleteQuote('${x.sqNo}')">Delete</button>
-</div></div>`).join("");
+</div>
+</div>`).join("");
 }
 
 function loadQuote(no){
-let x=saved.find(a=>a.sqNo===no); if(!x)return;
-Object.keys(x).forEach(k=>{if(document.getElementById(k)&&k!=="addons"&&k!=="totals")set(k,x[k])});
+let x=saved.find(a=>a.sqNo===no);
+if(!x)return;
+Object.keys(x).forEach(k=>{
+if(document.getElementById(k)&&k!=="addons"&&k!=="totals")set(k,x[k]);
+});
 set("softwareAmount",money(x.totals.software));
 set("implementationFee",money(x.totals.implem));
 set("discountPercent",x.totals.discountPercent||0);
 set("discountAmount",money(x.totals.discountAmount||0));
 set("vat",x.totals.vatRate);
 addons=x.addons||[];
-renderAddons();compute();
+renderAddons();
+compute();
 }
-function duplicateQuote(no){loadQuote(no);set("sqNo",Math.floor(1000+Math.random()*9000));alert("Duplicated. Review then save as new quotation.")}
-function deleteQuote(no){if(!confirm("Delete quotation?"))return;saved=saved.filter(x=>x.sqNo!==no);localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));renderSaved()}
+
+function duplicateQuote(no){
+loadQuote(no);
+set("sqNo",Math.floor(1000+Math.random()*9000));
+alert("Duplicated. Review then save as new quotation.");
+}
+
+function deleteQuote(no){
+if(!confirm("Delete quotation?"))return;
+saved=saved.filter(x=>x.sqNo!==no);
+localStorage.setItem("gr8QuotationSystem",JSON.stringify(saved));
+renderSaved();
+}
 
 function scopeTable(text){
-let lines=text.split("\n").filter(x=>x.trim()), html="", n=1;
+let lines=text.split("\n").filter(x=>x.trim());
+let html="";
+let n=1;
 lines.forEach(l=>{
 let clean=l.trim();
 if(clean.length<45&&(clean.includes("MODULE")||clean.includes("WIZARD")||clean.includes("REPORT")||clean.includes("MAINTENANCE")||clean.match(/^[A-Z]\./))){
-html+=`<tr><th colspan="2">${clean}</th></tr>`;n=1;
-}else html+=`<tr><td style="width:35px">${n++}</td><td>${clean.replace(/^\d+\.\s*/,"")}</td></tr>`;
+html+=`<tr><th colspan="2">${clean}</th></tr>`;
+n=1;
+}else{
+html+=`<tr><td style="width:35px">${n++}</td><td>${clean.replace(/^\d+\.\s*/,"")}</td></tr>`;
+}
 });
 return html;
 }
 
-function formatDate(x){return x?new Date(x).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"2-digit"}):""}
+function formatDate(x){
+return x?new Date(x).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"2-digit"}):"";
+}
 
 function buildPreview(){
-let d=data(),t=d.totals;
+let d=data();
+let t=d.totals;
 let addonRows=d.addons.map(a=>`<tr><td>${a.desc}</td><td>${a.qty}</td><td>${peso(a.price)}</td><td>${peso(a.qty*a.price)}</td></tr>`).join("");
 document.getElementById("preview").innerHTML=`
 <div>
@@ -1446,11 +796,15 @@ ${formatDate(d.validUntil)}
 <tr><td><b>TOTAL</b></td><td></td><td></td><td><b>${peso(t.subtotal)}</b></td></tr>
 <tr><td>Value-Added Tax (${t.vatRate}%)</td><td></td><td></td><td>${peso(t.vat)}</td></tr>
 <tr><td><b>TOTAL VAT INC.</b></td><td></td><td></td><td><b>${peso(t.grand)}</b></td></tr>
+<tr><td><b>Quoted Price</b></td><td colspan="2"><b>Final quotation amount</b></td><td><b>${peso(t.grand)}</b></td></tr>
 <tr><td>Annual License Fee</td><td colspan="2">To be paid yearly commencing one year from granting of user license.</td><td>${peso(t.grand*.10)}</td></tr>
 </table>
 
 <div class="section-title">Optional Add-ons</div>
-<table><tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th></tr>${addonRows||`<tr><td colspan="4">No optional add-ons</td></tr>`}</table>
+<table>
+<tr><th>Description</th><th>Qty</th><th>Price</th><th>Total</th></tr>
+${addonRows||`<tr><td colspan="4">No optional add-ons</td></tr>`}
+</table>
 
 <div class="section-title">III. Terms / Implementation / Responsibilities</div>
 <div style="white-space:pre-line;font-size:12px;line-height:1.45">${d.terms}</div>
@@ -1472,62 +826,138 @@ ${formatDate(d.validUntil)}
 </div>`;
 }
 
-function openPreview(){if(!val("company")){alert("Please enter company name first.");return}buildPreview();document.getElementById("previewModal").classList.add("show")}
-function closePreview(){document.getElementById("previewModal").classList.remove("show")}
+function openPreview(){
+if(!val("company")){
+alert("Please enter company name first.");
+return;
+}
+buildPreview();
+document.getElementById("previewModal").classList.add("show");
+}
+
+function closePreview(){
+document.getElementById("previewModal").classList.remove("show");
+}
 
 async function downloadPDF(){
-if(!val("company")){alert("Please enter company name first.");return}
+if(!val("company")){
+alert("Please enter company name first.");
+return;
+}
 buildPreview();
 const {jsPDF}=window.jspdf;
 let pdf=new jsPDF("p","mm","a4");
 let paper=document.getElementById("preview");
-let canvas=await html2canvas(paper,{scale:2});
+let canvas=await html2canvas(paper,{scale:2,useCORS:true});
 let img=canvas.toDataURL("image/png");
-let pdfW=210,pdfH=297,imgW=pdfW,imgH=canvas.height*imgW/canvas.width,heightLeft=imgH,position=0;
+let pdfW=210;
+let pdfH=297;
+let imgW=pdfW;
+let imgH=canvas.height*imgW/canvas.width;
+let heightLeft=imgH;
+let position=0;
 pdf.addImage(img,"PNG",0,position,imgW,imgH);
 heightLeft-=pdfH;
-while(heightLeft>0){position=heightLeft-imgH;pdf.addPage();pdf.addImage(img,"PNG",0,position,imgW,imgH);heightLeft-=pdfH}
+while(heightLeft>0){
+position=heightLeft-imgH;
+pdf.addPage();
+pdf.addImage(img,"PNG",0,position,imgW,imgH);
+heightLeft-=pdfH;
+}
 pdf.save("SQ-"+val("sqNo")+"-"+val("company")+".pdf");
 }
 
 function printPreview(){
-if(!val("company")){alert("Please enter company name first.");return}
+if(!val("company")){
+alert("Please enter company name first.");
+return;
+}
 buildPreview();
 let w=window.open("");
 w.document.write(`<html><head><title>Print Quotation</title><style>${document.querySelector("style").innerHTML}</style></head><body><div class="preview-paper">${document.getElementById("preview").innerHTML}</div></body></html>`);
-w.document.close();w.print();
+w.document.close();
+w.print();
 }
 
-function openMaintenance(){renderMaintenanceList();document.getElementById("maintenanceModal").classList.add("show")}
-function closeMaintenance(){document.getElementById("maintenanceModal").classList.remove("show")}
-function clearMaintenanceForm(){set("mProduct","");set("mAmount",money(0));set("mImplem",money(0));set("mScope","")}
+function openMaintenance(){
+renderMaintenanceList();
+document.getElementById("maintenanceModal").classList.add("show");
+}
+
+function closeMaintenance(){
+document.getElementById("maintenanceModal").classList.remove("show");
+}
+
+function clearMaintenanceForm(){
+set("mProduct","");
+set("mAmount",money(0));
+set("mImplem",money(0));
+set("mScope","");
+}
+
 function saveMaintenance(){
-let name=val("mProduct").trim(),amount=num(val("mAmount")),implem=num(val("mImplem")),scope=val("mScope").trim();
-if(!name||!scope){alert("Please add product name and scope/features.");return}
+let name=val("mProduct").trim();
+let amount=num(val("mAmount"));
+let implem=num(val("mImplem"));
+let scope=val("mScope").trim();
+if(!name||!scope){
+alert("Please add product name and scope/features.");
+return;
+}
 let existing=products.findIndex(p=>p.name.toLowerCase()===name.toLowerCase());
 let item={name,amount,implem,scope};
-if(existing>=0)products[existing]=item;else products.push(item);
+if(existing>=0)products[existing]=item;
+else products.push(item);
 localStorage.setItem("gr8ProductsMaintenance",JSON.stringify(products));
-loadProductDropdown();renderMaintenanceList();clearMaintenanceForm();alert("Maintenance saved.");
+loadProductDropdown();
+renderMaintenanceList();
+clearMaintenanceForm();
+alert("Maintenance saved.");
 }
-function editMaintenance(i){set("mProduct",products[i].name);set("mAmount",money(products[i].amount));set("mImplem",money(products[i].implem));set("mScope",products[i].scope)}
-function deleteMaintenance(i){if(!confirm("Delete this software product and scope?"))return;products.splice(i,1);localStorage.setItem("gr8ProductsMaintenance",JSON.stringify(products));loadProductDropdown();renderMaintenanceList()}
-function resetMaintenance(){if(!confirm("Reset maintenance to default products?"))return;products=defaultProducts;localStorage.setItem("gr8ProductsMaintenance",JSON.stringify(products));loadProductDropdown();renderMaintenanceList()}
+
+function editMaintenance(i){
+set("mProduct",products[i].name);
+set("mAmount",money(products[i].amount));
+set("mImplem",money(products[i].implem));
+set("mScope",products[i].scope);
+}
+
+function deleteMaintenance(i){
+if(!confirm("Delete this software product and scope?"))return;
+products.splice(i,1);
+localStorage.setItem("gr8ProductsMaintenance",JSON.stringify(products));
+loadProductDropdown();
+renderMaintenanceList();
+}
+
+function resetMaintenance(){
+if(!confirm("Reset maintenance to default products?"))return;
+products=defaultProducts;
+localStorage.setItem("gr8ProductsMaintenance",JSON.stringify(products));
+loadProductDropdown();
+renderMaintenanceList();
+}
+
 function renderMaintenanceList(){
 document.getElementById("maintenanceList").innerHTML=products.map((p,i)=>`
 <div class="glass rounded-2xl p-4">
 <b>${p.name}</b>
 <p class="text-sm text-gray-600">Software: ${peso(p.amount)} • Implementation: ${peso(p.implem)}</p>
-<div class="flex gap-2 mt-3"><button class="btn blue" onclick="editMaintenance(${i})">Edit</button><button class="btn red" onclick="deleteMaintenance(${i})">Delete</button></div>
+<div class="flex gap-2 mt-3">
+<button class="btn blue" onclick="editMaintenance(${i})">Edit</button>
+<button class="btn red" onclick="deleteMaintenance(${i})">Delete</button>
+</div>
 </div>`).join("");
 }
 
 loadProductDropdown();
-if(selectedSales){document.getElementById("salesOverlay").style.display="none";set("sales",selectedSales)}
+if(selectedSales){
+document.getElementById("salesOverlay").style.display="none";
+set("sales",selectedSales);
+}
 newQuote();
 renderSaved();
 </script>
 
 </body>
 </html>
-
