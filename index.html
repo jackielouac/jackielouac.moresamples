@@ -122,6 +122,17 @@ body{padding-bottom:84px!important}
 
 @media(max-width:850px){.page,.paperWrap{width:100%}.page{min-height:auto}.scopeGrid{grid-template-columns:1fr}.pdfHeader{display:block}.companyBox,.sqBox{width:100%;margin-top:10px}.bottomBar .btn{font-size:12px;padding:8px 9px}}
 @media print{body{background:white;padding:0}.noPrint,.bottomBar,.modal .previewToolbar{display:none!important}.modal{position:static;display:block;background:white;padding:0}.page{box-shadow:none;margin:0;page-break-after:always;width:210mm;min-height:297mm}.paperWrap{width:210mm}}
+
+/* === FINAL SAFE BUTTON FIX: one clean bottom action button === */
+#smartDock{position:fixed!important;left:50%!important;right:auto!important;bottom:14px!important;transform:translateX(-50%)!important;z-index:9999!important;width:min(1120px,calc(100% - 24px))!important;max-height:58vh!important;overflow:auto!important;display:flex!important;gap:8px!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;background:rgba(15,23,42,.92)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:26px!important;padding:11px!important;box-shadow:0 22px 65px rgba(15,23,42,.35)!important;animation:none!important}
+#smartDock .dockToggle{display:none!important;background:linear-gradient(135deg,#0284c7,#0f172a)!important;color:#fff!important}
+#smartDock.dockCollapsed{width:auto!important;min-width:235px!important;max-width:calc(100% - 24px)!important;height:56px!important;overflow:hidden!important;border-radius:999px!important;justify-content:flex-start!important;padding:8px 10px!important}
+#smartDock.dockCollapsed .dockToggle{display:inline-flex!important;align-items:center!important;gap:6px!important}
+#smartDock.dockCollapsed .btn:not(.dockToggle),#smartDock.dockCollapsed .proDivider{display:none!important}
+#smartDock.dockCollapsed .dockInfo{max-width:160px!important;width:auto!important;padding:5px 8px!important}
+#smartDock.dockCollapsed .dockInfo span{max-width:95px!important}
+@media(max-width:850px){#smartDock{left:10px!important;right:10px!important;bottom:10px!important;transform:none!important;width:auto!important;justify-content:flex-start!important}#smartDock.dockCollapsed{left:auto!important;right:10px!important;width:auto!important;min-width:220px!important;height:54px!important}}
+
 </style>
 </head>
 <body>
@@ -1867,7 +1878,18 @@ function buildPreview(){
 }
 function openPreview(){if(!val("company")){alert("Please enter Client / Company Name first.");return} validateQuotation(false); buildPreview(); showModal("previewModal")}
 async function downloadPDF(){if(!val("company")){alert("Please enter Client / Company Name first.");return} if(!validateQuotation(true))return; buildPreview(); if(!window.jspdf||!window.html2canvas){alert("PDF library is still loading or internet/CDN is blocked. Please try again.");return} const {jsPDF}=window.jspdf; const pdf=new jsPDF("p","mm","a4"); const pages=[...document.querySelectorAll("#preview .page")]; for(let i=0;i<pages.length;i++){let canvas=await html2canvas(pages[i],{scale:4,useCORS:true,allowTaint:true,backgroundColor:"#ffffff",windowWidth:794,letterRendering:true});let img=canvas.toDataURL("image/png"); if(i>0)pdf.addPage(); pdf.addImage(img,"PNG",0,0,210,297)} pdf.save((val("sqNo")||"Sales-Quotation")+"-"+(val("company")||"Client")+".pdf")}
-function exportWord(){if(!val("company")){alert("Please enter Client / Company Name first.");return} buildPreview(); let html=`<html><head><meta charset="utf-8"><style>${document.querySelector("style").innerHTML}</style></head><body>${document.getElementById("preview").innerHTML}</body></html>`; downloadBlob(html,"application/msword",(val("sqNo")||"Quotation")+".doc")}
+function exportWord(){if(!val("company")){alert("Please enter Client / Company Name first.");return} buildPreview(); let html=`<html><head><meta charset="utf-8"><style>${document.querySelector("style").innerHTML}
+/* === FINAL SAFE BUTTON FIX: one clean bottom action button === */
+#smartDock{position:fixed!important;left:50%!important;right:auto!important;bottom:14px!important;transform:translateX(-50%)!important;z-index:9999!important;width:min(1120px,calc(100% - 24px))!important;max-height:58vh!important;overflow:auto!important;display:flex!important;gap:8px!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;background:rgba(15,23,42,.92)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:26px!important;padding:11px!important;box-shadow:0 22px 65px rgba(15,23,42,.35)!important;animation:none!important}
+#smartDock .dockToggle{display:none!important;background:linear-gradient(135deg,#0284c7,#0f172a)!important;color:#fff!important}
+#smartDock.dockCollapsed{width:auto!important;min-width:235px!important;max-width:calc(100% - 24px)!important;height:56px!important;overflow:hidden!important;border-radius:999px!important;justify-content:flex-start!important;padding:8px 10px!important}
+#smartDock.dockCollapsed .dockToggle{display:inline-flex!important;align-items:center!important;gap:6px!important}
+#smartDock.dockCollapsed .btn:not(.dockToggle),#smartDock.dockCollapsed .proDivider{display:none!important}
+#smartDock.dockCollapsed .dockInfo{max-width:160px!important;width:auto!important;padding:5px 8px!important}
+#smartDock.dockCollapsed .dockInfo span{max-width:95px!important}
+@media(max-width:850px){#smartDock{left:10px!important;right:10px!important;bottom:10px!important;transform:none!important;width:auto!important;justify-content:flex-start!important}#smartDock.dockCollapsed{left:auto!important;right:10px!important;width:auto!important;min-width:220px!important;height:54px!important}}
+
+</style></head><body>${document.getElementById("preview").innerHTML}</body></html>`; downloadBlob(html,"application/msword",(val("sqNo")||"Quotation")+".doc")}
 function exportExcel(){let d=getData();let rows=[["SQ No",d.sqNo],["Date",d.sqDate],["Client",d.company],["Contact",d.contact],["Status",d.status],["History Tag",d.historyTag],["Product",d.product],["Gross",d.totals.gross],["Discount",d.totals.disc],["VAT",d.totals.vat],["Grand Total",d.totals.grand],[],["Discounts"],["Name","Type","Value","Apply","Amount"],...d.discounts.map(x=>[x.name,x.type,x.value,discountBaseLabel(x.apply),discountAmount(x,{software:d.totals.software,implem:d.totals.implem,gross:d.totals.gross})]),[],["Add-ons"],["Description","Qty","Price","Total"],...d.addons.map(a=>[a.d,a.q,a.p,a.q*a.p]),[],["Scope"],...d.scope.split(/\n/).map(x=>[x])];let html='<table border="1">'+rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(String(c??''))+'</td>').join('')+'</tr>').join('')+'</table>';downloadBlob('<html><head><meta charset="utf-8"></head><body>'+html+'</body></html>','application/vnd.ms-excel',(d.sqNo||'Quotation')+'.xls')}
 function downloadBlob(content,type,name){let blob=new Blob([content],{type});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
 function exportBackup(){downloadBlob(JSON.stringify({saved,products,audit},null,2),"application/json","integr8-quotation-backup.json")}
@@ -1880,6 +1902,51 @@ function editProduct(i){let p=products[i];setv("mName",p.name);setv("mAmount",mo
 function deleteProduct(i){if(confirm("Delete product?")){products.splice(i,1);localStorage.setItem(PKEY,JSON.stringify(products));loadProducts()}}
 function resetProducts(){if(confirm("Reset all default product scopes?")){products=defaults.map(normalizeProduct);localStorage.setItem(PKEY,JSON.stringify(products));loadProducts();toast("SOW defaults restored")}}
 function renderAudit(){document.getElementById("auditList").innerHTML=audit.map(a=>`<div class="border-b py-2"><b>${esc(a.action)}</b> <span class="text-xs text-gray-500">${esc(a.date)} • ${esc(a.sales)}</span><br>${esc(a.detail)}</div>`).join("")||"No audit logs yet."}
+
+
+/* === STABLE HOTFIX: missing helpers + reliable action dock === */
+function $(id){return document.getElementById(id)}
+function selectedProductData(){
+  let idx=Number(val("product")||0);
+  if(!Array.isArray(products) || products.length===0) return {name:"",amount:0,implem:0,alf:0,lob:"",scope:"",modules:[]};
+  if(isNaN(idx) || idx<0 || idx>=products.length) idx=0;
+  products[idx]=normalizeProduct(products[idx]);
+  return products[idx];
+}
+function toast(msg){
+  let box=document.getElementById("toastBox");
+  if(!box){
+    box=document.createElement("div");
+    box.id="toastBox";
+    box.style.cssText="position:fixed;right:16px;top:16px;z-index:10000;display:grid;gap:8px;max-width:min(380px,calc(100vw - 32px));pointer-events:none";
+    document.body.appendChild(box);
+  }
+  const item=document.createElement("div");
+  item.textContent=msg||"Done";
+  item.style.cssText="background:linear-gradient(135deg,#0f172a,#075985);color:white;border:1px solid rgba(255,255,255,.25);box-shadow:0 18px 45px rgba(15,23,42,.32);border-radius:16px;padding:11px 14px;font-weight:900;font-size:13px;line-height:1.25;opacity:0;transform:translateY(-8px);transition:.22s ease";
+  box.appendChild(item);
+  requestAnimationFrame(()=>{item.style.opacity="1";item.style.transform="translateY(0)"});
+  setTimeout(()=>{item.style.opacity="0";item.style.transform="translateY(-8px)";setTimeout(()=>item.remove(),260)},2500);
+}
+function setDockCollapsed(collapsed){
+  const dock=document.getElementById("smartDock");
+  if(!dock)return;
+  dock.classList.toggle("dockCollapsed",!!collapsed);
+  dock.classList.toggle("dockManuallyOpen",!collapsed);
+}
+function toggleDockOpen(){
+  const dock=document.getElementById("smartDock");
+  if(!dock)return;
+  setDockCollapsed(!dock.classList.contains("dockCollapsed"));
+}
+function initScrollSmartDock(){
+  const dock=document.getElementById("smartDock");
+  if(!dock)return;
+  setDockCollapsed(true);
+  let t=null;
+  window.addEventListener("scroll",()=>{clearTimeout(t); t=setTimeout(()=>setDockCollapsed(true),120)}, {passive:true});
+  document.addEventListener("click",(e)=>{if(!dock.contains(e.target) && !dock.classList.contains("dockCollapsed")) setDockCollapsed(true)});
+}
 
 initSales();loadProducts();
 if(selectedSales){document.getElementById("salesOverlay").style.display="none";initSales()}
